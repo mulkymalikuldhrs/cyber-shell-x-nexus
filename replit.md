@@ -77,6 +77,7 @@ CyberShellX Nexus is an advanced cybersecurity platform featuring an AI-powered 
 - User name: Mulky Malikul Dhaher (to be displayed in Android app)
 - GitHub repository: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus
 - Donation support via Indonesian e-wallets with phone +6285322624048
+- Needs SSH connection assistance for Termux installation fixes
 
 ## Getting Started
 
