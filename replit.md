@@ -39,6 +39,7 @@ CyberShellX is a modern terminal interface application featuring interactive cyb
 - Needs clear setup instructions for local development
 - Has both Python and React versions of CyberShellX
 - Working with Python WebSocket server having asyncio event loop issues
+- Wants to run specifically on Termux (Android terminal)
 
 ## Deployment
 - Development: `npm run dev` on port 5000
