@@ -48,6 +48,38 @@ const CyberShellXTerminal = () => {
     setMessages(prev => [...prev, newMessage]);
   };
 
+  const processCommand = async (command: string) => {
+    addMessage('user', command);
+    
+    try {
+      const response = await fetch('/api/command', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ command }),
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        addMessage('ai', data.response);
+        
+        if (data.legal_notice) {
+          addMessage('system', '⚠️ Legal Notice: Use only on systems you own or have explicit permission to test.');
+        }
+        
+        if (data.tools && data.tools.length > 0) {
+          addMessage('status', `Tools: ${data.tools.join(', ')} | Difficulty: ${data.difficulty || 'N/A'}`);
+        }
+      } else {
+        addMessage('error', data.error || 'Failed to process command');
+      }
+    } catch (error) {
+      addMessage('error', 'Connection error. Please try again.');
+    }
+  };
+
   const connectToServer = () => {
     if (ws) {
       ws.close();

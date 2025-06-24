@@ -1,0 +1,350 @@
+{
+  "categories": {
+    "networking": {
+      "name": "Network Security",
+      "icon": "🌐",
+      "commands": [
+        {
+          "command": "nmap scan",
+          "description": "Scan network for active hosts and open ports",
+          "syntax": "nmap -sS -O target_ip",
+          "examples": [
+            "nmap -sS 192.168.1.1/24",
+            "nmap -A -T4 scanme.nmap.org",
+            "nmap -sV -p 1-1000 target.com"
+          ],
+          "output_format": "Host discovery and port scan results",
+          "difficulty": "intermediate"
+        },
+        {
+          "command": "netstat check",
+          "description": "Display network connections and listening ports",
+          "syntax": "netstat [options]",
+          "examples": [
+            "netstat -tulpn",
+            "netstat -an | grep LISTEN",
+            "netstat -r"
+          ],
+          "output_format": "Active connections and routing table",
+          "difficulty": "beginner"
+        },
+        {
+          "command": "wireshark capture",
+          "description": "Capture and analyze network traffic",
+          "syntax": "tshark -i interface -w capture.pcap",
+          "examples": [
+            "tshark -i eth0 -w traffic.pcap",
+            "tshark -i any -f \"port 80\"",
+            "tshark -r capture.pcap -Y \"http\""
+          ],
+          "output_format": "Network packet capture and analysis",
+          "difficulty": "advanced"
+        }
+      ]
+    },
+    "exploitation": {
+      "name": "Exploitation Tools",
+      "icon": "🎯",
+      "commands": [
+        {
+          "command": "metasploit launch",
+          "description": "Initialize Metasploit Framework for exploitation",
+          "syntax": "msfconsole",
+          "examples": [
+            "use exploit/windows/smb/ms17_010_eternalblue",
+            "search type:exploit platform:windows",
+            "use auxiliary/scanner/portscan/tcp"
+          ],
+          "output_format": "Metasploit console with exploit modules",
+          "difficulty": "advanced"
+        },
+        {
+          "command": "burp suite",
+          "description": "Web application security testing platform",
+          "syntax": "burpsuite",
+          "examples": [
+            "Proxy → Intercept → Forward/Drop requests",
+            "Scanner → New Scan → Web Application",
+            "Repeater → Modify and resend requests"
+          ],
+          "output_format": "Web vulnerability scan results",
+          "difficulty": "intermediate"
+        },
+        {
+          "command": "sqlmap inject",
+          "description": "Automated SQL injection detection and exploitation",
+          "syntax": "sqlmap -u \"URL\" [options]",
+          "examples": [
+            "sqlmap -u \"http://target.com/page.php?id=1\"",
+            "sqlmap -u \"http://target.com\" --forms --dbs",
+            "sqlmap -u \"http://target.com\" --cookie=\"session=abc123\""
+          ],
+          "output_format": "SQL injection vulnerability assessment",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    "forensics": {
+      "name": "Digital Forensics",
+      "icon": "🔍",
+      "commands": [
+        {
+          "command": "volatility analyze",
+          "description": "Memory forensics and analysis",
+          "syntax": "volatility -f memory.dump --profile=Profile command",
+          "examples": [
+            "volatility -f mem.dump --profile=Win7SP1x64 pslist",
+            "volatility -f mem.dump --profile=Win7SP1x64 netscan",
+            "volatility -f mem.dump --profile=Win7SP1x64 malfind"
+          ],
+          "output_format": "Memory analysis results and artifacts",
+          "difficulty": "advanced"
+        },
+        {
+          "command": "autopsy investigate",
+          "description": "Digital forensics platform for disk analysis",
+          "syntax": "autopsy",
+          "examples": [
+            "Create new case → Add data source",
+            "Timeline analysis → View file activity",
+            "Keyword search → Find evidence"
+          ],
+          "output_format": "Comprehensive forensic timeline and evidence",
+          "difficulty": "intermediate"
+        },
+        {
+          "command": "hashcat crack",
+          "description": "Advanced password recovery and hash cracking",
+          "syntax": "hashcat -m hash_type -a attack_mode hash_file wordlist",
+          "examples": [
+            "hashcat -m 0 -a 0 hashes.txt rockyou.txt",
+            "hashcat -m 1000 -a 3 ntlm_hashes.txt ?a?a?a?a?a?a",
+            "hashcat -m 22000 -a 0 wpa2.hccapx wordlist.txt"
+          ],
+          "output_format": "Cracked passwords and hash analysis",
+          "difficulty": "advanced"
+        }
+      ]
+    },
+    "system": {
+      "name": "System Analysis",
+      "icon": "⚙️",
+      "commands": [
+        {
+          "command": "system info",
+          "description": "Gather comprehensive system information",
+          "syntax": "systeminfo / uname -a",
+          "examples": [
+            "systeminfo | findstr /B /C:\"OS Name\" /C:\"OS Version\"",
+            "uname -a && cat /etc/os-release",
+            "lscpu && free -h && df -h"
+          ],
+          "output_format": "Detailed system configuration and resources",
+          "difficulty": "beginner"
+        },
+        {
+          "command": "process monitor",
+          "description": "Monitor running processes and system activity",
+          "syntax": "ps aux / tasklist",
+          "examples": [
+            "ps aux | grep -i suspicious",
+            "tasklist /svc",
+            "top -p $(pgrep -d',' process_name)"
+          ],
+          "output_format": "Active processes and resource utilization",
+          "difficulty": "beginner"
+        },
+        {
+          "command": "log analysis",
+          "description": "Analyze system and security logs",
+          "syntax": "tail -f /var/log/logfile",
+          "examples": [
+            "tail -f /var/log/auth.log | grep Failed",
+            "grep -i error /var/log/syslog",
+            "journalctl -f -u service_name"
+          ],
+          "output_format": "Security events and system anomalies",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    "wireless": {
+      "name": "Wireless Security",
+      "icon": "📡",
+      "commands": [
+        {
+          "command": "aircrack suite",
+          "description": "Wireless network security assessment tools",
+          "syntax": "airmon-ng / airodump-ng / aircrack-ng",
+          "examples": [
+            "airmon-ng start wlan0",
+            "airodump-ng wlan0mon",
+            "aircrack-ng -w wordlist.txt capture.cap"
+          ],
+          "output_format": "Wireless network analysis and key recovery",
+          "difficulty": "advanced"
+        },
+        {
+          "command": "wifi scan",
+          "description": "Scan for available wireless networks",
+          "syntax": "iwlist scan / nmcli dev wifi",
+          "examples": [
+            "iwlist wlan0 scan | grep ESSID",
+            "nmcli dev wifi list",
+            "iw dev wlan0 scan | grep SSID"
+          ],
+          "output_format": "Available wireless networks and security",
+          "difficulty": "beginner"
+        }
+      ]
+    },
+    "crypto": {
+      "name": "Cryptography",
+      "icon": "🔐",
+      "commands": [
+        {
+          "command": "openssl encrypt",
+          "description": "Encryption and certificate management",
+          "syntax": "openssl command [options]",
+          "examples": [
+            "openssl enc -aes-256-cbc -in file.txt -out file.enc",
+            "openssl x509 -in cert.pem -text -noout",
+            "openssl genrsa -out private.key 2048"
+          ],
+          "output_format": "Encrypted data and certificate analysis",
+          "difficulty": "intermediate"
+        },
+        {
+          "command": "john ripper",
+          "description": "Password cracking and security testing",
+          "syntax": "john [options] password_file",
+          "examples": [
+            "john --wordlist=rockyou.txt shadow",
+            "john --show shadow",
+            "john --incremental passwords.txt"
+          ],
+          "output_format": "Cracked passwords and security assessment",
+          "difficulty": "intermediate"
+        }
+      ]
+    }
+  },
+  "ai_prompts": {
+    "system_prompt": "You are CyberShellX AI, an advanced cybersecurity assistant. You provide expert guidance on penetration testing, digital forensics, network security, and ethical hacking. Always emphasize legal and ethical use of security tools. Provide detailed explanations and practical examples.",
+    "personality": {
+      "tone": "Professional yet approachable cybersecurity expert",
+      "expertise": "Deep knowledge in offensive and defensive security",
+      "ethics": "Strong emphasis on legal and responsible security practices",
+      "communication": "Clear explanations with practical examples"
+    },
+    "response_templates": {
+      "command_explanation": "🔧 **{command}** - {description}\n\n**Syntax:** `{syntax}`\n\n**Examples:**\n{examples}\n\n**Expected Output:** {output}\n\n**Difficulty:** {difficulty}\n\n⚠️ **Legal Notice:** Use only on systems you own or have explicit permission to test.",
+      "security_analysis": "🛡️ **Security Analysis**\n\nTarget: {target}\nVulnerabilities Found: {vulnerabilities}\nRisk Level: {risk_level}\nRecommendations: {recommendations}",
+      "tool_recommendation": "🎯 **Recommended Tools:**\n\n{tools_list}\n\n**Best for:** {use_case}\n**Difficulty:** {difficulty}\n**Documentation:** {docs_link}"
+    },
+    "learning_prompts": [
+      "Explain the difference between active and passive reconnaissance",
+      "What are the phases of penetration testing?",
+      "How does SQL injection work and how to prevent it?",
+      "Describe the OWASP Top 10 vulnerabilities",
+      "What is the difference between encryption and hashing?",
+      "How to perform responsible disclosure of vulnerabilities?",
+      "Explain network segmentation and its security benefits",
+      "What are the common wireless security protocols and their weaknesses?",
+      "How to detect and respond to APT attacks?",
+      "Describe the incident response process"
+    ],
+    "ethical_guidelines": [
+      "Always obtain proper authorization before testing",
+      "Respect privacy and confidentiality",
+      "Document all activities for accountability",
+      "Follow responsible disclosure practices",
+      "Stay within the scope of authorized testing",
+      "Protect client data and systems",
+      "Maintain professional standards",
+      "Continue learning and skill development",
+      "Report illegal activities to authorities",
+      "Educate others on cybersecurity best practices"
+    ]
+  },
+  "interactive_scenarios": {
+    "beginner": [
+      {
+        "title": "Network Discovery",
+        "description": "Learn to identify active hosts on a network",
+        "steps": [
+          "Use ping to check connectivity",
+          "Run nmap for host discovery",
+          "Analyze open ports and services",
+          "Document findings"
+        ],
+        "tools": ["ping", "nmap", "netstat"],
+        "expected_time": "30 minutes"
+      },
+      {
+        "title": "Log Analysis",
+        "description": "Investigate security events in system logs",
+        "steps": [
+          "Locate relevant log files",
+          "Search for failed login attempts",
+          "Identify suspicious patterns",
+          "Create timeline of events"
+        ],
+        "tools": ["grep", "tail", "journalctl"],
+        "expected_time": "45 minutes"
+      }
+    ],
+    "intermediate": [
+      {
+        "title": "Web Application Testing",
+        "description": "Assess web application security",
+        "steps": [
+          "Reconnaissance and information gathering",
+          "Vulnerability scanning",
+          "Manual testing for common flaws",
+          "Report generation"
+        ],
+        "tools": ["Burp Suite", "OWASP ZAP", "sqlmap"],
+        "expected_time": "2 hours"
+      },
+      {
+        "title": "Wireless Security Assessment",
+        "description": "Evaluate wireless network security",
+        "steps": [
+          "Survey wireless networks",
+          "Analyze encryption methods",
+          "Test for weak passwords",
+          "Document security posture"
+        ],
+        "tools": ["aircrack-ng", "Wireshark", "Hashcat"],
+        "expected_time": "90 minutes"
+      }
+    ],
+    "advanced": [
+      {
+        "title": "Advanced Persistent Threat Simulation",
+        "description": "Simulate sophisticated attack scenarios",
+        "steps": [
+          "Initial access and foothold",
+          "Lateral movement techniques",
+          "Privilege escalation",
+          "Data exfiltration simulation"
+        ],
+        "tools": ["Metasploit", "Cobalt Strike", "Empire"],
+        "expected_time": "4+ hours"
+      },
+      {
+        "title": "Memory Forensics Investigation",
+        "description": "Analyze memory dumps for evidence",
+        "steps": [
+          "Acquire memory image",
+          "Identify running processes",
+          "Extract network artifacts",
+          "Recover encryption keys"
+        ],
+        "tools": ["Volatility", "Rekall", "WinDbg"],
+        "expected_time": "3 hours"
+      }
+    ]
+  }
+}
