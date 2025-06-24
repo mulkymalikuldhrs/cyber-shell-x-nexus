@@ -37,6 +37,9 @@ CyberShellX is a modern terminal interface application featuring interactive cyb
 - Provided WebSocket server fix for Python version asyncio issues
 - Added README.md and cleaned up project structure
 - Fixed port conflicts and ensured proper deployment readiness
+- Created native Android voice assistant app with wake word detection
+- Implemented always-listening background service
+- Added voice command processing and text-to-speech responses
 
 ## User Preferences
 - User prefers to run applications locally on their own terminal
@@ -44,6 +47,8 @@ CyberShellX is a modern terminal interface application featuring interactive cyb
 - Has both Python and React versions of CyberShellX
 - Working with Python WebSocket server having asyncio event loop issues
 - Wants to run specifically on Termux (Android terminal)
+- Wants Android voice assistant GUI to replace Google Assistant/Siri
+- Prefers voice-activated AI assistant functionality with wake word detection
 
 ## Deployment
 - Development: `npm run dev` on port 5000

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CyberShellX Assistant</string>
+    <string name="permission_required">Microphone permission is required for voice commands</string>
+    <string name="wake_word_help">Say "Hey CyberShell" to activate</string>
+    <string name="listening">Listening...</string>
+    <string name="processing">Processing command...</string>
+    <string name="error_connection">Unable to connect to CyberShellX server</string>
+</resources>
