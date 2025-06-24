@@ -1,7 +1,7 @@
-# CyberShellX Terminal Interface
+# CyberShellX Nexus 🛡️
 
 ## Project Overview
-CyberShellX is a modern terminal interface application featuring interactive cybersecurity tools demonstration, AI-powered command execution simulation, and a sleek dark-themed UI. The project has been successfully migrated from Lovable to Replit with proper client/server separation and security practices.
+CyberShellX Nexus is an advanced cybersecurity platform featuring an AI-powered assistant, interactive terminal interface, and cross-platform voice commands. Built for security professionals, penetration testers, and cybersecurity enthusiasts with comprehensive tool integration and real-time analysis capabilities.
 
 ## Architecture
 - **Frontend**: React 18 with TypeScript, Vite for development
@@ -42,7 +42,7 @@ CyberShellX is a modern terminal interface application featuring interactive cyb
 - No client-side database access
 
 ## Recent Changes
-- **December 2024**: Migration completed from Lovable to Replit
+- **December 2024**: Professional platform development completed
 - Removed Supabase integration, replaced with PostgreSQL
 - Set up Drizzle ORM for type-safe database operations
 - Configured proper client/server architecture
@@ -75,7 +75,45 @@ CyberShellX is a modern terminal interface application featuring interactive cyb
 - GitHub repository: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus
 - Donation support via Indonesian e-wallets with phone +6285322624048
 
-## Deployment
+## Getting Started
+
+### 🚀 Quick Access
+- **GitHub Repository**: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus
+- **Live Demo**: Running on Replit at port 5000
+- **Documentation**: Comprehensive guides available in project files
+
+### 💻 Development Commands
 - Development: `npm run dev` on port 5000
 - Production build: `npm run build && npm run start`
 - Database schema: `npm run db:push`
+
+### 📱 Mobile Application
+- Android APK: Build using `./build-apk.sh` in android-assistant folder
+- Voice Commands: "Hey CyberShell" wake word activation
+- Background Service: Always-listening cybersecurity assistant
+
+### 🤝 Contributing & Support
+- **Repository**: Clone and contribute at GitHub
+- **Issues**: Report bugs and request features via GitHub Issues
+- **Documentation**: Complete setup guides for Termux, Android, and local development
+
+### 💝 Support Development
+Support the ongoing development of CyberShellX Nexus:
+
+**Indonesian E-Wallet Donations:**
+- **Phone Number**: +62 853-****-4048 (click to reveal: +6285322624048)
+- **Supported Platforms**: GoPay, OVO, DANA, ShopeePay, LinkAja, SeaBank
+- **Usage**: All donations help maintain servers, develop features, and keep the project free
+
+**Why Support:**
+- Maintain free access for cybersecurity community
+- Continuous AI knowledge base updates
+- New tool integrations and features
+- Server hosting and development costs
+- Open source contribution sustainability
+
+**Recognition:**
+- GitHub sponsor badges
+- Priority feature requests
+- Direct developer access
+- Community recognition
