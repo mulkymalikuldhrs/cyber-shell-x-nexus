@@ -20,7 +20,9 @@ CyberShellX Nexus is an advanced cybersecurity platform featuring an AI-powered 
 - Cross-device synchronization and backup
 - AI learning from user command patterns
 - Voice assistant Android app with wake word detection
+- System control capabilities (WiFi, Bluetooth, flashlight, volume, brightness)
 - Command history and performance analytics
+- Shell command execution with root access
 
 ## Database Architecture
 ### Local Database (PostgreSQL)
@@ -62,6 +64,7 @@ CyberShellX Nexus is an advanced cybersecurity platform featuring an AI-powered 
 - Added GitHub repository section to web UI
 - Implemented donation system with Indonesian e-wallet providers
 - Added creator branding and professional presentation
+- **Enhanced Android App with System Control**: Added comprehensive device management capabilities including WiFi, Bluetooth, flashlight, volume, brightness, and shell command execution
 
 ## User Preferences
 - User prefers to run applications locally on their own terminal
