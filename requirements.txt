@@ -1,6 +1,0 @@
-
-colorama>=0.4.4
-requests>=2.25.1
-pexpect>=4.8.0
-websockets>=11.0.0
-asyncio
