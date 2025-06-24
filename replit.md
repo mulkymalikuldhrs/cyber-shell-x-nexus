@@ -44,6 +44,10 @@ CyberShellX Nexus is an advanced cybersecurity platform featuring an AI-powered 
 - No client-side database access
 
 ## Recent Changes
+- **December 2024**: Interactive launcher system implemented
+- Created automatic run script with 3 options: CLI, Web Server, Android GUI
+- Added Node.js-based CLI interface with cybersecurity tool simulations
+- Enhanced Termux installation with interactive launcher support
 - **December 2024**: Professional platform development completed
 - Removed Supabase integration, replaced with PostgreSQL
 - Set up Drizzle ORM for type-safe database operations
@@ -87,6 +91,7 @@ CyberShellX Nexus is an advanced cybersecurity platform featuring an AI-powered 
 - **Documentation**: Comprehensive guides available in project files
 
 ### 💻 Development Commands
+- Interactive Launcher: `./run.sh` or `npm run launcher`
 - Development: `npm run dev` on port 5000
 - Production build: `npm run build && npm run start`
 - Database schema: `npm run db:push`

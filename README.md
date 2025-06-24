@@ -1,181 +1,117 @@
 # CyberShellX Nexus 🛡️
 
-**Advanced Cybersecurity AI Assistant & Terminal Interface**
+Advanced cybersecurity platform with AI-powered assistant, interactive terminal interface, and cross-platform capabilities.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen)](https://nodejs.org/)
-[![React](https://img.shields.io/badge/React-18.3.1-blue)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6.3-blue)](https://www.typescriptlang.org/)
+## Quick Start
 
-## 🚀 Overview
-
-CyberShellX Nexus is a comprehensive cybersecurity platform featuring an AI-powered assistant, interactive terminal interface, and cross-platform voice commands. Designed for security professionals, penetration testers, and cybersecurity enthusiasts.
-
-### 🎯 Key Features
-
-- **🧠 AI-Powered Assistant**: Advanced knowledge base with 50+ security tools
-- **💻 Interactive Terminal**: Real-time command processing and demonstrations
-- **📱 Android Voice Assistant**: Replace Google Assistant with cybersecurity commands
-- **🔒 Multi-Platform Security**: Windows, Linux, Android (Termux) support
-- **☁️ Cloud Integration**: Supabase sync and data analytics
-- **🎓 Learning Platform**: Interactive scenarios from beginner to advanced
-
-## 🛠️ Technology Stack
-
-| Component | Technology |
-|-----------|------------|
-| **Frontend** | React 18, TypeScript, Vite, Tailwind CSS |
-| **Backend** | Express.js, Node.js, WebSocket |
-| **Database** | PostgreSQL, Drizzle ORM |
-| **Mobile** | Kotlin, Jetpack Compose, Android SDK |
-| **AI Engine** | Custom knowledge base with 6 security categories |
-| **Cloud** | Supabase, Real-time sync |
-
-## 🚀 Quick Start
-
-### Option 1: Replit (Recommended)
+### Interactive Launcher
 ```bash
-# Clone the repository
+./run.sh
+```
+
+Choose from:
+1. **CLI Terminal Interface** - Command-line cybersecurity tools simulation
+2. **Web Server** - Full browser-based interface 
+3. **Android GUI** - Mobile voice assistant application
+4. **All Components** - Start everything simultaneously
+
+### Direct Access
+```bash
+# Web interface only
+npm run dev
+
+# CLI terminal only  
+node cli-interface.js
+```
+
+## Installation
+
+### Replit (Current Environment)
+The application is ready to run. Use `./run.sh` to start.
+
+### Termux (Android)
+```bash
+# Download installer
+curl -o termux-install.sh https://raw.githubusercontent.com/mulkymalikuldhrs/cyber-shell-x-nexus/main/termux-install.sh
+chmod +x termux-install.sh
+./termux-install.sh
+
+# Run interactive launcher
+cd ~/cyber-shell-x-nexus
+./run.sh
+```
+
+### Local Development
+```bash
 git clone https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus.git
 cd cyber-shell-x-nexus
-
-# The application runs automatically on Replit
-# Access via webview panel on port 5000
-```
-
-### Option 2: Local Development
-```bash
-# Prerequisites: Node.js 20+, PostgreSQL
 npm install
-export DATABASE_URL="postgresql://user:pass@localhost:5432/cybershellx"
 npm run db:push
-npm run dev
+./run.sh
 ```
 
-### Option 3: Android/Termux
+## Features
+
+### CLI Interface (Option 1)
+- Interactive cybersecurity terminal
+- Tool simulations: nmap, metasploit, wireshark, sqlmap, burpsuite
+- Educational command demonstrations
+- Cross-platform compatibility
+
+### Web Interface (Option 2)
+- Modern React-based UI
+- Real-time terminal simulation
+- Cybersecurity tool demonstrations
+- Database integration with PostgreSQL
+- Responsive design with dark theme
+
+### Android App (Option 3)
+- Voice-activated assistant with "Hey CyberShell" wake word
+- Background service for always-on functionality
+- System control (WiFi, Bluetooth, flashlight, volume)
+- Shell command execution capabilities
+- AI-powered cybersecurity guidance
+
+## Architecture
+
+- **Frontend**: React 18 + TypeScript + Vite
+- **Backend**: Express.js + TypeScript
+- **Database**: PostgreSQL with Drizzle ORM
+- **Mobile**: Native Android with voice recognition
+- **CLI**: Node.js-based terminal interface
+
+## Access Points
+
+- Web Interface: http://localhost:5000
+- CLI: Direct terminal access
+- Android: APK installation from build output
+
+## Development
+
 ```bash
-# See TERMUX_SETUP.md for complete instructions
-pkg install nodejs postgresql python
-cd android-assistant
-./build-apk.sh
+# Database operations
+npm run db:push          # Apply schema changes
+npm run build           # Production build
+npm run start           # Production server
+
+# Interactive options
+./run.sh                # Main launcher
+node cli-interface.js   # CLI only
+npm run dev            # Web only
 ```
 
-## 📱 Android Voice Assistant
+## Support
 
-Replace Google Assistant with CyberShellX AI:
+- **Repository**: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus
+- **Issues**: GitHub Issues for bug reports and feature requests
+- **Documentation**: Complete setup guides included
 
-1. **Build APK**: `cd android-assistant && ./build-apk.sh`
-2. **Install**: Transfer APK to device or use `./install-apk.sh`
-3. **Configure**: Set as default assistant in Android settings
-4. **Use**: Say "Hey CyberShell" + your command
-
-**Features:**
-- Wake word detection ("Hey CyberShell")
-- Always-listening background service
-- Voice-to-text cybersecurity commands
-- Text-to-speech responses
-- WebSocket integration with main server
-
-## 🔧 Available Commands
-
-### Network Security
-- `nmap scan` - Network reconnaissance and port scanning
-- `wireshark capture` - Network traffic analysis
-- `netstat check` - Active connections monitoring
-
-### Web Security
-- `sql injection` - Database vulnerability testing
-- `burp suite` - Web application security testing
-- `vulnerability assessment` - Comprehensive security audit
-
-### Forensics & Analysis
-- `volatility analyze` - Memory forensics investigation
-- `hashcat crack` - Password recovery and analysis
-- `autopsy investigate` - Digital evidence examination
-
-### System Security
-- `system info` - Comprehensive system analysis
-- `log analysis` - Security event investigation
-- `process monitor` - Runtime security monitoring
-
-## 🎓 Learning Modules
-
-### Interactive Scenarios
-- **Beginner**: Network discovery, log analysis
-- **Intermediate**: Web app testing, wireless security
-- **Advanced**: APT simulation, memory forensics
-
-### Knowledge Base
-- OWASP Top 10 vulnerabilities
-- NIST Cybersecurity Framework
-- Ethical hacking methodologies
-- Digital forensics procedures
-
-## 🔒 Security & Ethics
-
-**Legal Compliance:**
-- Always obtain proper authorization
-- Follow responsible disclosure practices
-- Respect privacy and confidentiality
-- Educational use only
-
-**Built-in Safeguards:**
-- Legal warnings for security tools
-- Ethical guidelines integration
-- Authorization reminders
-- Educational focus
-
-## 📊 Data Storage
-
-### Local Storage
-- PostgreSQL for core functionality
-- SQLite for mobile applications
-- Real-time data processing
-
-### Cloud Integration
-- Supabase for cross-device sync
-- Command history analytics
-- AI learning data collection
-- User preferences backup
-
-## 🤝 Contributing
-
-We welcome contributions to CyberShellX Nexus:
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👨‍💻 Author
+## Author
 
 **Mulky Malikul Dhaher**
-- Cybersecurity Expert & AI Developer
 - GitHub: [@mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
+- Support: Indonesian e-wallets (+6285322624048)
 
-## 🙏 Support
+## Security Notice
 
-If you find CyberShellX Nexus helpful, consider supporting the development:
-
-<div align="center">
-
-### 💝 Support Development
-
-Your support helps maintain and improve CyberShellX Nexus
-
-</div>
-
----
-
-<div align="center">
-
-**⚡ CyberShellX Nexus - Empowering Cybersecurity Professionals ⚡**
-
-[Website](https://cybershellx-nexus.replit.app) • [Documentation](./docs) • [Android App](./android-assistant) • [Issues](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/issues)
-
-</div>
+This platform is designed for educational and authorized testing purposes only. Users are responsible for compliance with applicable laws and regulations.
