@@ -33,6 +33,8 @@ CyberShellX is a modern terminal interface application featuring interactive cyb
 - Set up Drizzle ORM for type-safe database operations
 - Configured proper client/server architecture
 - Removed all client-side database access for security
+- Created comprehensive Termux setup guide for local development
+- Provided WebSocket server fix for Python version asyncio issues
 
 ## User Preferences
 - User prefers to run applications locally on their own terminal
