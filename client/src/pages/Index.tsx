@@ -7,6 +7,7 @@ import FeatureCard from '../components/FeatureCard';
 import Hero from '../components/Hero';
 import GitHubSection from '../components/GitHubSection';
 import DonationSection from '../components/DonationSection';
+import MobileAppSection from '../components/MobileAppSection';
 import { Button } from '../components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 
