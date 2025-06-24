@@ -64,8 +64,8 @@ npm run dev
 
 ### Python Version (Fix asyncio issue)
 
-**Step 1: Fix your WebSocket server**
-Replace the `start_websocket_server` function in your `cybershellx_server.py` around line 253:
+**Step 1: Copy the fixed function**
+Copy this exact code and replace your `start_websocket_server` function in `cybershellx_server.py` around line 253:
 
 ```python
 def start_websocket_server():

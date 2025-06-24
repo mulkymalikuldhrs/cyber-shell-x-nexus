@@ -1,20 +1,3 @@
-# EXACT FIX for Your WebSocket Error
-
-## Step 1: Open your file
-```bash
-nano /storage/emulated/0/cyber-shell-x-nexus/cybershellx_server.py
-```
-
-## Step 2: Find line 253
-Look for this problematic code:
-```python
-start_server = websockets.serve(
-```
-
-## Step 3: Replace the entire function
-Replace your entire `start_websocket_server` function with this:
-
-```python
 def start_websocket_server():
     import asyncio
     import websockets
@@ -44,12 +27,3 @@ def start_websocket_server():
         logging.info("Server stopped")
     finally:
         loop.close()
-```
-
-## Step 4: Save and run
-```bash
-# Save the file (Ctrl+X, Y, Enter in nano)
-python cybershellx_server.py
-```
-
-This will fix the "RuntimeError: no running event loop" error.
