@@ -15,7 +15,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Process command with AI
-      const response: CommandResponse = cyberShellAI.processCommand(command);
+      let response: CommandResponse = cyberShellAI.processCommand(command);
+      
+      // Try to enhance with AI if available
+      try {
+        response = await cyberShellAI.enhanceResponseWithAI(command, response);
+      } catch (error) {
+        console.warn('AI enhancement failed, using base response:', error);
+      }
       
       // Store command history if user is provided
       if (userId) {

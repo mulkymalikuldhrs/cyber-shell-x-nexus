@@ -12,10 +12,11 @@ echo ""
 echo "1) CLI Terminal Interface (Command Line)"
 echo "2) Web Server (Browser Interface)"
 echo "3) Android GUI (Mobile Application)"
-echo "4) All Components (Full System)"
-echo "5) Exit"
+echo "4) Update System (Pull latest changes)"
+echo "5) All Components (Full System)" 
+echo "6) Exit"
 echo ""
-read -p "Enter your choice (1-5): " choice
+read -p "Enter your choice (1-6): " choice
 
 case $choice in
     1)
@@ -130,6 +131,40 @@ case $choice in
         
     4)
         echo ""
+        echo "🔄 Updating System..."
+        echo "────────────────────────"
+        echo ""
+        
+        # Check if git is available
+        if command -v git >/dev/null 2>&1; then
+            echo "📡 Pulling latest changes from repository..."
+            git pull origin main 2>/dev/null || git pull 2>/dev/null || {
+                echo "⚠️  Git pull failed or not in a git repository"
+                echo "Manual update may be required"
+            }
+            
+            echo "📦 Updating dependencies..."
+            npm install
+            
+            echo "🗄️  Updating database schema..."
+            npm run db:push
+            
+            echo ""
+            echo "✅ System updated successfully!"
+            echo "🔄 Restart the launcher to use updated features"
+        else
+            echo "❌ Git not available. Update manually by:"
+            echo "   1. Download latest code from GitHub"
+            echo "   2. Replace files in current directory" 
+            echo "   3. Run: npm install && npm run db:push"
+        fi
+        
+        echo ""
+        read -p "Press Enter to continue..."
+        ;;
+        
+    5)
+        echo ""
         echo "🚀 Starting All Components..."
         echo "────────────────────────────────"
         echo ""
@@ -166,7 +201,7 @@ case $choice in
         kill $WEB_PID 2>/dev/null || true
         ;;
         
-    5)
+    6)
         echo ""
         echo "👋 Exiting CyberShellX Nexus Launcher"
         echo "Thank you for using CyberShellX!"
@@ -175,7 +210,7 @@ case $choice in
         
     *)
         echo ""
-        echo "❌ Invalid choice. Please select 1-5."
+        echo "❌ Invalid choice. Please select 1-6."
         echo "Press Enter to continue..."
         read
         exec "$0"
