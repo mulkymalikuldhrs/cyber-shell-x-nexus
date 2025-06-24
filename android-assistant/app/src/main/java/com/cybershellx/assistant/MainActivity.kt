@@ -86,7 +86,13 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
             Text(
                 text = "AI Assistant",
                 color = Color.White,
-                fontSize = 18.sp,
+                fontSize = 18.sp
+            )
+            
+            Text(
+                text = "Created by Mulky Malikul Dhaher",
+                color = Color.Gray,
+                fontSize = 14.sp,
                 modifier = Modifier.padding(bottom = 48.dp)
             )
             
@@ -245,8 +251,9 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
         val lowerText = spokenText.lowercase()
         
         if (lowerText.contains("hey cybershell") || lowerText.contains("cybershell")) {
-            responseText.value = "Yes, how can I help you?"
-            speak("Yes, how can I help you?")
+            val welcomeMsg = getWelcomeMessage()
+            responseText.value = welcomeMsg
+            speak(welcomeMsg)
             
             // Wait for command after wake word
             kotlinx.coroutines.GlobalScope.launch {
@@ -299,6 +306,10 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
     
     private fun speak(text: String) {
         textToSpeech?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
+    }
+    
+    private fun getWelcomeMessage(): String {
+        return "Hello, I'm CyberShellX AI Assistant, created by Mulky Malikul Dhaher. How can I help you with cybersecurity today?"
     }
     
     override fun onInit(status: Int) {

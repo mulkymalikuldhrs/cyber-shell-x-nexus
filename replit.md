@@ -67,6 +67,7 @@ CyberShellX is a modern terminal interface application featuring interactive cyb
 - Wants to run specifically on Termux (Android terminal)
 - Wants Android voice assistant GUI to replace Google Assistant/Siri
 - Prefers voice-activated AI assistant functionality with wake word detection
+- User name: Mulky Malikul Dhaher (to be displayed in Android app)
 
 ## Deployment
 - Development: `npm run dev` on port 5000
