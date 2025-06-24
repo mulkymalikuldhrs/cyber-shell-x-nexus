@@ -2,6 +2,8 @@
 
 A native Android voice assistant that replaces Google Assistant/Siri with CyberShellX functionality.
 
+**Created by:** Mulky Malikul Dhaher
+
 ## Features
 - **Wake Word Detection**: Say "Hey CyberShell" to activate
 - **Always Listening**: Background service for continuous voice recognition

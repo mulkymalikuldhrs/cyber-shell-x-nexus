@@ -50,7 +50,7 @@ class CyberShellXService : Service(), TextToSpeech.OnInitListener {
     private fun startForegroundService() {
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("CyberShellX Assistant")
-            .setContentText("Listening for 'Hey CyberShell'...")
+            .setContentText("Listening for 'Hey CyberShell'... | by Mulky Malikul Dhaher")
             .setSmallIcon(R.drawable.ic_mic)
             .setOngoing(true)
             .build()
@@ -150,7 +150,7 @@ class CyberShellXService : Service(), TextToSpeech.OnInitListener {
         
         if (lowerText.contains("hey cybershell") || lowerText.contains("cybershell")) {
             updateNotification("Activated! Listening for command...")
-            speak("Yes, how can I help you?")
+            speak("Hello, I'm CyberShellX AI Assistant, created by Mulky Malikul Dhaher. How can I help you with cybersecurity today?")
             
             // Wait for command
             android.os.Handler(mainLooper).postDelayed({
