@@ -37,6 +37,8 @@ CyberShellX is a modern terminal interface application featuring interactive cyb
 ## User Preferences
 - User prefers to run applications locally on their own terminal
 - Needs clear setup instructions for local development
+- Has both Python and React versions of CyberShellX
+- Working with Python WebSocket server having asyncio event loop issues
 
 ## Deployment
 - Development: `npm run dev` on port 5000
