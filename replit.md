@@ -35,7 +35,8 @@ CyberShellX is a modern terminal interface application featuring interactive cyb
 - Removed all client-side database access for security
 
 ## User Preferences
-(To be updated based on user interactions)
+- User prefers to run applications locally on their own terminal
+- Needs clear setup instructions for local development
 
 ## Deployment
 - Development: `npm run dev` on port 5000
