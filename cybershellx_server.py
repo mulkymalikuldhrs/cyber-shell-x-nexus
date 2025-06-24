@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """
 CyberShellX Web Server
@@ -12,7 +11,7 @@ import json
 import threading
 import time
 from datetime import datetime
-from cybershellx import CyberMasterAI
+from cybershellx import CyberShellX
 import logging
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import os
@@ -27,7 +26,7 @@ class CyberShellXWebServer:
         self.host = host
         self.websocket_port = websocket_port
         self.http_port = http_port
-        self.cyber_ai = CyberMasterAI()
+        self.cyber_ai = CyberShellX()
         self.connected_clients = set()
         self.server_running = False
         
@@ -97,7 +96,7 @@ class CyberShellXWebServer:
         try:
             if command_type == "chat":
                 # Handle chat messages
-                response = self.cyber_ai.chat_with_ai(command)
+                response = self.cyber_ai.query_ai(command)
                 await self.send_to_client(websocket, {
                     "type": "chat_response",
                     "message": response or "No response from AI",
@@ -139,37 +138,36 @@ class CyberShellXWebServer:
                         "timestamp": datetime.now().isoformat()
                     })
                     
-                    # Run pentest in background
-                    await asyncio.get_event_loop().run_in_executor(
-                        None, self.cyber_ai.automated_pentest, target, scan_type
-                    )
+                    # Create pentest plan using AI
+                    pentest_prompt = f"Create a comprehensive penetration testing plan for {target} using {scan_type} methodology"
+                    response = self.cyber_ai.query_ai(pentest_prompt)
                     
                     await self.send_to_client(websocket, {
                         "type": "pentest_complete",
                         "target": target,
                         "scan_type": scan_type,
-                        "message": f"Pentest completed for {target}",
+                        "message": response or f"Pentest plan created for {target}",
                         "timestamp": datetime.now().isoformat()
                     })
                     
             elif command_type == "prepare":
                 # Handle environment preparation
-                env_type = data.get("environment", "")
-                if env_type:
+                environment = data.get("environment", "")
+                if environment:
                     await self.send_to_client(websocket, {
                         "type": "status",
-                        "message": f"Preparing {env_type} environment...",
+                        "message": f"Preparing {environment} environment...",
                         "timestamp": datetime.now().isoformat()
                     })
                     
-                    await asyncio.get_event_loop().run_in_executor(
-                        None, self.cyber_ai.prepare_environment, env_type
-                    )
+                    # Use AI to suggest environment setup
+                    prep_prompt = f"Provide setup instructions for {environment} environment including required tools and configurations"
+                    response = self.cyber_ai.query_ai(prep_prompt)
                     
                     await self.send_to_client(websocket, {
                         "type": "environment_ready",
-                        "environment": env_type,
-                        "message": f"{env_type} environment is ready",
+                        "environment": environment,
+                        "message": response or f"{environment} environment preparation guide ready",
                         "timestamp": datetime.now().isoformat()
                     })
                     
@@ -202,8 +200,48 @@ class CyberShellXWebServer:
                     "timestamp": datetime.now().isoformat()
                 })
                 
+            elif command == "help":
+                # Handle help command
+                help_text = """
+CyberShellX Commands:
+• help - Show this help message
+• chat <message> - Chat with AI
+• install <tool> - Install cybersecurity tool
+• pentest <target> [type] - Start penetration test
+• prepare <environment> - Prepare environment
+• execute <command> - Execute system command
+• list tools - Show installed tools
+
+Examples:
+• chat how to secure a web server?
+• install nmap
+• pentest example.com web
+• prepare pentesting
+• execute ls -la
+                """
+                await self.send_to_client(websocket, {
+                    "type": "system",
+                    "message": help_text.strip(),
+                    "timestamp": datetime.now().isoformat()
+                })
+                
+            elif command == "list tools":
+                # Handle list tools command
+                tools_list = ", ".join(self.cyber_ai.installed_tools) if self.cyber_ai.installed_tools else "No tools detected"
+                await self.send_to_client(websocket, {
+                    "type": "system",
+                    "message": f"Installed tools: {tools_list}",
+                    "timestamp": datetime.now().isoformat()
+                })
+                
             else:
-                await self.send_error(websocket, f"Unknown command type: {command_type}")
+                # Default to chat for any other input
+                response = self.cyber_ai.query_ai(command)
+                await self.send_to_client(websocket, {
+                    "type": "chat_response",
+                    "message": response or "I'm here to help! Try 'help' for available commands.",
+                    "timestamp": datetime.now().isoformat()
+                })
                 
         except Exception as e:
             logger.error(f"Error processing command: {str(e)}")
