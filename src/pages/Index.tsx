@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Terminal, Brain, Shield, Zap, Database, Cloud, Cpu, BarChart3 } from 'lucide-react';
 import TerminalInterface from '../components/TerminalInterface';
@@ -140,8 +139,13 @@ const Index = () => {
                 More than just an assistant. This is a living terminal that thinks, acts, and evolves for you.
               </p>
             </div>
-            <div className="text-gray-500 text-sm">
-              © 2024 CyberShellX - Autonomous Command Line AI Assistant
+            <div className="space-y-2">
+              <div className="text-gray-500 text-sm">
+                © 2024 CyberShellX - Autonomous Command Line AI Assistant
+              </div>
+              <div className="text-gray-400 text-sm">
+                made with love by Mulky Maliku Dhaher
+              </div>
             </div>
           </div>
         </footer>
