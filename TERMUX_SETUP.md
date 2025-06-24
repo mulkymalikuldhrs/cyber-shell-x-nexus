@@ -3,8 +3,8 @@
 ## Quick Start
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/cybershellx.git
-cd cybershellx
+git clone https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus.git
+cd cyber-shell-x-nexus
 
 # Install prerequisites
 pkg update && pkg upgrade
