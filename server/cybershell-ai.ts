@@ -921,6 +921,37 @@ Type a specific command or ask about any cybersecurity topic!
   }
 
   // Get interactive scenario by difficulty
+  async enhanceResponseWithAI(userInput: string, baseResponse: CommandResponse): Promise<CommandResponse> {
+    try {
+      const prompt = `You are CyberShellX AI, an expert cybersecurity assistant. 
+User asked: "${userInput}"
+Base response: "${baseResponse.content}"
+
+Enhance this response with:
+1. More technical details if appropriate
+2. Practical examples
+3. Security best practices
+4. Educational context
+
+Keep the response concise but informative (max 300 words).`;
+
+      const enhancedContent = await geminiAPI.generateContent(prompt);
+      
+      return {
+        ...baseResponse,
+        content: enhancedContent,
+        type: 'ai_enhanced_response' as any
+      };
+    } catch (error) {
+      console.error('AI enhancement failed:', error);
+      return baseResponse; // Return original response if AI fails
+    }
+  }
+
+  async getAIStatus(): Promise<any> {
+    return geminiAPI.getStatus();
+  }
+
   getInteractiveScenario(difficulty: 'beginner' | 'intermediate' | 'advanced') {
     const scenarios = this.commands.interactive_scenarios?.[difficulty] || [];
     return scenarios[Math.floor(Math.random() * scenarios.length)] || null;

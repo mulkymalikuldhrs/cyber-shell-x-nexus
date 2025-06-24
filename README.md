@@ -11,9 +11,10 @@ Advanced cybersecurity platform with AI-powered assistant, interactive terminal 
 
 Choose from:
 1. **CLI Terminal Interface** - Command-line cybersecurity tools simulation
-2. **Web Server** - Full browser-based interface 
-3. **Android GUI** - Mobile voice assistant application
-4. **All Components** - Start everything simultaneously
+2. **Web Server** - Full browser-based interface with AI enhancement
+3. **Android GUI** - Mobile voice assistant application  
+4. **Update System** - Pull latest changes and update dependencies
+5. **All Components** - Start everything simultaneously
 
 ### Direct Access
 ```bash
@@ -51,6 +52,12 @@ npm run db:push
 ```
 
 ## Features
+
+### AI-Powered Responses
+- **Multiple API Support** - Automatic fallback between 4 Gemini API endpoints
+- **Enhanced Responses** - AI-powered cybersecurity guidance and explanations
+- **Intelligent Fallback** - Seamless switching when APIs are unavailable
+- **Real-time Status** - Monitor API health and current active endpoint
 
 ### CLI Interface (Option 1)
 - Interactive cybersecurity terminal
@@ -95,9 +102,12 @@ npm run build           # Production build
 npm run start           # Production server
 
 # Interactive options
-./run.sh                # Main launcher
+./run.sh                # Main launcher (recommended)
 node cli-interface.js   # CLI only
 npm run dev            # Web only
+
+# System maintenance
+node scripts/health-check.js  # System health verification
 ```
 
 ## Support
