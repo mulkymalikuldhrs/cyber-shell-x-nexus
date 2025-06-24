@@ -58,6 +58,10 @@ CyberShellX is a modern terminal interface application featuring interactive cyb
 - Added comprehensive command database with 50+ security tools
 - Implemented intelligent command processing and responses
 - Created interactive learning scenarios and ethical guidelines
+- Updated README to professional format with GitHub integration
+- Added GitHub repository section to web UI
+- Implemented donation system with Indonesian e-wallet providers
+- Added creator branding and professional presentation
 
 ## User Preferences
 - User prefers to run applications locally on their own terminal
@@ -68,6 +72,8 @@ CyberShellX is a modern terminal interface application featuring interactive cyb
 - Wants Android voice assistant GUI to replace Google Assistant/Siri
 - Prefers voice-activated AI assistant functionality with wake word detection
 - User name: Mulky Malikul Dhaher (to be displayed in Android app)
+- GitHub repository: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus
+- Donation support via Indonesian e-wallets with phone +6285322624048
 
 ## Deployment
 - Development: `npm run dev` on port 5000

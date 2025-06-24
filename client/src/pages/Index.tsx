@@ -5,6 +5,8 @@ import TerminalInterface from '../components/TerminalInterface';
 import CyberShellXTerminal from '../components/CyberShellXTerminal';
 import FeatureCard from '../components/FeatureCard';
 import Hero from '../components/Hero';
+import GitHubSection from '../components/GitHubSection';
+import DonationSection from '../components/DonationSection';
 import { Button } from '../components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 
