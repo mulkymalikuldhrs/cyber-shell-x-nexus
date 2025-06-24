@@ -16,10 +16,24 @@ CyberShellX is a modern terminal interface application featuring interactive cyb
 - Real-time WebSocket connection capability
 - Responsive design with dark theme
 - Feature cards showcasing capabilities
+- Cloud data storage with Supabase integration
+- Cross-device synchronization and backup
+- AI learning from user command patterns
+- Voice assistant Android app with wake word detection
+- Command history and performance analytics
 
-## Database Schema
-- Users table with username/password authentication structure
-- Database connection configured via Drizzle ORM with PostgreSQL
+## Database Architecture
+### Local Database (PostgreSQL)
+- Users table with username/password authentication
+- Database connection via Drizzle ORM
+- Core application data and sessions
+
+### Cloud Storage (Supabase)
+- Command history with analytics
+- User profiles and preferences
+- AI learning data collection
+- Cross-device synchronization
+- Real-time data updates
 
 ## Security Implementation
 - Client/server separation enforced
