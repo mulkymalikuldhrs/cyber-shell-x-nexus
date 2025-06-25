@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { geminiAPI } from './gemini-api';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import { aiProviderManager } from './ai-provider-manager';
 
 // Load command knowledge base
 let commandsData: any = null;
@@ -19,13 +21,28 @@ function loadCommandsData() {
   return commandsData;
 }
 
+const execAsync = promisify(exec);
+
 export interface CommandResponse {
-  type: 'command_explanation' | 'security_analysis' | 'tool_recommendation' | 'general_response';
+  type: 'command_explanation' | 'security_analysis' | 'tool_recommendation' | 'general_response' | 'code_generation' | 'code_analysis' | 'file_operation' | 'system_command';
   content: string;
   category?: string;
   difficulty?: string;
   tools?: string[];
   legal_notice?: boolean;
+  code?: string;
+  language?: string;
+  files_created?: string[];
+  files_modified?: string[];
+  commands_executed?: string[];
+}</mentat_other_code>
+
+export interface AgentCapabilities {
+  programming: boolean;
+  file_operations: boolean;
+  system_commands: boolean;
+  web_requests: boolean;
+  code_execution: boolean;
 }
 
 export class CyberShellAI {
