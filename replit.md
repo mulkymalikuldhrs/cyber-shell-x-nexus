@@ -46,15 +46,15 @@ CyberShellX Nexus is an advanced cybersecurity platform featuring an AI-powered 
 - No client-side database access
 
 ## Recent Changes
+- **December 2024**: Quick start bash files implemented
+- Created `start.sh` for quick launcher and `cyber.sh` for command shortcuts
+- Added direct command access: `./cyber.sh [cli|web|android|update|status]`
+- Repository update system configured to pull from official GitHub source
 - **December 2024**: Multi-API fallback system implemented
 - Added intelligent Gemini API switching with 4 endpoint fallback
 - Enhanced AI responses with automatic API failure recovery
-- Updated launcher with system update option (now 6 choices)
-- Organized project structure with docs/, scripts/, tests/ folders
-- **December 2024**: Interactive launcher system implemented
 - Created specialized launcher with 5 targeted options: AI-Enhanced CLI, Desktop Web, Termux Mobile, Android Backend, System Update
 - Added Node.js-based CLI interface with cybersecurity tool simulations
-- Enhanced Termux installation with interactive launcher support
 - **December 2024**: Professional platform development completed
 - Removed Supabase integration, replaced with PostgreSQL
 - Set up Drizzle ORM for type-safe database operations
