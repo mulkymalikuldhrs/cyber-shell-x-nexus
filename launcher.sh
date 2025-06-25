@@ -11,6 +11,19 @@ echo "===================="
 echo "Advanced Cybersecurity Platform"
 echo ""
 
+# Function to check and fix build script
+check_build_script() {
+    if ! npm run build:dev --silent >/dev/null 2>&1; then
+        echo "⚠️  Script build:dev tidak ditemukan. Memperbaiki..."
+        if [ -f "scripts/fix-build.js" ]; then
+            node scripts/fix-build.js
+        else
+            echo "Silakan tambahkan 'build:dev': 'vite build --mode development' ke package.json"
+            echo "Atau lihat file package-fix.md untuk panduan lengkap"
+        fi
+    fi
+}
+
 # Quick help
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
     echo "Usage:"
@@ -28,15 +41,18 @@ fi
 case "$1" in
     "cli")
         echo "🖥️  Starting CLI Interface..."
+        check_build_script
         exec node cli-interface.js
         ;;
     "web")
         echo "🌐 Starting Web Server..."
         echo "Access at: http://localhost:5000"
+        check_build_script
         exec npm run dev
         ;;
     "android")
         echo "📱 Starting Android Server..."
+        check_build_script
         exec env ANDROID_MODE=true npm run dev
         ;;
     "update")
@@ -51,6 +67,7 @@ case "$1" in
         ;;
     "status")
         echo "🔍 System Health Check..."
+        check_build_script
         exec node scripts/health-check.js
         ;;
 esac
@@ -75,6 +92,7 @@ while true; do
             echo "🖥️  Starting CLI Cybersecurity Shell..."
             echo "Enhanced terminal with AI integration"
             echo ""
+            check_build_script
             if [ -f "cli-interface.js" ]; then
                 node cli-interface.js
             else
@@ -88,6 +106,7 @@ while true; do
             echo "Access at: http://localhost:5000"
             echo "Press Ctrl+C to stop"
             echo ""
+            check_build_script
             npm run dev
             break
             ;;
@@ -97,6 +116,7 @@ while true; do
             echo "Server for Android app communication"
             echo "Access at: http://localhost:5000"
             echo ""
+            check_build_script
             ANDROID_MODE=true npm run dev
             break
             ;;
@@ -118,6 +138,7 @@ while true; do
         "05"|"5")
             echo ""
             echo "🔍 System Health Check..."
+            check_build_script
             node scripts/health-check.js
             echo ""
             read -p "Press Enter to continue..."
