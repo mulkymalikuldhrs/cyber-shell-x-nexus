@@ -1,0 +1,55 @@
+{
+  "assistant": {
+    "name": "Cyber Assistant",
+    "version": "1.0.0",
+    "capabilities": {
+      "natural_language": true,
+      "voice_input": true,
+      "command_execution": true,
+      "code_generation": true,
+      "auto_fix": true,
+      "multi_agent": true,
+      "automation": true
+    }
+  },
+  "ai_providers": {
+    "openrouter": {
+      "enabled": true,
+      "api_key": "",
+      "models": [
+        "meta-llama/llama-3.1-8b-instruct:free",
+        "microsoft/wizardlm-2-8x22b:nitro"
+      ]
+    },
+    "poe": {
+      "enabled": false,
+      "api_key": "",
+      "bot": "Assistant"
+    },
+    "local": {
+      "enabled": true,
+      "fallback": true
+    }
+  },
+  "security": {
+    "safe_commands": ["ls", "cat", "grep", "find", "pwd", "echo", "date", "whoami"],
+    "dangerous_commands": ["rm -rf", "dd", "mkfs", "fdisk", "> /dev"],
+    "require_confirmation": ["rm", "mv", "cp", "chmod", "chown"]
+  },
+  "automation": {
+    "supabase": {
+      "enabled": false,
+      "url": "",
+      "key": ""
+    },
+    "telegram": {
+      "enabled": false,
+      "token": "",
+      "chat_id": ""
+    },
+    "github": {
+      "enabled": false,
+      "token": ""
+    }
+  }
+}

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Assistant - AI Command Interface</title>
+    <meta name="theme-color" content="#1a1a1a">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #e0e0e0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 100%;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            color: #00ff88;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff4444;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.connected {
+            background: #00ff88;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+            gap: 1rem;
+            padding: 1rem;
+            overflow: hidden;
+        }
+
+        .terminal-section {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .terminal {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            flex: 1;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .terminal-entry {
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .terminal-entry:last-child {
+            border-bottom: none;
+        }
+
+        .terminal-timestamp {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 0.25rem;
+        }
+
+        .terminal-output {
+            color: #e0e0e0;
+            white-space: pre-wrap;
+        }
+
+        .terminal-output.error {
+            color: #ff4444;
+        }
+
+        .terminal-output.success {
+            color: #00ff88;
+        }
+
+        .terminal-output.info {
+            color: #4a90e2;
+        }
+
+        .terminal-output.processing {
+            color: #ffc107;
+        }
+
+        .input-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .input-field {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: #e0e0e0;
+            padding: 0.75rem;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #00ff88;
+        }
+
+        .btn {
+            background: #00ff88;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            padding: 0.75rem 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: #00cc6a;
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .voice-btn {
+            background: #4a90e2;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .voice-btn.recording {
+            background: #ff4444;
+            animation: recordingPulse 1s infinite;
+        }
+
+        @keyframes recordingPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .sidebar {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .panel h3 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .quick-commands {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .quick-cmd {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: #e0e0e0;
+            padding: 0.5rem;
+            cursor: pointer;
+            text-align: center;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .quick-cmd:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: #00ff88;
+        }
+
+        .logs-panel {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .logs-content {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            padding: 0.5rem;
+            height: 200px;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 12px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #00ff88;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+                padding: 0.5rem;
+            }
+
+            .sidebar {
+                min-width: unset;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .input-row {
+                flex-wrap: wrap;
+            }
+
+            .quick-commands {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>
+                🤖 Cyber Assistant
+                <span class="loading" id="loading" style="display: none;"></span>
+            </h1>
+            <div class="status">
+                <span id="connection-status">Connecting...</span>
+                <div class="status-dot" id="status-dot"></div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="terminal-section">
+                <div class="terminal" id="terminal">
+                    <div class="terminal-entry">
+                        <div class="terminal-timestamp">System</div>
+                        <div class="terminal-output">🤖 Cyber Assistant initializing...</div>
+                    </div>
+                </div>
+
+                <div class="input-section">
+                    <div class="input-row">
+                        <input 
+                            type="text" 
+                            class="input-field" 
+                            id="natural-input" 
+                            placeholder="Tell me what you want to do... (e.g., 'list files', 'create a Python script')"
+                            onkeypress="handleKeyPress(event)"
+                        >
+                        <button class="btn" onclick="sendNaturalLanguage()">Send</button>
+                        <button class="btn voice-btn" id="voice-btn" onclick="toggleVoiceInput()">🎤</button>
+                    </div>
+                    
+                    <div class="input-row">
+                        <input 
+                            type="text" 
+                            class="input-field" 
+                            id="direct-command" 
+                            placeholder="Direct command (e.g., 'ls -la', 'pwd')"
+                            onkeypress="handleCommandKeyPress(event)"
+                        >
+                        <button class="btn btn-secondary" onclick="sendDirectCommand()">Execute</button>
+                        <button class="btn btn-secondary" onclick="clearTerminal()">Clear</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="panel">
+                    <h3>Quick Commands</h3>
+                    <div class="quick-commands">
+                        <div class="quick-cmd" onclick="quickCommand('ls -la')">List Files</div>
+                        <div class="quick-cmd" onclick="quickCommand('pwd')">Current Dir</div>
+                        <div class="quick-cmd" onclick="quickCommand('df -h')">Disk Usage</div>
+                        <div class="quick-cmd" onclick="quickCommand('ps aux')">Processes</div>
+                        <div class="quick-cmd" onclick="quickCommand('uname -a')">System Info</div>
+                        <div class="quick-cmd" onclick="quickCommand('pkg list-installed')">Packages</div>
+                    </div>
+                </div>
+
+                <div class="panel logs-panel">
+                    <h3>Activity Logs</h3>
+                    <div class="logs-content" id="logs-content">
+                        <div>Waiting for activity...</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="refreshLogs()" style="margin-top: 0.5rem; width: 100%;">
+                        Refresh Logs
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // WebSocket connection
+        let ws = null;
+        let isRecording = false;
+        let recognition = null;
+
+        // Initialize WebSocket connection
+        function connectWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}`;
+            
+            ws = new WebSocket(wsUrl);
+            
+            ws.onopen = function() {
+                updateConnectionStatus(true);
+                addTerminalEntry('system', 'Connected to Cyber Assistant', 'success');
+            };
+            
+            ws.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                handleWebSocketMessage(data);
+            };
+            
+            ws.onclose = function() {
+                updateConnectionStatus(false);
+                addTerminalEntry('system', 'Connection lost. Attempting to reconnect...', 'error');
+                setTimeout(connectWebSocket, 3000);
+            };
+            
+            ws.onerror = function(error) {
+                console.error('WebSocket error:', error);
+                updateConnectionStatus(false);
+            };
+        }
+
+        // Handle WebSocket messages
+        function handleWebSocketMessage(data) {
+            switch (data.type) {
+                case 'welcome':
+                    addTerminalEntry('system', data.message, 'success');
+                    break;
+                    
+                case 'processing':
+                    showLoading(true);
+                    addTerminalEntry('system', data.message, 'processing');
+                    break;
+                    
+                case 'command_generated':
+                    addTerminalEntry('ai', `Generated command: ${data.command}`, 'success');
+                    addTerminalEntry('original', `From: "${data.original}"`, 'info');
+                    break;
+                    
+                case 'command_start':
+                    addTerminalEntry('command', `$ ${data.command}`, 'info');
+                    break;
+                    
+                case 'command_result':
+                    showLoading(false);
+                    const resultClass = data.success ? 'success' : 'error';
+                    if (data.stdout) {
+                        addTerminalEntry('output', data.stdout, resultClass);
+                    }
+                    if (data.stderr) {
+                        addTerminalEntry('error', data.stderr, 'error');
+                    }
+                    break;
+                    
+                case 'safety_warning':
+                    showSafetyWarning(data.command, data.reason);
+                    break;
+                    
+                case 'auto_fix_attempt':
+                    addTerminalEntry('system', data.message, 'processing');
+                    break;
+                    
+                case 'auto_fix_suggestion':
+                    addTerminalEntry('system', `Auto-fix suggestion: ${data.fixed}`, 'info');
+                    break;
+                    
+                case 'logs':
+                    updateLogs(data.data);
+                    break;
+                    
+                case 'error':
+                    showLoading(false);
+                    addTerminalEntry('error', data.message, 'error');
+                    break;
+            }
+        }
+
+        // Update connection status
+        function updateConnectionStatus(connected) {
+            const statusElement = document.getElementById('connection-status');
+            const dotElement = document.getElementById('status-dot');
+            
+            if (connected) {
+                statusElement.textContent = 'Connected';
+                dotElement.classList.add('connected');
+            } else {
+                statusElement.textContent = 'Disconnected';
+                dotElement.classList.remove('connected');
+            }
+        }
+
+        // Add entry to terminal
+        function addTerminalEntry(type, content, className = '') {
+            const terminal = document.getElementById('terminal');
+            const entry = document.createElement('div');
+            entry.className = 'terminal-entry';
+            
+            const timestamp = new Date().toLocaleTimeString();
+            entry.innerHTML = `
+                <div class="terminal-timestamp">${timestamp} - ${type}</div>
+                <div class="terminal-output ${className}">${escapeHtml(content)}</div>
+            `;
+            
+            terminal.appendChild(entry);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Show/hide loading indicator
+        function showLoading(show) {
+            const loading = document.getElementById('loading');
+            loading.style.display = show ? 'inline-block' : 'none';
+        }
+
+        // Send natural language input
+        function sendNaturalLanguage() {
+            const input = document.getElementById('natural-input');
+            const text = input.value.trim();
+            
+            if (text && ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({
+                    type: 'natural_language',
+                    data: text
+                }));
+                
+                addTerminalEntry('user', text, 'info');
+                input.value = '';
+                showLoading(true);
+            }
+        }
+
+        // Send direct command
+        function sendDirectCommand() {
+            const input = document.getElementById('direct-command');
+            const command = input.value.trim();
+            
+            if (command && ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({
+                    type: 'direct_command',
+                    data: { command: command, safe: true }
+                }));
+                
+                input.value = '';
+                showLoading(true);
+            }
+        }
+
+        // Handle enter key press
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendNaturalLanguage();
+            }
+        }
+
+        function handleCommandKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendDirectCommand();
+            }
+        }
+
+        // Quick command
+        function quickCommand(command) {
+            document.getElementById('direct-command').value = command;
+            sendDirectCommand();
+        }
+
+        // Clear terminal
+        function clearTerminal() {
+            document.getElementById('terminal').innerHTML = '';
+        }
+
+        // Voice input functionality
+        function toggleVoiceInput() {
+            const voiceBtn = document.getElementById('voice-btn');
+            
+            if (!isRecording) {
+                startVoiceRecording();
+                voiceBtn.classList.add('recording');
+                voiceBtn.textContent = '🛑';
+                isRecording = true;
+            } else {
+                stopVoiceRecording();
+                voiceBtn.classList.remove('recording');
+                voiceBtn.textContent = '🎤';
+                isRecording = false;
+            }
+        }
+
+        function startVoiceRecording() {
+            if ('webkitSpeechRecognition' in window) {
+                recognition = new webkitSpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'en-US';
+                
+                recognition.onresult = function(event) {
+                    const text = event.results[0][0].transcript;
+                    document.getElementById('natural-input').value = text;
+                    addTerminalEntry('voice', `Voice input: "${text}"`, 'info');
+                };
+                
+                recognition.onerror = function(event) {
+                    addTerminalEntry('voice', `Voice input error: ${event.error}`, 'error');
+                };
+                
+                recognition.onend = function() {
+                    toggleVoiceInput();
+                };
+                
+                recognition.start();
+                addTerminalEntry('voice', 'Listening... Speak now', 'processing');
+            } else {
+                addTerminalEntry('voice', 'Voice recognition not supported in this browser', 'error');
+            }
+        }
+
+        function stopVoiceRecording() {
+            if (recognition) {
+                recognition.stop();
+            }
+        }
+
+        // Safety warning
+        function showSafetyWarning(command, reason) {
+            const confirmed = confirm(`⚠️ Safety Warning\n\nCommand: ${command}\nReason: ${reason}\n\nDo you want to proceed?`);
+            
+            if (confirmed && ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({
+                    type: 'direct_command',
+                    data: { command: command, safe: false, confirmed: true }
+                }));
+            }
+        }
+
+        // Refresh logs
+        function refreshLogs() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({
+                    type: 'get_logs'
+                }));
+            }
+        }
+
+        // Update logs display
+        function updateLogs(logs) {
+            const logsContent = document.getElementById('logs-content');
+            logsContent.innerHTML = logs.slice(-20).map(log => 
+                `<div style="margin-bottom: 0.25rem; font-size: 11px;">${escapeHtml(log)}</div>`
+            ).join('');
+            logsContent.scrollTop = logsContent.scrollHeight;
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', function() {
+            connectWebSocket();
+            
+            // Auto-focus input
+            document.getElementById('natural-input').focus();
+            
+            // Initialize logs
+            refreshLogs();
+        });
+
+        // Handle page visibility for reconnection
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && (!ws || ws.readyState !== WebSocket.OPEN)) {
+                connectWebSocket();
+            }
+        });
+    </script>
+</body>
+</html>
