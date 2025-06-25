@@ -10,11 +10,11 @@ Advanced cybersecurity platform with AI-powered assistant, interactive terminal 
 ```
 
 Choose from:
-1. **CLI Terminal Interface** - Command-line cybersecurity tools simulation
-2. **Web Server** - Full browser-based interface with AI enhancement
-3. **Android GUI** - Mobile voice assistant application  
-4. **Update System** - Pull latest changes and update dependencies
-5. **All Components** - Start everything simultaneously
+1. **CLI Terminal Interface** - Enhanced cybersecurity shell with AI integration
+2. **Web Server** - Full desktop/laptop browser interface with AI enhancement
+3. **Termux Server** - Mobile-optimized web interface for Android browsers
+4. **Android Server** - Backend server for voice assistant mobile app
+5. **Update System** - Pull latest changes and update all dependencies
 
 ### Direct Access
 ```bash
