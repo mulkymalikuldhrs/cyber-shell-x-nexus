@@ -16,66 +16,41 @@ echo "4) Update System (Pull latest changes)"
 echo "5) All Components (Full System)" 
 echo "6) Exit"
 echo ""
-read -p "Enter your choice (1-6): " choice
+read -p "Enter your choice (1-5): " choice
 
 case $choice in
     1)
         echo ""
         echo "🖥️  Starting CLI Terminal Interface..."
-        echo "────────────────────────────────────────"
+        echo "──────────────────────────────────────"
+        echo ""
+        echo "Enhanced Cybersecurity Shell with AI Integration"
+        echo "Type 'help' for commands | 'status' for AI status | 'exit' to quit"
         echo ""
         
-        echo "Starting CyberShellX CLI Interface..."
-        echo ""
-        
+        # Check if cli-interface.js exists
         if [ -f "cli-interface.js" ]; then
             node cli-interface.js
         else
-            echo "CLI interface not found. Starting basic simulation..."
+            echo "❌ CLI interface not found!"
+            echo "Please ensure cli-interface.js exists in the current directory"
             echo ""
-            echo "CyberShellX Terminal Simulator"
-            echo "Commands: nmap, metasploit, wireshark, sqlmap, exit"
-            echo ""
-            while true; do
-                read -p "cybershell@nexus:~$ " cmd
-                case $cmd in
-                    "exit") break ;;
-                    "nmap") echo "Nmap scan simulation: Found open ports 22, 80, 443" ;;
-                    "metasploit") echo "Metasploit Framework loaded" ;;
-                    "wireshark") echo "Packet capture started" ;;
-                    "sqlmap") echo "SQL injection testing initiated" ;;
-                    *) echo "Command '$cmd' simulated" ;;
-                esac
-            done
+            read -p "Press Enter to continue..."
         fi
         ;;
         
     2)
         echo ""
-        echo "🌐 Starting Web Server..."
-        echo "────────────────────────────"
+        echo "🌐 Starting Web Server (Desktop/Laptop)..."
+        echo "───────────────────────────────────────"
         echo ""
-        
-        # Check if PostgreSQL is needed and running
-        if command -v pg_ctl >/dev/null 2>&1; then
-            echo "🗄️  Checking PostgreSQL status..."
-            if ! pg_ctl status -D $PREFIX/var/lib/postgresql >/dev/null 2>&1; then
-                echo "Starting PostgreSQL..."
-                pg_ctl -D $PREFIX/var/lib/postgresql start
-                sleep 2
-            fi
-        fi
-        
-        # Set database URL if not set
-        if [ -z "$DATABASE_URL" ]; then
-            export DATABASE_URL="postgresql://$(whoami)@localhost:5432/cybershellx"
-        fi
-        
-        echo "🚀 Starting CyberShellX Web Interface..."
-        echo "📱 Access at: http://localhost:5000"
-        echo "🛑 Press Ctrl+C to stop the server"
+        echo "Full-featured web interface with AI enhancement"
+        echo "Perfect for desktop and laptop usage"
         echo ""
-        
+        echo "Server starting on port 5000..."
+        echo "Access at: http://localhost:5000"
+        echo "Press Ctrl+C to stop"
+        echo ""
         npm run dev
         ;;
         
@@ -131,36 +106,35 @@ case $choice in
         
     4)
         echo ""
-        echo "🔄 Updating System..."
-        echo "────────────────────────"
+        echo "🤖 Starting Android Server (Voice Assistant)..."
+        echo "──────────────────────────────────────────────"
+        echo ""
+        echo "Backend server for Android voice assistant app"
+        echo "Provides API endpoints for mobile app communication"
         echo ""
         
-        # Check if git is available
-        if command -v git >/dev/null 2>&1; then
-            echo "📡 Pulling latest changes from repository..."
-            git pull origin main 2>/dev/null || git pull 2>/dev/null || {
-                echo "⚠️  Git pull failed or not in a git repository"
-                echo "Manual update may be required"
-            }
-            
-            echo "📦 Updating dependencies..."
-            npm install
-            
-            echo "🗄️  Updating database schema..."
-            npm run db:push
-            
+        # Check if Android directory exists
+        if [ -d "android-assistant" ]; then
+            echo "✅ Android components found"
             echo ""
-            echo "✅ System updated successfully!"
-            echo "🔄 Restart the launcher to use updated features"
+            echo "Starting server for Android app..."
+            echo "Server will run on port 5000"
+            echo "Android app can connect to this server"
+            echo ""
+            echo "To build Android APK:"
+            echo "  ./android-assistant/build-apk.sh"
+            echo "To install APK:"
+            echo "  ./android-assistant/install-apk.sh"
+            echo ""
+            echo "Press Ctrl+C to stop server"
+            echo ""
+            ANDROID_MODE=true npm run dev
         else
-            echo "❌ Git not available. Update manually by:"
-            echo "   1. Download latest code from GitHub"
-            echo "   2. Replace files in current directory" 
-            echo "   3. Run: npm install && npm run db:push"
+            echo "❌ Android components not found!"
+            echo "Please clone the full repository to access Android features"
+            echo ""
+            read -p "Press Enter to continue..."
         fi
-        
-        echo ""
-        read -p "Press Enter to continue..."
         ;;
         
     5)
