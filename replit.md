@@ -99,9 +99,10 @@ CyberShellX Nexus is an advanced cybersecurity platform featuring an AI-powered 
 - **Documentation**: Comprehensive guides available in project files
 
 ### 💻 Development Commands
-- Interactive Launcher: `./run.sh` or `npm run launcher`
+- Quick Start: `./cyber.sh` (recommended)
+- Interactive Launcher: `./run.sh` or `./start.sh`
+- Direct Commands: `./cyber.sh [cli|web|android|update|status]`
 - Development: `npm run dev` on port 5000
-- Production build: `npm run build && npm run start`
 - Database schema: `npm run db:push`
 
 ### 📱 Mobile Application
