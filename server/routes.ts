@@ -5,6 +5,7 @@ import { storage } from "./storage";
 import { cyberShellAI, type CommandResponse } from "./cybershell-ai";
 import { aiProviderManager } from "./ai-provider-manager";
 import { aiAgent, type AgentResponse } from "./ai-agent";
+import { commandExecutor } from "./command-executor";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // CyberShellX AI command processing endpoint
@@ -216,6 +217,217 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("AI generation error:", error);
       res.status(500).json({ 
         error: "Failed to generate AI response",
+        message: error.message
+      });
+    }
+  });
+
+  // Enhanced Command Execution endpoints
+  app.post("/api/command/execute", async (req, res) => {
+    try {
+      const { command, options = {} } = req.body;
+      
+      if (!command) {
+        return res.status(400).json({ error: "Command is required" });
+      }
+
+      const result = await commandExecutor.executeCommand(command, options);
+      res.json({
+        success: result.success,
+        result,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: "Failed to execute command",
+        message: error.message
+      });
+    }
+  });
+
+  // Execute multiple commands
+  app.post("/api/command/execute-batch", async (req, res) => {
+    try {
+      const { commands, options = {} } = req.body;
+      
+      if (!commands || !Array.isArray(commands)) {
+        return res.status(400).json({ error: "Commands array is required" });
+      }
+
+      const results = await commandExecutor.executeMultipleCommands(commands, options);
+      res.json({
+        success: true,
+        results,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: "Failed to execute commands",
+        message: error.message
+      });
+    }
+  });
+
+  // Tool availability check
+  app.get("/api/tools/check", async (req, res) => {
+    try {
+      const tools = await commandExecutor.checkToolAvailability();
+      res.json({
+        success: true,
+        tools,
+        system_info: commandExecutor.getSystemInfo(),
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: "Failed to check tools",
+        message: error.message
+      });
+    }
+  });
+
+  // Project setup endpoint
+  app.post("/api/project/setup", async (req, res) => {
+    try {
+      const { projectType, projectName, options = {} } = req.body;
+      
+      if (!projectType || !projectName) {
+        return res.status(400).json({ error: "Project type and name are required" });
+      }
+
+      const results = await commandExecutor.setupProject(projectType, projectName);
+      res.json({
+        success: true,
+        results,
+        project_name: projectName,
+        project_type: projectType,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: "Failed to setup project",
+        message: error.message
+      });
+    }
+  });
+
+  // Git operations endpoint
+  app.post("/api/git/:operation", async (req, res) => {
+    try {
+      const { operation } = req.params;
+      const params = req.body;
+
+      const result = await commandExecutor.gitOperations(operation as any, params);
+      res.json({
+        success: result.success,
+        result,
+        operation,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: `Failed to execute git ${req.params.operation}`,
+        message: error.message
+      });
+    }
+  });
+
+  // Dependency installation endpoint
+  app.post("/api/dependencies/install", async (req, res) => {
+    try {
+      const { packageManager, packageName } = req.body;
+      
+      if (!packageManager || !packageName) {
+        return res.status(400).json({ error: "Package manager and package name are required" });
+      }
+
+      const result = await commandExecutor.installDependency(packageManager, packageName);
+      res.json({
+        success: result.success,
+        result,
+        package: packageName,
+        manager: packageManager,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: "Failed to install dependency",
+        message: error.message
+      });
+    }
+  });
+
+  // Command history endpoint
+  app.get("/api/command/history", (req, res) => {
+    try {
+      const history = commandExecutor.getExecutionHistory();
+      res.json({
+        success: true,
+        history,
+        total: history.length,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: "Failed to get command history",
+        message: error.message
+      });
+    }
+  });
+
+  // Working directory management
+  app.get("/api/directory/current", (req, res) => {
+    try {
+      const currentDir = commandExecutor.getWorkingDirectory();
+      res.json({
+        success: true,
+        directory: currentDir,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: "Failed to get working directory",
+        message: error.message
+      });
+    }
+  });
+
+  app.post("/api/directory/change", (req, res) => {
+    try {
+      const { directory } = req.body;
+      
+      if (!directory) {
+        return res.status(400).json({ error: "Directory is required" });
+      }
+
+      commandExecutor.setWorkingDirectory(directory);
+      res.json({
+        success: true,
+        directory: commandExecutor.getWorkingDirectory(),
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: "Failed to change directory",
+        message: error.message
+      });
+    }
+  });
+
+  // Safe mode toggle
+  app.post("/api/command/safe-mode", (req, res) => {
+    try {
+      const { enabled } = req.body;
+      
+      commandExecutor.setSafeMode(enabled);
+      res.json({
+        success: true,
+        safe_mode: commandExecutor.isSafeMode(),
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: "Failed to set safe mode",
         message: error.message
       });
     }

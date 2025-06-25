@@ -1,6 +1,6 @@
 # 🤖 CyberShellX AI Agent - Complete Guide
 
-Panduan lengkap untuk menggunakan sistem AI Agent yang telah diupgrade dengan kemampuan programming, multi-provider API, dan auto-failover.
+Panduan lengkap untuk menggunakan sistem AI Agent yang telah diupgrade menjadi **Advanced Code Assistant** seperti Manus AI, Suna AI dengan kemampuan programming, command execution, tool integration, dan multi-provider API.
 
 ## 🚀 Fitur Baru
 
@@ -25,6 +25,29 @@ Panduan lengkap untuk menggunakan sistem AI Agent yang telah diupgrade dengan ke
 - Rate limit management
 - Health monitoring semua endpoints
 - Load balancing cerdas
+
+### 4. **Advanced Command Execution Engine** 🆕
+- **Safe Execution**: Whitelist commands yang aman
+- **Interactive Mode**: Konfirmasi untuk command berbahaya
+- **Batch Processing**: Execute multiple commands
+- **History Tracking**: Log semua eksekusi command
+- **Working Directory**: Manage direktori kerja
+- **Tool Integration**: Git, Docker, AWS, npm, pip, dll
+
+### 5. **Smart Code Assistant Features** 🆕
+- **Real-time Code Execution**: Jalankan dan test kode langsung
+- **Project Setup Automation**: Buat project lengkap dengan struktur
+- **Dependency Management**: Install dan manage packages otomatis
+- **Multi-language Support**: 20+ bahasa programming
+- **Framework Integration**: React, Vue, Express, Django, Laravel, dll
+- **Build & Deploy**: Otomatis setup CI/CD dan deployment
+
+### 6. **Natural Language Understanding** 🆕
+- **Intent Recognition**: Pahami maksud user dari bahasa alami
+- **Context Awareness**: Ingat konteks percakapan sebelumnya
+- **Multi-step Planning**: Breakdown task kompleks jadi steps
+- **Error Recovery**: Auto-fix jika ada error
+- **Smart Suggestions**: Saran berdasarkan konteks project
 
 ## 📋 Setup dan Instalasi
 
