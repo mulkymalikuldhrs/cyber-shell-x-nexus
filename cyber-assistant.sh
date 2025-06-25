@@ -80,11 +80,11 @@ start_assistant() {
     
     # Set environment variables
     export CYBER_ASSISTANT_MODE=true
-    export NODE_ENV=production
+    export NODE_ENV=development
     export ASSISTANT_NAME="Cyber Assistant"
     
-    # Start the server
-    node server/cyber-assistant-server.js
+    # Start the server with AI Agent integration
+    npm run start
 }
 
 # Function to show AI status
