@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Heart, Coffee, Gift, Copy, Check } from 'lucide-react';
 import { Button } from './ui/button';
@@ -164,9 +165,13 @@ const DonationSection = () => {
                     alt={`${wallet.name} logo`}
                     className="w-6 h-6 object-contain"
                     onError={(e) => {
-                      // Fallback to text if image fails to load
-                      e.currentTarget.style.display = 'none';
-                      e.currentTarget.nextSibling.style.display = 'block';
+                      // Fixed TypeScript error with proper null checking and type assertion
+                      const target = e.currentTarget;
+                      const nextSibling = target.nextSibling as HTMLElement | null;
+                      if (nextSibling && 'style' in nextSibling) {
+                        target.style.display = 'none';
+                        nextSibling.style.display = 'block';
+                      }
                     }}
                   />
                   <span 

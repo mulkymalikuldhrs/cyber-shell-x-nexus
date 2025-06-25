@@ -91,8 +91,8 @@ export class SupabaseCommandService {
     // Calculate analytics
     const totalCommands = data.length
     const successRate = data.filter(cmd => cmd.success).length / totalCommands
-    const avgExecutionTime = data.reduce((sum, cmd) => sum + cmd.execution_time, 0) / totalCommands
-    const mostUsedCommands = this.calculateCommandFrequency(data.map(cmd => cmd.command))
+    const avgExecutionTime = data.reduce((sum: number, cmd: any) => sum + cmd.execution_time, 0) / totalCommands
+    const mostUsedCommands = this.calculateCommandFrequency(data.map((cmd: any) => cmd.command))
     
     return {
       totalCommands,
@@ -104,7 +104,7 @@ export class SupabaseCommandService {
   
   private calculateCommandFrequency(commands: string[]) {
     const frequency: Record<string, number> = {}
-    commands.forEach(cmd => {
+    commands.forEach((cmd: string) => {
       const baseCommand = cmd.split(' ')[0]
       frequency[baseCommand] = (frequency[baseCommand] || 0) + 1
     })
@@ -176,7 +176,7 @@ export class SupabaseRealtimeService {
           table: 'command_history',
           filter: `user_id=eq.${userId}`
         },
-        (payload) => callback(payload.new as CommandHistory)
+        (payload: any) => callback(payload.new as CommandHistory)
       )
       .subscribe()
   }
@@ -192,7 +192,7 @@ export class SupabaseRealtimeService {
           table: 'user_profiles',
           filter: `id=eq.${userId}`
         },
-        (payload) => callback(payload.new as UserProfile)
+        (payload: any) => callback(payload.new as UserProfile)
       )
       .subscribe()
   }
