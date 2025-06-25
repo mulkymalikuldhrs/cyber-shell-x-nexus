@@ -47,9 +47,9 @@ CyberShellX Nexus is an advanced cybersecurity platform featuring an AI-powered 
 
 ## Recent Changes
 - **December 2024**: Project structure reorganized with main launcher
-- Created `launcher.sh` as primary entry point with interactive and direct command modes
+- Created `launcher.sh` as primary entry point with numbered menu options (01-05)
 - Reorganized launcher files with clear hierarchy: launcher.sh > cyber.sh > start.sh > run.sh
-- Updated documentation to prioritize main launcher usage
+- Updated documentation to prioritize main launcher usage with numbered options
 - Repository update system configured to pull from official GitHub source
 - **December 2024**: Multi-API fallback system implemented
 - Added intelligent Gemini API switching with 4 endpoint fallback

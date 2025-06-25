@@ -7,11 +7,11 @@ Advanced cybersecurity platform with AI-powered assistant, interactive terminal 
 ### Main Launcher
 ```bash
 ./launcher.sh              # Interactive menu (recommended)
-./launcher.sh cli          # CLI interface
-./launcher.sh web          # Web server
-./launcher.sh android      # Android server
-./launcher.sh update       # Update system
-./launcher.sh status       # Health check
+./launcher.sh cli          # 01. CLI cybersecurity shell
+./launcher.sh web          # 02. Web server
+./launcher.sh android      # 03. Android voice assistant backend
+./launcher.sh update       # 04. Update system from GitHub
+./launcher.sh status       # 05. System health check
 ```
 
 Choose from:
