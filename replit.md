@@ -46,9 +46,10 @@ CyberShellX Nexus is an advanced cybersecurity platform featuring an AI-powered 
 - No client-side database access
 
 ## Recent Changes
-- **December 2024**: Quick start bash files implemented
-- Created `start.sh` for quick launcher and `cyber.sh` for command shortcuts
-- Added direct command access: `./cyber.sh [cli|web|android|update|status]`
+- **December 2024**: Project structure reorganized with main launcher
+- Created `launcher.sh` as primary entry point with interactive and direct command modes
+- Reorganized launcher files with clear hierarchy: launcher.sh > cyber.sh > start.sh > run.sh
+- Updated documentation to prioritize main launcher usage
 - Repository update system configured to pull from official GitHub source
 - **December 2024**: Multi-API fallback system implemented
 - Added intelligent Gemini API switching with 4 endpoint fallback
@@ -99,9 +100,9 @@ CyberShellX Nexus is an advanced cybersecurity platform featuring an AI-powered 
 - **Documentation**: Comprehensive guides available in project files
 
 ### 💻 Development Commands
-- Quick Start: `./cyber.sh` (recommended)
-- Interactive Launcher: `./run.sh` or `./start.sh`
-- Direct Commands: `./cyber.sh [cli|web|android|update|status]`
+- Main Launcher: `./launcher.sh` (recommended)
+- Direct Commands: `./launcher.sh [cli|web|android|update|status]`
+- Alternative: `./cyber.sh` or `./start.sh`
 - Development: `npm run dev` on port 5000
 - Database schema: `npm run db:push`
 

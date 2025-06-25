@@ -4,11 +4,14 @@ Advanced cybersecurity platform with AI-powered assistant, interactive terminal 
 
 ## Quick Start
 
-### Interactive Launcher
+### Main Launcher
 ```bash
-./run.sh           # Full interactive menu
-./start.sh         # Quick start launcher
-./cyber.sh         # Command-line shortcuts
+./launcher.sh              # Interactive menu (recommended)
+./launcher.sh cli          # CLI interface
+./launcher.sh web          # Web server
+./launcher.sh android      # Android server
+./launcher.sh update       # Update system
+./launcher.sh status       # Health check
 ```
 
 Choose from:
@@ -103,15 +106,15 @@ npm run db:push          # Apply schema changes
 npm run build           # Production build
 npm run start           # Production server
 
-# Quick start options
-./cyber.sh              # Command shortcuts (recommended)
-./start.sh              # Quick launcher
-./run.sh                # Full interactive menu
+# Main launcher (recommended)
+./launcher.sh           # Interactive menu
+./launcher.sh cli       # CLI interface only
+./launcher.sh web       # Web server only
+./launcher.sh status    # Health check
 
-# Direct access
-./cyber.sh cli          # CLI interface only
-./cyber.sh web          # Web server only
-./cyber.sh status       # Health check
+# Alternative launchers  
+./cyber.sh              # Command shortcuts
+./start.sh              # Quick launcher
 ```
 
 ## Support
