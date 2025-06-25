@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Assistant - AI Agent</title>
+    <meta name="description" content="Advanced AI Coding Assistant similar to Manus AI, Replit AI, Bolt AI">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117;
+            color: #f0f6fc;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 300px 1fr 350px;
+            grid-template-rows: 60px 1fr;
+            height: 100vh;
+            gap: 1px;
+            background: #21262d;
+        }
+
+        .header {
+            grid-column: 1 / -1;
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            padding: 0 1rem;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: #58a6ff;
+        }
+
+        .header-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 500px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            color: #f0f6fc;
+            font-size: 14px;
+        }
+
+        .search-bar::placeholder {
+            color: #7d8590;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 12px;
+            color: #7d8590;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ff6b6b;
+        }
+
+        .status-dot.connected {
+            background: #51cf66;
+        }
+
+        .sidebar {
+            background: #161b22;
+            border-right: 1px solid #30363d;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            border-bottom: 1px solid #30363d;
+        }
+
+        .sidebar-section h3 {
+            padding: 1rem;
+            font-size: 12px;
+            font-weight: 600;
+            color: #7d8590;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 14px;
+        }
+
+        .sidebar-item:hover {
+            background: #21262d;
+            border-left-color: #58a6ff;
+        }
+
+        .sidebar-item.active {
+            background: #1f2937;
+            border-left-color: #58a6ff;
+            color: #58a6ff;
+        }
+
+        .sidebar-item .icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.7;
+        }
+
+        .main-content {
+            background: #0d1117;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .tabs {
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+            display: flex;
+            align-items: center;
+            gap: 1px;
+            padding: 0 1rem;
+            min-height: 45px;
+        }
+
+        .tab {
+            background: #21262d;
+            border: none;
+            color: #7d8590;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 6px 6px 0 0;
+            font-size: 13px;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            background: #30363d;
+            color: #f0f6fc;
+        }
+
+        .tab.active {
+            background: #0d1117;
+            color: #f0f6fc;
+        }
+
+        .tab .close {
+            margin-left: 0.5rem;
+            opacity: 0.6;
+            cursor: pointer;
+        }
+
+        .tab .close:hover {
+            opacity: 1;
+        }
+
+        .editor-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .editor {
+            flex: 1;
+            background: #0d1117;
+            border: none;
+            color: #f0f6fc;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 1rem;
+            resize: none;
+            outline: none;
+            overflow-y: auto;
+        }
+
+        .editor::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .editor::-webkit-scrollbar-track {
+            background: #161b22;
+        }
+
+        .editor::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 4px;
+        }
+
+        .editor::-webkit-scrollbar-thumb:hover {
+            background: #484f58;
+        }
+
+        .execution-panel {
+            background: #161b22;
+            border-top: 1px solid #30363d;
+            height: 200px;
+            overflow-y: auto;
+            padding: 1rem;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 13px;
+        }
+
+        .execution-output {
+            white-space: pre-wrap;
+            margin-bottom: 1rem;
+        }
+
+        .execution-output.success {
+            color: #51cf66;
+        }
+
+        .execution-output.error {
+            color: #ff6b6b;
+        }
+
+        .ai-panel {
+            background: #161b22;
+            border-left: 1px solid #30363d;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .ai-chat {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 90%;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: #58a6ff;
+            color: white;
+        }
+
+        .message.assistant {
+            align-self: flex-start;
+            background: #21262d;
+            border: 1px solid #30363d;
+        }
+
+        .message.system {
+            align-self: center;
+            background: #1f2937;
+            color: #7d8590;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .ai-input {
+            border-top: 1px solid #30363d;
+            padding: 1rem;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-end;
+        }
+
+        .input-field {
+            flex: 1;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #f0f6fc;
+            padding: 0.75rem;
+            resize: none;
+            min-height: 20px;
+            max-height: 120px;
+            font-size: 14px;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+
+        .btn {
+            background: #238636;
+            border: none;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #2ea043;
+        }
+
+        .btn:disabled {
+            background: #484f58;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #f0f6fc;
+        }
+
+        .btn-secondary:hover {
+            background: #30363d;
+        }
+
+        .btn-danger {
+            background: #da3633;
+        }
+
+        .btn-danger:hover {
+            background: #e5534b;
+        }
+
+        .toolbar {
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-right: 1rem;
+        }
+
+        .toolbar-btn {
+            background: transparent;
+            border: 1px solid #30363d;
+            color: #7d8590;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .toolbar-btn:hover {
+            background: #21262d;
+            color: #f0f6fc;
+        }
+
+        .toolbar-btn.active {
+            background: #58a6ff;
+            color: white;
+            border-color: #58a6ff;
+        }
+
+        .project-explorer {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .file-tree {
+            list-style: none;
+        }
+
+        .file-tree li {
+            padding: 0.25rem 0;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .file-item:hover {
+            background: #21262d;
+        }
+
+        .file-item.active {
+            background: #1f2937;
+            color: #58a6ff;
+        }
+
+        .loading {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #7d8590;
+            font-size: 12px;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #30363d;
+            border-top: 2px solid #58a6ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .code-suggestions {
+            background: #1f2937;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .suggestion-header {
+            background: #2d3748;
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+            font-size: 13px;
+            color: #58a6ff;
+        }
+
+        .suggestion-content {
+            padding: 1rem;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            background: #0d1117;
+        }
+
+        .suggestion-actions {
+            padding: 0.75rem 1rem;
+            display: flex;
+            gap: 0.5rem;
+            background: #1f2937;
+            border-top: 1px solid #30363d;
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 60px 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .ai-panel {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    🤖 Cyber Assistant
+                </div>
+            </div>
+            <div class="header-center">
+                <input type="text" class="search-bar" placeholder="Ask me anything or describe what you want to build..." id="global-search">
+            </div>
+            <div class="header-right">
+                <div class="status-indicator">
+                    <div class="status-dot" id="connection-status"></div>
+                    <span id="status-text">Connecting...</span>
+                </div>
+            </div>
+        </header>
+
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>Projects</h3>
+                <div class="project-explorer" id="project-explorer">
+                    <div class="sidebar-item" onclick="createNewProject()">
+                        <span class="icon">📁</span>
+                        <span>New Project</span>
+                    </div>
+                    <div id="project-list"></div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Tools</h3>
+                <div class="sidebar-item" onclick="switchTool('code-generator')">
+                    <span class="icon">🎯</span>
+                    <span>Code Generator</span>
+                </div>
+                <div class="sidebar-item" onclick="switchTool('debugger')">
+                    <span class="icon">🐛</span>
+                    <span>AI Debugger</span>
+                </div>
+                <div class="sidebar-item" onclick="switchTool('optimizer')">
+                    <span class="icon">⚡</span>
+                    <span>Code Optimizer</span>
+                </div>
+                <div class="sidebar-item" onclick="switchTool('explainer')">
+                    <span class="icon">📖</span>
+                    <span>Code Explainer</span>
+                </div>
+                <div class="sidebar-item" onclick="switchTool('terminal')">
+                    <span class="icon">💻</span>
+                    <span>Terminal</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Templates</h3>
+                <div class="sidebar-item" onclick="createFromTemplate('react')">
+                    <span class="icon">⚛️</span>
+                    <span>React App</span>
+                </div>
+                <div class="sidebar-item" onclick="createFromTemplate('express')">
+                    <span class="icon">🚀</span>
+                    <span>Express API</span>
+                </div>
+                <div class="sidebar-item" onclick="createFromTemplate('python')">
+                    <span class="icon">🐍</span>
+                    <span>Python Script</span>
+                </div>
+                <div class="sidebar-item" onclick="createFromTemplate('html')">
+                    <span class="icon">🌐</span>
+                    <span>HTML/CSS/JS</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="toolbar">
+                <div class="toolbar-group">
+                    <button class="toolbar-btn active" onclick="setLanguage('javascript')">JavaScript</button>
+                    <button class="toolbar-btn" onclick="setLanguage('python')">Python</button>
+                    <button class="toolbar-btn" onclick="setLanguage('typescript')">TypeScript</button>
+                    <button class="toolbar-btn" onclick="setLanguage('html')">HTML</button>
+                    <button class="toolbar-btn" onclick="setLanguage('css')">CSS</button>
+                </div>
+                <div class="toolbar-group">
+                    <button class="toolbar-btn" onclick="runCode()">▶️ Run</button>
+                    <button class="toolbar-btn" onclick="formatCode()">🎨 Format</button>
+                    <button class="toolbar-btn" onclick="saveFile()">💾 Save</button>
+                    <button class="toolbar-btn" onclick="shareCode()">🔗 Share</button>
+                </div>
+            </div>
+
+            <div class="tabs" id="file-tabs">
+                <div class="tab active" data-file="main.js">
+                    main.js
+                    <span class="close" onclick="closeTab('main.js')">&times;</span>
+                </div>
+            </div>
+
+            <div class="editor-container">
+                <textarea class="editor" id="code-editor" placeholder="// Start coding or ask AI to generate code for you
+// Example: 'Create a React component for a todo list'
+
+function helloWorld() {
+    console.log('Hello from Cyber Assistant!');
+    return 'Welcome to the future of coding!';
+}
+
+helloWorld();"></textarea>
+            </div>
+
+            <div class="execution-panel" id="execution-panel">
+                <div class="execution-output">
+                    <strong>🚀 Ready to execute code</strong><br>
+                    Click "Run" to execute your code or ask AI to help you build something amazing!
+                </div>
+            </div>
+        </main>
+
+        <aside class="ai-panel">
+            <div class="ai-chat" id="ai-chat">
+                <div class="message system">
+                    🤖 Cyber Assistant AI is ready! I can help you:
+                    <br>• Generate code in any language
+                    <br>• Debug and fix errors
+                    <br>• Create complete projects
+                    <br>• Explain complex code
+                    <br>• Optimize performance
+                </div>
+            </div>
+
+            <div class="ai-input">
+                <div class="input-container">
+                    <textarea 
+                        class="input-field" 
+                        id="ai-input" 
+                        placeholder="Ask me to create, debug, or explain code..."
+                        onkeydown="handleAIInput(event)"
+                    ></textarea>
+                    <button class="btn" onclick="sendAIMessage()" id="send-btn">Send</button>
+                </div>
+                <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem;">
+                    <button class="btn-secondary" onclick="quickAction('generate')">🎯 Generate</button>
+                    <button class="btn-secondary" onclick="quickAction('debug')">🐛 Debug</button>
+                    <button class="btn-secondary" onclick="quickAction('explain')">📖 Explain</button>
+                    <button class="btn-secondary" onclick="quickAction('optimize')">⚡ Optimize</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Global state
+        let currentProject = null;
+        let currentFile = 'main.js';
+        let currentLanguage = 'javascript';
+        let ws = null;
+        let isConnected = false;
+
+        // Initialize WebSocket connection
+        function initWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}`;
+            
+            ws = new WebSocket(wsUrl);
+            
+            ws.onopen = function() {
+                updateConnectionStatus(true);
+                addAIMessage('🟢 Connected to Cyber Assistant AI', 'system');
+            };
+            
+            ws.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                handleWebSocketMessage(data);
+            };
+            
+            ws.onclose = function() {
+                updateConnectionStatus(false);
+                addAIMessage('🔴 Connection lost. Attempting to reconnect...', 'system');
+                setTimeout(initWebSocket, 3000);
+            };
+            
+            ws.onerror = function(error) {
+                console.error('WebSocket error:', error);
+                updateConnectionStatus(false);
+            };
+        }
+
+        function updateConnectionStatus(connected) {
+            isConnected = connected;
+            const statusDot = document.getElementById('connection-status');
+            const statusText = document.getElementById('status-text');
+            
+            if (connected) {
+                statusDot.classList.add('connected');
+                statusText.textContent = 'Connected';
+            } else {
+                statusDot.classList.remove('connected');
+                statusText.textContent = 'Disconnected';
+            }
+        }
+
+        function handleWebSocketMessage(data) {
+            switch (data.type) {
+                case 'code_generated':
+                    handleCodeGenerated(data);
+                    break;
+                case 'code_executed':
+                    handleCodeExecuted(data);
+                    break;
+                case 'project_created':
+                    handleProjectCreated(data);
+                    break;
+                case 'ai_response':
+                    addAIMessage(data.message, 'assistant');
+                    break;
+                case 'error':
+                    addAIMessage('❌ ' + data.message, 'system');
+                    break;
+            }
+        }
+
+        function handleCodeGenerated(data) {
+            const editor = document.getElementById('code-editor');
+            editor.value = data.code;
+            addAIMessage(`✅ Generated ${data.language} code: ${data.filename}`, 'assistant');
+            if (data.explanation) {
+                addAIMessage(data.explanation, 'assistant');
+            }
+        }
+
+        function handleCodeExecuted(data) {
+            const panel = document.getElementById('execution-panel');
+            const output = document.createElement('div');
+            output.className = `execution-output ${data.success ? 'success' : 'error'}`;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            output.innerHTML = `<strong>[${timestamp}] Execution ${data.success ? 'completed' : 'failed'} (${data.duration}ms)</strong><br>${data.output || ''}${data.error ? '<br><span style="color: #ff6b6b;">Error: ' + data.error + '</span>' : ''}`;
+            
+            panel.appendChild(output);
+            panel.scrollTop = panel.scrollHeight;
+        }
+
+        function handleProjectCreated(data) {
+            addAIMessage(`🎉 Created new ${data.type} project: ${data.name}`, 'assistant');
+            loadProject(data.projectId);
+        }
+
+        // AI Chat functionality
+        function addAIMessage(content, type) {
+            const chat = document.getElementById('ai-chat');
+            const message = document.createElement('div');
+            message.className = `message ${type}`;
+            message.innerHTML = content;
+            chat.appendChild(message);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function sendAIMessage() {
+            const input = document.getElementById('ai-input');
+            const message = input.value.trim();
+            
+            if (message && isConnected) {
+                addAIMessage(message, 'user');
+                input.value = '';
+                
+                // Send to AI
+                ws.send(JSON.stringify({
+                    type: 'ai_request',
+                    message: message,
+                    context: {
+                        currentCode: document.getElementById('code-editor').value,
+                        language: currentLanguage,
+                        file: currentFile
+                    }
+                }));
+                
+                addAIMessage('🤔 Thinking...', 'system');
+            }
+        }
+
+        function handleAIInput(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendAIMessage();
+            }
+        }
+
+        function quickAction(action) {
+            const code = document.getElementById('code-editor').value;
+            let message = '';
+            
+            switch (action) {
+                case 'generate':
+                    message = 'Generate a complete, functional code example based on the current context';
+                    break;
+                case 'debug':
+                    message = 'Debug this code and fix any errors or issues';
+                    break;
+                case 'explain':
+                    message = 'Explain this code step by step and describe what it does';
+                    break;
+                case 'optimize':
+                    message = 'Optimize this code for better performance and best practices';
+                    break;
+            }
+            
+            document.getElementById('ai-input').value = message;
+            sendAIMessage();
+        }
+
+        // Code execution
+        function runCode() {
+            const code = document.getElementById('code-editor').value;
+            
+            if (isConnected) {
+                ws.send(JSON.stringify({
+                    type: 'execute_code',
+                    code: code,
+                    language: currentLanguage,
+                    filename: currentFile
+                }));
+                
+                addAIMessage(`🚀 Executing ${currentLanguage} code...`, 'system');
+            } else {
+                addAIMessage('❌ Not connected to server', 'system');
+            }
+        }
+
+        // Project management
+        function createNewProject() {
+            const name = prompt('Project name:');
+            if (name) {
+                const type = prompt('Project type (web/backend/mobile/ai/blockchain):') || 'web';
+                const framework = prompt('Framework (optional):') || '';
+                
+                if (isConnected) {
+                    ws.send(JSON.stringify({
+                        type: 'create_project',
+                        name: name,
+                        projectType: type,
+                        framework: framework
+                    }));
+                }
+            }
+        }
+
+        function createFromTemplate(template) {
+            const name = prompt(`${template.charAt(0).toUpperCase() + template.slice(1)} project name:`);
+            if (name && isConnected) {
+                ws.send(JSON.stringify({
+                    type: 'create_project',
+                    name: name,
+                    projectType: template === 'react' ? 'web' : template === 'express' ? 'backend' : 'web',
+                    framework: template
+                }));
+            }
+        }
+
+        function loadProject(projectId) {
+            currentProject = projectId;
+            // Load project files and update UI
+            if (isConnected) {
+                ws.send(JSON.stringify({
+                    type: 'load_project',
+                    projectId: projectId
+                }));
+            }
+        }
+
+        // File management
+        function saveFile() {
+            const code = document.getElementById('code-editor').value;
+            
+            if (isConnected && currentProject) {
+                ws.send(JSON.stringify({
+                    type: 'save_file',
+                    projectId: currentProject,
+                    filename: currentFile,
+                    content: code
+                }));
+                
+                addAIMessage(`💾 Saved ${currentFile}`, 'system');
+            }
+        }
+
+        function closeTab(filename) {
+            // Close tab logic
+            console.log('Closing tab:', filename);
+        }
+
+        // Language switching
+        function setLanguage(language) {
+            currentLanguage = language;
+            
+            // Update toolbar buttons
+            document.querySelectorAll('.toolbar-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update editor for language
+            const editor = document.getElementById('code-editor');
+            const placeholders = {
+                javascript: '// JavaScript code here\nconsole.log("Hello World!");',
+                python: '# Python code here\nprint("Hello World!")',
+                typescript: '// TypeScript code here\nconst message: string = "Hello World!";\nconsole.log(message);',
+                html: '<!-- HTML code here -->\n<h1>Hello World!</h1>',
+                css: '/* CSS code here */\nbody {\n    font-family: Arial, sans-serif;\n}'
+            };
+            
+            if (editor.value === '' || editor.value === editor.getAttribute('placeholder')) {
+                editor.value = placeholders[language] || '';
+            }
+        }
+
+        function formatCode() {
+            // Code formatting logic
+            addAIMessage('🎨 Code formatted', 'system');
+        }
+
+        function shareCode() {
+            // Code sharing logic
+            const code = document.getElementById('code-editor').value;
+            navigator.clipboard.writeText(code).then(() => {
+                addAIMessage('🔗 Code copied to clipboard', 'system');
+            });
+        }
+
+        function switchTool(tool) {
+            // Tool switching logic
+            addAIMessage(`🔧 Switched to ${tool}`, 'system');
+        }
+
+        // Global search
+        document.getElementById('global-search').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                const query = this.value.trim();
+                if (query) {
+                    document.getElementById('ai-input').value = query;
+                    sendAIMessage();
+                    this.value = '';
+                }
+            }
+        });
+
+        // Initialize when page loads
+        window.addEventListener('load', function() {
+            initWebSocket();
+            
+            // Auto-focus on AI input
+            document.getElementById('ai-input').focus();
+            
+            // Load initial state
+            addAIMessage('🚀 Welcome to Cyber Assistant AI! I\'m ready to help you code anything.', 'assistant');
+        });
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && (!ws || ws.readyState !== WebSocket.OPEN)) {
+                initWebSocket();
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey || event.metaKey) {
+                switch (event.key) {
+                    case 's':
+                        event.preventDefault();
+                        saveFile();
+                        break;
+                    case 'Enter':
+                        event.preventDefault();
+                        runCode();
+                        break;
+                    case '/':
+                        event.preventDefault();
+                        document.getElementById('ai-input').focus();
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { Terminal, Brain, Shield, Zap, Database, Cloud, Cpu, BarChart3, Globe, Code } from 'lucide-react';
+import { Terminal, Brain, Shield, Zap, Database, Cloud, Cpu, BarChart3, Globe, Code, Settings } from 'lucide-react';
 import TerminalInterface from '../components/TerminalInterface';
 import CyberShellXTerminal from '../components/CyberShellXTerminal';
+import AIProviderManager from '../components/AIProviderManager';
 import FeatureCard from '../components/FeatureCard';
 import Hero from '../components/Hero';
 import GitHubSection from '../components/GitHubSection';
@@ -88,7 +89,7 @@ const Index = () => {
               </p>
               
               <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
+                <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-3 mb-8">
                   <TabsTrigger value="demo" className="flex items-center space-x-2">
                     <Globe className="w-4 h-4" />
                     <span>Demo Mode</span>
@@ -96,6 +97,10 @@ const Index = () => {
                   <TabsTrigger value="live" className="flex items-center space-x-2">
                     <Code className="w-4 h-4" />
                     <span>Live Terminal</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="ai-agent" className="flex items-center space-x-2">
+                    <Brain className="w-4 h-4" />
+                    <span>AI Agent</span>
                   </TabsTrigger>
                 </TabsList>
                 
@@ -115,6 +120,15 @@ const Index = () => {
                     </p>
                   </div>
                   <CyberShellXTerminal />
+                </TabsContent>
+                
+                <TabsContent value="ai-agent">
+                  <div className="text-center mb-6">
+                    <p className="text-gray-400">
+                      Advanced AI agent with programming capabilities and multi-provider support
+                    </p>
+                  </div>
+                  <AIProviderManager />
                 </TabsContent>
               </Tabs>
             </div>
