@@ -107,22 +107,39 @@ while true; do
             ;;
         "02"|"2")
             echo ""
-            echo "🌐 Starting AI Agent Web Dashboard..."
-            echo "Advanced web interface with multi-provider support"
+            echo "🌐 Starting Web Server (Offline Mode)..."
+            echo "Termux-compatible web interface without TypeScript compilation"
             echo "Access at: http://localhost:5000"
             echo ""
             echo "Features:"
-            echo "  🤖 AI Agent Control Center"
-            echo "  📊 Real-time API provider monitoring"
-            echo "  💬 Interactive chat with AI assistant"
-            echo "  🔧 Dynamic API key management"
-            echo "  📝 Task history and execution logs"
+            echo "  🛡️ Offline cybersecurity interface"
+            echo "  📊 System status monitoring"
+            echo "  💻 Web-based terminal access"
+            echo "  📱 Termux-optimized design"
+            echo "  ⚡ No native binding dependencies"
             echo ""
-            echo "🆓 Pre-configured APIs ready to use!"
             echo "Press Ctrl+C to stop"
             echo ""
-            check_build_script
-            npm run dev
+            if [ -f "server/index.js" ]; then
+                echo "🚀 Starting offline web server..."
+                node server/index.js
+            else
+                echo "❌ Offline server not found. Setting up..."
+                ./termux-offline-setup.sh
+                if [ -f "server/index.js" ]; then
+                    node server/index.js
+                else
+                    echo "❌ Setup failed. Using basic server..."
+                    node -e "
+const http = require('http');
+const server = http.createServer((req, res) => {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.end('<h1>CyberShellX Offline</h1><p>Use CLI: node cli-interface.js</p>');
+});
+server.listen(5000, () => console.log('Basic server on http://localhost:5000'));
+"
+                fi
+            fi
             break
             ;;
         "03"|"3")

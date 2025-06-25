@@ -41,17 +41,55 @@ case $choice in
         
     2)
         echo ""
-        echo "🌐 Starting Web Server (Desktop/Laptop)..."
+        echo "🌐 Starting Web Server (Offline Mode)..."
         echo "───────────────────────────────────────"
         echo ""
-        echo "Full-featured web interface with AI enhancement"
-        echo "Perfect for desktop and laptop usage"
+        echo "Termux-compatible web interface"
+        echo "Perfect for offline usage without native dependencies"
         echo ""
         echo "Server starting on port 5000..."
         echo "Access at: http://localhost:5000"
         echo "Press Ctrl+C to stop"
         echo ""
-        npm run dev
+        if [ -f "server/index.js" ]; then
+            echo "🚀 Starting offline server..."
+            node server/index.js
+        else
+            echo "⚠️ Offline server not found. Setting up..."
+            ./termux-offline-setup.sh
+            if [ -f "server/index.js" ]; then
+                node server/index.js
+            else
+                echo "Using basic fallback server..."
+                node -e "
+const http = require('http');
+const server = http.createServer((req, res) => {
+  if (req.url === '/') {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.end(\`
+<!DOCTYPE html>
+<html><head><title>CyberShellX Offline</title>
+<style>body{font-family:monospace;background:#000;color:#0f0;padding:20px}</style>
+</head><body>
+<h1>🛡️ CyberShellX Nexus - Offline Mode</h1>
+<p>✅ Server running successfully</p>
+<p>💻 CLI Interface: <code>node cli-interface.js</code></p>
+<p>🌐 This is a basic fallback server</p>
+<p>🔧 Run <code>./termux-offline-setup.sh</code> for full interface</p>
+</body></html>
+\`);
+  } else if (req.url === '/api/status') {
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end(JSON.stringify({status:'offline',mode:'fallback',timestamp:new Date()}));
+  } else {
+    res.writeHead(404);
+    res.end('Not Found');
+  }
+});
+server.listen(5000, () => console.log('🌐 Fallback server running on http://localhost:5000'));
+"
+            fi
+        fi
         ;;
         
     3)

@@ -1,4 +1,3 @@
-
 // Fix build script untuk CyberShellX
 import fs from 'fs';
 import path from 'path';
@@ -22,32 +21,32 @@ try {
 
 // Tambahkan script build:dev jika belum ada
 if (!packageJson.scripts['build:dev']) {
-  packageJson.scripts['build:dev'] = 'vite build --mode development';
-  console.log('✅ Menambahkan script build:dev');
+  packageJson.scripts['build:dev'] = 'echo "Build not needed for offline mode"';
+  console.log('✅ Menambahkan script build:dev (offline mode)');
 }
 
-// Pastikan script lain ada
-const requiredScripts = {
-  'dev': 'tsx watch server/index.ts',
-  'build': 'vite build',
-  'start': 'node dist/server/index.js',
-  'db:push': 'drizzle-kit push'
+// Script untuk offline mode
+const offlineScripts = {
+  'dev': 'node server/index.js',
+  'offline': 'node cli-interface.js',
+  'cli': 'node cli-interface.js',
+  'start': 'node server/index.js',
+  'build': 'echo "Build not needed for offline mode"',
+  'build:dev': 'echo "Build not needed for offline mode"'
 };
 
-Object.entries(requiredScripts).forEach(([key, value]) => {
-  if (!packageJson.scripts[key]) {
-    packageJson.scripts[key] = value;
-    console.log(`✅ Menambahkan script ${key}`);
-  }
+Object.entries(offlineScripts).forEach(([key, value]) => {
+  packageJson.scripts[key] = value;
+  console.log(`✅ Updated script ${key} for offline mode`);
 });
 
 // Tulis kembali package.json
 try {
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-  console.log('✅ package.json berhasil diperbarui');
+  console.log('✅ package.json berhasil diperbarui untuk offline mode');
 } catch (error) {
   console.error('❌ Gagal menulis package.json:', error.message);
   process.exit(1);
 }
 
-console.log('🚀 Konfigurasi build selesai diperbaiki!');
+console.log('🚀 Konfigurasi offline mode selesai diperbaiki!');
