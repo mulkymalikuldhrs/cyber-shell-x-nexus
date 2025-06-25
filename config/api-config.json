@@ -44,7 +44,16 @@
       "base_url": "https://api.groq.com/openai/v1",
       "endpoints": [
         {
-          "name": "Groq Llama 3.3",
+          "name": "Primary Groq API",
+          "api_key": "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",
+          "model": "llama-3.3-70b-versatile",
+          "max_tokens": 32768,
+          "rate_limit": 30,
+          "free_tier": true,
+          "free_limit": "6000 tokens/min"
+        },
+        {
+          "name": "Groq Llama 3.3 (Env)",
           "api_key": "${GROQ_API_KEY}",
           "model": "llama-3.3-70b-versatile",
           "max_tokens": 32768,
@@ -115,7 +124,25 @@
       "base_url": "https://openrouter.ai/api/v1",
       "endpoints": [
         {
-          "name": "OpenRouter Llama 3.1 Free",
+          "name": "Primary OpenRouter API 1",
+          "api_key": "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",
+          "model": "meta-llama/llama-3.1-8b-instruct:free",
+          "max_tokens": 8192,
+          "rate_limit": 25,
+          "free_tier": true,
+          "cost": "Free"
+        },
+        {
+          "name": "Primary OpenRouter API 2",
+          "api_key": "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",
+          "model": "meta-llama/llama-3.1-8b-instruct:free",
+          "max_tokens": 8192,
+          "rate_limit": 25,
+          "free_tier": true,
+          "cost": "Free"
+        },
+        {
+          "name": "OpenRouter Llama 3.1 Free (Env)",
           "api_key": "${OPENROUTER_API_KEY}",
           "model": "meta-llama/llama-3.1-8b-instruct:free",
           "max_tokens": 8192,

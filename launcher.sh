@@ -75,12 +75,12 @@ esac
 # Interactive menu
 echo "Select component to run:"
 echo ""
-echo "01. CLI Cybersecurity Shell"
-echo "02. Web Server (Desktop/Mobile)"  
-echo "03. Android Voice Assistant Backend"
-echo "04. Update System from GitHub"
-echo "05. System Health Check"
-echo "00. Exit"
+echo "01. 🤖 AI Agent CLI Interface (Enhanced)"
+echo "02. 🌐 AI Agent Web Dashboard (Multi-Provider)"  
+echo "03. 📱 Android Voice Assistant Backend"
+echo "04. 🔄 Update System from GitHub"
+echo "05. 🔍 System Health Check (API Status)"
+echo "00. ❌ Exit"
 echo ""
 
 while true; do
@@ -89,21 +89,36 @@ while true; do
     case $choice in
         "01"|"1")
             echo ""
-            echo "🖥️  Starting CLI Cybersecurity Shell..."
-            echo "Enhanced terminal with AI integration"
+            echo "🤖 Starting AI Agent CLI Interface..."
+            echo "Advanced code assistant with command execution"
+            echo "Features: Programming mode, Cybersecurity mode, Command execution"
             echo ""
             check_build_script
             if [ -f "cli-interface.js" ]; then
+                echo "🆓 Pre-configured APIs: Groq, OpenRouter (Ready to use)"
+                echo "💡 Type 'mode programming' for code assistant"
+                echo "💡 Type 'status' to check API providers"
+                echo ""
                 node cli-interface.js
             else
-                echo "CLI interface not found!"
+                echo "❌ CLI interface not found!"
             fi
             break
             ;;
         "02"|"2")
             echo ""
-            echo "🌐 Starting Web Server..."
+            echo "🌐 Starting AI Agent Web Dashboard..."
+            echo "Advanced web interface with multi-provider support"
             echo "Access at: http://localhost:5000"
+            echo ""
+            echo "Features:"
+            echo "  🤖 AI Agent Control Center"
+            echo "  📊 Real-time API provider monitoring"
+            echo "  💬 Interactive chat with AI assistant"
+            echo "  🔧 Dynamic API key management"
+            echo "  📝 Task history and execution logs"
+            echo ""
+            echo "🆓 Pre-configured APIs ready to use!"
             echo "Press Ctrl+C to stop"
             echo ""
             check_build_script
