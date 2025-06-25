@@ -87,7 +87,7 @@ CyberShellX Nexus is an advanced cybersecurity platform featuring an AI-powered 
 - Wants Android voice assistant GUI to replace Google Assistant/Siri
 - Prefers voice-activated AI assistant functionality with wake word detection
 - User name: Mulky Malikul Dhaher (to be displayed in Android app)
-- GitHub repository: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus
+- GitHub repository: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus (primary source for updates)
 - Donation support via Indonesian e-wallets with phone +6285322624048
 - Needs SSH connection assistance for Termux installation fixes
 

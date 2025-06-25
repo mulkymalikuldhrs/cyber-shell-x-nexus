@@ -93,3 +93,4 @@ pkg install nodejs
 For persistent issues:
 - GitHub Issues: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/issues
 - Review documentation in `/docs` folder
+- Ensure updates pull from official repository: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus
