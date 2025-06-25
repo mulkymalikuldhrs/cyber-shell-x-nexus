@@ -1,0 +1,2 @@
+[2025-06-25T19:05:16.239Z] server_start: {"port":5000,"assistant":"Cyber Assistant","capabilities":{"natural_language":true,"voice_input":true,"command_execution":true,"code_generation":true,"auto_fix":true,"multi_agent":true,"automation":true}}
+[2025-06-25T19:06:03.848Z] server_stop: {"reason":"SIGINT"}

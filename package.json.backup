@@ -1,0 +1,26 @@
+{
+  "name": "cybershellx-nexus",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node server/index.js",
+    "dev-ts": "npx tsx server/index.ts",
+    "build": "echo 'Build not needed for offline mode'",
+    "build:dev": "echo 'Build not needed for offline mode'",
+    "start": "node server/index.js",
+    "offline": "node cli-interface.js",
+    "cli": "node cli-interface.js",
+    "health": "node scripts/health-check.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "fs": "^0.0.1-security",
+    "node-fetch": "^3.3.2",
+    "path": "^0.12.7",
+    "ws": "^8.18.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

@@ -1,13 +1,15 @@
 {
-  "name": "rest-express",
+  "name": "cyber-assistant",
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
   "scripts": {
     "dev": "tsx watch server/index.ts",
+    "start": "tsx server/index.ts",
     "build": "vite build",
     "build:dev": "vite build --mode development",
-    "start": "node dist/server/index.js",
+    "cli": "node cli-interface.js",
+    "health": "node scripts/health-check.js",
     "db:push": "drizzle-kit push"
   },
   "dependencies": {

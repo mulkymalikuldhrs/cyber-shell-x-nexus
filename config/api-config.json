@@ -1,0 +1,272 @@
+{
+  "providers": {
+    "gemini": {
+      "name": "Google Gemini",
+      "type": "gemini",
+      "enabled": true,
+      "priority": 1,
+      "endpoints": [
+        {
+          "name": "Primary Gemini",
+          "api_key": "${GOOGLE_API_KEY}",
+          "model": "gemini-2.5-flash",
+          "max_tokens": 8192,
+          "rate_limit": 60
+        },
+        {
+          "name": "Secondary Gemini",
+          "api_key": "${GOOGLE_API_KEY_2}",
+          "model": "gemini-2.5-flash",
+          "max_tokens": 8192,
+          "rate_limit": 60
+        },
+        {
+          "name": "Backup Gemini 1",
+          "api_key": "AIzaSyCc3TWic2gxabcsgL0h466WPBFeXBbH5O4",
+          "model": "gemini-2.5-flash",
+          "max_tokens": 8192,
+          "rate_limit": 60
+        },
+        {
+          "name": "Backup Gemini 2",
+          "api_key": "AIzaSyCisocH9ZcQQ9Hm6HrVnkwIpnlH7nz1v0M",
+          "model": "gemini-2.5-flash",
+          "max_tokens": 8192,
+          "rate_limit": 60
+        }
+      ]
+    },
+    "groq": {
+      "name": "Groq (Free & Fast)",
+      "type": "openai",
+      "enabled": true,
+      "priority": 2,
+      "base_url": "https://api.groq.com/openai/v1",
+      "endpoints": [
+        {
+          "name": "Primary Groq API",
+          "api_key": "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",
+          "model": "llama-3.3-70b-versatile",
+          "max_tokens": 32768,
+          "rate_limit": 30,
+          "free_tier": true,
+          "free_limit": "6000 tokens/min"
+        },
+        {
+          "name": "Groq Llama 3.3 (Env)",
+          "api_key": "${GROQ_API_KEY}",
+          "model": "llama-3.3-70b-versatile",
+          "max_tokens": 32768,
+          "rate_limit": 30,
+          "free_tier": true,
+          "free_limit": "6000 tokens/min"
+        },
+        {
+          "name": "Groq Llama 3.1",
+          "api_key": "${GROQ_API_KEY}",
+          "model": "llama-3.1-70b-versatile",
+          "max_tokens": 32768,
+          "rate_limit": 30,
+          "free_tier": true,
+          "free_limit": "6000 tokens/min"
+        },
+        {
+          "name": "Groq Mixtral",
+          "api_key": "${GROQ_API_KEY}",
+          "model": "mixtral-8x7b-32768",
+          "max_tokens": 32768,
+          "rate_limit": 30,
+          "free_tier": true,
+          "free_limit": "5000 tokens/min"
+        }
+      ]
+    },
+    "huggingface": {
+      "name": "Hugging Face (Free)",
+      "type": "openai",
+      "enabled": true,
+      "priority": 3,
+      "base_url": "https://api-inference.huggingface.co/v1",
+      "endpoints": [
+        {
+          "name": "HF Qwen 2.5 Coder",
+          "api_key": "${HUGGINGFACE_API_KEY}",
+          "model": "Qwen/Qwen2.5-Coder-32B-Instruct",
+          "max_tokens": 32768,
+          "rate_limit": 20,
+          "free_tier": true,
+          "speciality": "coding"
+        },
+        {
+          "name": "HF CodeLlama",
+          "api_key": "${HUGGINGFACE_API_KEY}",
+          "model": "codellama/CodeLlama-34b-Instruct-hf",
+          "max_tokens": 16384,
+          "rate_limit": 20,
+          "free_tier": true,
+          "speciality": "coding"
+        },
+        {
+          "name": "HF Mixtral",
+          "api_key": "${HUGGINGFACE_API_KEY}",
+          "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+          "max_tokens": 32768,
+          "rate_limit": 20,
+          "free_tier": true
+        }
+      ]
+    },
+    "openrouter": {
+      "name": "OpenRouter (Free Credits)",
+      "type": "openai", 
+      "enabled": true,
+      "priority": 4,
+      "base_url": "https://openrouter.ai/api/v1",
+      "endpoints": [
+        {
+          "name": "Primary OpenRouter API 1",
+          "api_key": "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",
+          "model": "meta-llama/llama-3.1-8b-instruct:free",
+          "max_tokens": 8192,
+          "rate_limit": 25,
+          "free_tier": true,
+          "cost": "Free"
+        },
+        {
+          "name": "Primary OpenRouter API 2",
+          "api_key": "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",
+          "model": "meta-llama/llama-3.1-8b-instruct:free",
+          "max_tokens": 8192,
+          "rate_limit": 25,
+          "free_tier": true,
+          "cost": "Free"
+        },
+        {
+          "name": "OpenRouter Llama 3.1 Free (Env)",
+          "api_key": "${OPENROUTER_API_KEY}",
+          "model": "meta-llama/llama-3.1-8b-instruct:free",
+          "max_tokens": 8192,
+          "rate_limit": 25,
+          "free_tier": true,
+          "cost": "Free"
+        },
+        {
+          "name": "OpenRouter Mistral Free",
+          "api_key": "${OPENROUTER_API_KEY}",
+          "model": "mistralai/mistral-7b-instruct:free",
+          "max_tokens": 32768,
+          "rate_limit": 25,
+          "free_tier": true,
+          "cost": "Free"
+        }
+      ]
+    },
+    "together": {
+      "name": "Together AI (Free Credits)",
+      "type": "openai",
+      "enabled": true,
+      "priority": 5,
+      "base_url": "https://api.together.xyz/v1",
+      "endpoints": [
+        {
+          "name": "Together Llama 3.1",
+          "api_key": "${TOGETHER_API_KEY}",
+          "model": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
+          "max_tokens": 32768,
+          "rate_limit": 20,
+          "free_tier": true,
+          "free_credits": "$25"
+        },
+        {
+          "name": "Together Code Llama",
+          "api_key": "${TOGETHER_API_KEY}",
+          "model": "codellama/CodeLlama-34b-Instruct-hf",
+          "max_tokens": 16384,
+          "rate_limit": 20,
+          "free_tier": true,
+          "speciality": "coding"
+        }
+      ]
+    },
+    "deepinfra": {
+      "name": "DeepInfra (Free Tier)",
+      "type": "openai",
+      "enabled": true,
+      "priority": 6,
+      "base_url": "https://api.deepinfra.com/v1/openai",
+      "endpoints": [
+        {
+          "name": "DeepInfra Llama 3.1",
+          "api_key": "${DEEPINFRA_API_KEY}",
+          "model": "meta-llama/Meta-Llama-3.1-70B-Instruct",
+          "max_tokens": 32768,
+          "rate_limit": 15,
+          "free_tier": true,
+          "free_limit": "$5/month"
+        },
+        {
+          "name": "DeepInfra Mixtral",
+          "api_key": "${DEEPINFRA_API_KEY}",
+          "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+          "max_tokens": 32768,
+          "rate_limit": 15,
+          "free_tier": true
+        }
+      ]
+    },
+    "local": {
+      "name": "Local Models (Ollama)",
+      "type": "openai",
+      "enabled": false,
+      "priority": 10,
+      "base_url": "http://localhost:11434/v1",
+      "endpoints": [
+        {
+          "name": "Local Llama 3.1",
+          "api_key": "ollama",
+          "model": "llama3.1:8b",
+          "max_tokens": 8192,
+          "rate_limit": 999,
+          "local": true
+        },
+        {
+          "name": "Local Code Llama",
+          "api_key": "ollama", 
+          "model": "codellama:7b",
+          "max_tokens": 8192,
+          "rate_limit": 999,
+          "local": true,
+          "speciality": "coding"
+        }
+      ]
+    }
+  },
+  "settings": {
+    "auto_failover": true,
+    "retry_attempts": 3,
+    "retry_delay": 1000,
+    "timeout": 30000,
+    "log_api_usage": true,
+    "prefer_free_apis": true,
+    "prefer_coding_models": true,
+    "health_check_interval": 300000,
+    "rate_limit_buffer": 0.8
+  },
+  "agent_modes": {
+    "programming": {
+      "description": "Advanced programming assistant",
+      "preferred_models": ["coding"],
+      "system_prompt": "You are an expert programming assistant capable of writing, debugging, and explaining code in multiple languages. You can create full applications, fix bugs, optimize performance, and provide best practices."
+    },
+    "cybersecurity": {
+      "description": "Cybersecurity specialist", 
+      "preferred_models": ["general"],
+      "system_prompt": "You are a cybersecurity expert specializing in penetration testing, vulnerability assessment, digital forensics, and security best practices. Always emphasize legal and ethical considerations."
+    },
+    "general": {
+      "description": "General AI assistant",
+      "preferred_models": ["general"],
+      "system_prompt": "You are a helpful AI assistant capable of handling various tasks including analysis, writing, problem-solving, and providing information."
+    }
+  }
+}
