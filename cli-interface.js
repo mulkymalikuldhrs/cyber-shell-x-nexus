@@ -31,9 +31,41 @@ try {
   console.log(`${colors.yellow}Warning: Could not load commands database${colors.reset}`);
 }
 
-// Enhanced command processing with AI integration
+// Enhanced command processing with AI Agent integration
 async function processCommandWithAI(command) {
   try {
+    // First try the new AI Agent endpoint
+    const agentResponse = await fetch('http://localhost:5000/api/agent/process', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        request: command, 
+        mode: getCurrentMode() 
+      })
+    });
+    
+    if (agentResponse.ok) {
+      const agentData = await agentResponse.json();
+      if (agentData.success) {
+        let result = `${colors.green}🤖 AI Agent Response:${colors.reset}\n`;
+        result += agentData.data;
+        
+        if (agentData.code) {
+          result += `\n\n${colors.yellow}💻 Generated Code (${agentData.language || 'text'}):${colors.reset}\n`;
+          result += `${colors.cyan}${agentData.code}${colors.reset}`;
+        }
+        
+        if (agentData.files_created && agentData.files_created.length > 0) {
+          result += `\n\n${colors.green}📁 Files Created: ${agentData.files_created.join(', ')}${colors.reset}`;
+        }
+        
+        return result;
+      }
+    }
+    
+    // Fallback to original command endpoint
     const response = await fetch('http://localhost:5000/api/command', {
       method: 'POST',
       headers: {
@@ -54,6 +86,29 @@ async function processCommandWithAI(command) {
   }
 }
 
+// Current AI mode tracking
+let currentMode = 'general';
+const availableModes = ['general', 'programming', 'cybersecurity'];
+
+function getCurrentMode() {
+  return currentMode;
+}
+
+function switchMode(mode) {
+  if (!availableModes.includes(mode)) {
+    return `${colors.red}❌ Invalid mode. Available modes: ${availableModes.join(', ')}${colors.reset}`;
+  }
+  
+  currentMode = mode;
+  const descriptions = {
+    'general': 'General AI assistant for various tasks',
+    'programming': 'Expert programming assistant for coding tasks',
+    'cybersecurity': 'Cybersecurity specialist for security analysis'
+  };
+  
+  return `${colors.green}✅ Switched to ${mode} mode${colors.reset}\n${colors.dim}${descriptions[mode]}${colors.reset}`;
+}
+
 function showBanner() {
   console.clear();
   console.log(`${colors.cyan}╔══════════════════════════════════════════════════════════════╗${colors.reset}`);
@@ -68,10 +123,31 @@ function showHelp() {
   console.log(`${colors.cyan}═══ CyberShellX CLI Help ═══${colors.reset}`);
   console.log(``);
   console.log(`${colors.bright}System Commands:${colors.reset}`);
-  console.log(`${colors.yellow}help${colors.reset}        - Show this help menu`);
-  console.log(`${colors.yellow}status${colors.reset}      - Show system status and AI connection`);
-  console.log(`${colors.yellow}clear${colors.reset}       - Clear the terminal`);
-  console.log(`${colors.yellow}exit/quit${colors.reset}   - Exit CyberShellX`);
+  console.log(`${colors.yellow}help${colors.reset}           - Show this help menu`);
+  console.log(`${colors.yellow}status${colors.reset}         - Show system status and AI connection`);
+  console.log(`${colors.yellow}clear${colors.reset}          - Clear the terminal`);
+  console.log(`${colors.yellow}exit/quit${colors.reset}      - Exit CyberShellX`);
+  console.log(``);
+  console.log(`${colors.bright}AI Agent Commands:${colors.reset}`);
+  console.log(`${colors.magenta}mode <mode>${colors.reset}      - Switch AI mode (general|programming|cybersecurity)`);
+  console.log(`${colors.magenta}capabilities${colors.reset}    - Show agent capabilities`);
+  console.log(`${colors.magenta}tasks${colors.reset}           - Show recent tasks`);
+  console.log(`${colors.magenta}reload${colors.reset}          - Reload AI configuration`);
+  console.log(``);
+  console.log(`${colors.bright}🤖 AI Programming Assistant:${colors.reset}`);
+  console.log(`${colors.cyan}• Write complete applications in any language${colors.reset}`);
+  console.log(`${colors.cyan}• Debug and fix existing code${colors.reset}`);
+  console.log(`${colors.cyan}• Create files and folder structures${colors.reset}`);
+  console.log(`${colors.cyan}• Explain complex programming concepts${colors.reset}`);
+  console.log(`${colors.cyan}• Security analysis and recommendations${colors.reset}`);
+  console.log(``);
+  console.log(`${colors.bright}💡 Free AI Providers Available:${colors.reset}`);
+  console.log(`${colors.green}• Groq (Fast inference)${colors.reset}`);
+  console.log(`${colors.green}• Hugging Face (Coding models)${colors.reset}`);
+  console.log(`${colors.green}• OpenRouter (Free tier)${colors.reset}`);
+  console.log(`${colors.green}• Together AI (Free credits)${colors.reset}`);
+  console.log(`${colors.green}• DeepInfra (Free tier)${colors.reset}`);
+  console.log(`${colors.green}• Local Ollama (if installed)${colors.reset}`);
   console.log(``);
   console.log(`${colors.bright}Network Scanning:${colors.reset}`);
   console.log(`${colors.green}nmap -sV <target>${colors.reset}    - Version detection scan`);
@@ -105,8 +181,11 @@ async function showSystemStatus() {
     if (response.ok) {
       const status = await response.json();
       console.log(`${colors.green}✓ Server Connection: Active${colors.reset}`);
-      console.log(`${colors.green}✓ AI APIs Available: ${status.available.length}${colors.reset}`);
-      console.log(`${colors.green}✓ Current API: ${status.current}${colors.reset}`);
+      console.log(`${colors.green}✓ Total Providers: ${status.total_providers}${colors.reset}`);
+      console.log(`${colors.green}✓ Total Endpoints: ${status.total_endpoints}${colors.reset}`);
+      console.log(`${colors.green}✓ Healthy Endpoints: ${status.healthy_endpoints}${colors.reset}`);
+      console.log(`${colors.green}✓ Free APIs Available: ${status.free_apis_available}${colors.reset}`);
+      console.log(`${colors.magenta}✓ Current Mode: ${currentMode}${colors.reset}`);
     }
   } catch (error) {
     console.log(`${colors.red}✗ Server Connection: Offline${colors.reset}`);
@@ -115,6 +194,64 @@ async function showSystemStatus() {
   
   console.log(`${colors.green}✓ Commands Database: Loaded${colors.reset}`);
   console.log(`${colors.green}✓ Security Tools: Available${colors.reset}`);
+}
+
+async function showCapabilities() {
+  try {
+    const response = await fetch('http://localhost:5000/api/agent/capabilities');
+    if (response.ok) {
+      const capabilities = await response.json();
+      console.log(`${colors.cyan}═══ AI Agent Capabilities ═══${colors.reset}`);
+      Object.entries(capabilities).forEach(([key, value]) => {
+        const icon = value ? '✅' : '❌';
+        const name = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        console.log(`  ${icon} ${name}`);
+      });
+    }
+  } catch (error) {
+    console.log(`${colors.red}❌ Failed to get capabilities - server may be offline${colors.reset}`);
+  }
+}
+
+async function showTasks() {
+  try {
+    const response = await fetch('http://localhost:5000/api/agent/tasks');
+    if (response.ok) {
+      const tasks = await response.json();
+      console.log(`${colors.cyan}═══ Recent AI Agent Tasks ═══${colors.reset}`);
+      
+      if (tasks.length === 0) {
+        console.log(`${colors.dim}No recent tasks${colors.reset}`);
+        return;
+      }
+
+      tasks.slice(-5).forEach(task => {
+        const statusIcon = task.status === 'completed' ? '✅' : 
+                          task.status === 'running' ? '🔄' : 
+                          task.status === 'failed' ? '❌' : '⏳';
+        const time = new Date(task.created_at).toLocaleTimeString();
+        console.log(`  ${statusIcon} [${time}] ${task.type}: ${task.description.substring(0, 60)}...`);
+      });
+    }
+  } catch (error) {
+    console.log(`${colors.red}❌ Failed to get tasks - server may be offline${colors.reset}`);
+  }
+}
+
+async function reloadConfig() {
+  try {
+    const response = await fetch('http://localhost:5000/api/ai/reload', { method: 'POST' });
+    if (response.ok) {
+      const result = await response.json();
+      if (result.success) {
+        console.log(`${colors.green}✅ AI configuration reloaded successfully${colors.reset}`);
+      } else {
+        console.log(`${colors.red}❌ Failed to reload configuration${colors.reset}`);
+      }
+    }
+  } catch (error) {
+    console.log(`${colors.red}❌ Failed to reload configuration - server may be offline${colors.reset}`);
+  }
 }
 
 function executeCommand(cmd) {
@@ -232,7 +369,7 @@ async function startCLI() {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
-    prompt: `${colors.cyan}cyber@shell${colors.reset}:${colors.blue}~${colors.reset}$ `
+    prompt: `${colors.cyan}cyber@shell${colors.reset}[${colors.magenta}${currentMode}${colors.reset}]:${colors.blue}~${colors.reset}$ `
   });
 
   showBanner();
@@ -242,7 +379,9 @@ async function startCLI() {
     const response = await fetch('http://localhost:5000/api/ai/status');
     if (response.ok) {
       const status = await response.json();
-      console.log(`${colors.green}✓ AI Enhancement Active${colors.reset} (${status.available.length} APIs available)`);
+      console.log(`${colors.green}✓ AI Enhancement Active${colors.reset} (${status.healthy_endpoints}/${status.total_endpoints} endpoints healthy)`);
+      console.log(`${colors.green}✓ Free APIs Available: ${status.free_apis_available}${colors.reset}`);
+      console.log(`${colors.magenta}✓ Current Mode: ${currentMode}${colors.reset}`);
     }
   } catch (error) {
     console.log(`${colors.yellow}⚠ Running in offline mode${colors.reset}`);
@@ -267,12 +406,23 @@ async function startCLI() {
       showBanner();
     } else if (command === 'status') {
       await showSystemStatus();
+    } else if (command.startsWith('mode ')) {
+      const mode = command.split(' ')[1];
+      const result = switchMode(mode);
+      console.log(result);
+    } else if (command === 'capabilities') {
+      await showCapabilities();
+    } else if (command === 'tasks') {
+      await showTasks();
+    } else if (command === 'reload') {
+      await reloadConfig();
     } else if (command) {
       const result = await processCommandWithAI(command);
       console.log(result);
     }
     
     console.log('');
+    rl.setPrompt(`${colors.cyan}cyber@shell${colors.reset}[${colors.magenta}${currentMode}${colors.reset}]:${colors.blue}~${colors.reset}$ `);
     rl.prompt();
   });
 
