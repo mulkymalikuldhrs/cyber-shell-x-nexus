@@ -14,11 +14,11 @@ echo ""
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
     echo "Usage:"
     echo "  ./launcher.sh          - Interactive menu"
-    echo "  ./launcher.sh cli      - CLI interface"
-    echo "  ./launcher.sh web      - Web server"
-    echo "  ./launcher.sh android  - Android server"
-    echo "  ./launcher.sh update   - Update system"
-    echo "  ./launcher.sh status   - Health check"
+    echo "  ./launcher.sh cli      - 01. CLI cybersecurity shell"
+    echo "  ./launcher.sh web      - 02. Web server"
+    echo "  ./launcher.sh android  - 03. Android voice assistant backend"
+    echo "  ./launcher.sh update   - 04. Update system from GitHub"
+    echo "  ./launcher.sh status   - 05. System health check"
     echo ""
     exit 0
 fi
@@ -57,23 +57,22 @@ esac
 # Interactive menu
 echo "Select component to run:"
 echo ""
-echo "1) CLI Terminal Interface (Enhanced Cybersecurity Shell)"
-echo "2) Web Server (Desktop/Laptop Browser Interface)"  
-echo "3) Termux Server (Mobile Web Interface)"
-echo "4) Android Server (Voice Assistant Backend)"
-echo "5) Update System (Pull latest changes)"
-echo "6) System Status (Health Check)"
-echo "0) Exit"
+echo "01. CLI Cybersecurity Shell"
+echo "02. Web Server (Desktop/Mobile)"  
+echo "03. Android Voice Assistant Backend"
+echo "04. Update System from GitHub"
+echo "05. System Health Check"
+echo "00. Exit"
 echo ""
 
 while true; do
-    read -p "Enter your choice (0-6): " choice
+    read -p "Enter your choice (00-05): " choice
     
     case $choice in
-        1)
+        "01"|"1")
             echo ""
-            echo "🖥️  Starting CLI Terminal Interface..."
-            echo "Enhanced Cybersecurity Shell with AI Integration"
+            echo "🖥️  Starting CLI Cybersecurity Shell..."
+            echo "Enhanced terminal with AI integration"
             echo ""
             if [ -f "cli-interface.js" ]; then
                 node cli-interface.js
@@ -82,35 +81,29 @@ while true; do
             fi
             break
             ;;
-        2)
+        "02"|"2")
             echo ""
-            echo "🌐 Starting Web Server (Desktop/Laptop)..."
+            echo "🌐 Starting Web Server..."
             echo "Access at: http://localhost:5000"
             echo "Press Ctrl+C to stop"
             echo ""
             npm run dev
             break
             ;;
-        3)
+        "03"|"3")
             echo ""
-            echo "📱 Starting Termux Server (Mobile Web)..."
-            echo "Mobile-optimized interface"
+            echo "🤖 Starting Android Voice Assistant Backend..."
+            echo "Server for Android app communication"
             echo "Access at: http://localhost:5000"
-            echo ""
-            MOBILE_MODE=true npm run dev
-            break
-            ;;
-        4)
-            echo ""
-            echo "🤖 Starting Android Server (Voice Assistant)..."
-            echo "Backend for Android voice assistant app"
             echo ""
             ANDROID_MODE=true npm run dev
             break
             ;;
-        5)
+        "04"|"4")
             echo ""
-            echo "🔄 Update System..."
+            echo "🔄 Updating System from GitHub..."
+            echo "Repository: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus"
+            echo ""
             if [ -f "update-system.sh" ]; then
                 chmod +x update-system.sh
                 ./update-system.sh
@@ -121,20 +114,20 @@ while true; do
             echo ""
             read -p "Press Enter to continue..."
             ;;
-        6)
+        "05"|"5")
             echo ""
             echo "🔍 System Health Check..."
             node scripts/health-check.js
             echo ""
             read -p "Press Enter to continue..."
             ;;
-        0)
+        "00"|"0")
             echo ""
             echo "Goodbye! Stay secure!"
             exit 0
             ;;
         *)
-            echo "Invalid choice. Please select 0-6."
+            echo "Invalid choice. Please select 00-05."
             ;;
     esac
 done
