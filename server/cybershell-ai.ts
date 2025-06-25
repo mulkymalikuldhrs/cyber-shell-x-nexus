@@ -35,7 +35,7 @@ export interface CommandResponse {
   files_created?: string[];
   files_modified?: string[];
   commands_executed?: string[];
-}</mentat_other_code>
+}
 
 export interface AgentCapabilities {
   programming: boolean;
