@@ -1,135 +1,82 @@
+# CyberShellX CLI 🛡️
 
-# CyberShellX Nexus 🛡️
+CyberShellX CLI adalah platform pentesting siber all-in-one generasi berikutnya, yang didukung oleh kecerdasan buatan. Alat ini dirancang untuk para profesional keamanan, peretas etis, dan penggemar keamanan siber, menyediakan seperangkat alat yang komprehensif dalam satu antarmuka baris perintah yang ramping dan modern.
 
-Advanced cybersecurity platform with AI-powered assistant, interactive terminal interface, and cross-platform capabilities.
+## Fitur Utama
 
-## Quick Start
+-   **Antarmuka CLI Terpadu**: Semua alat dan fungsionalitas dapat diakses melalui satu CLI yang kuat dengan indikator kemajuan dan output berwarna.
+-   **Didukung AI**: Gunakan kekuatan model bahasa besar untuk penjelasan perintah, perencanaan serangan, dan otomatisasi cerdas.
+-   **Otomatisasi Berbasis Umpan Balik**: Mode `automate` secara dinamis menentukan langkah-langkah serangan berdasarkan analisis AI terhadap output perintah sebelumnya.
+-   **Manajemen Sesi**: Secara otomatis membuat ruang kerja untuk setiap target, menyimpan riwayat perintah, output, dan catatan yang diekstraksi AI untuk melanjutkan sesi nanti.
+-   **Manajemen Alat Otomatis**: Secara otomatis memeriksa alat yang hilang dan menawarkan untuk menginstalnya menggunakan manajer paket asli sistem Anda.
+-   **Dapat Diperluas**: Basis data alat dan basis pengetahuan AI yang mudah diperluas.
 
-### Main Launcher
-```bash
-./launcher.sh              # Interactive menu (recommended)
-./launcher.sh cli          # 01. CLI cybersecurity shell
-./launcher.sh web          # 02. Web server
-./launcher.sh android      # 03. Android voice assistant backend
-./launcher.sh update       # 04. Update system from GitHub
-./launcher.sh status       # 05. System health check
-```
+## Instalasi
 
-Choose from:
-1. **CLI Terminal Interface** - Enhanced cybersecurity shell with AI integration
-2. **Web Server** - Full desktop/laptop browser interface with AI enhancement
-3. **Termux Server** - Mobile-optimized web interface for Android browsers
-4. **Android Server** - Backend server for voice assistant mobile app
-5. **Update System** - Pull latest changes and update all dependencies
+1.  **Prasyarat**: Pastikan Anda memiliki Node.js (v18+) dan manajer paket (seperti `apt`, `yum`, `brew`) yang terinstal.
 
-### Direct Access
-```bash
-# Web interface only
-npm run dev
+2.  **Clone Repositori:**
+    ```bash
+    git clone https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus.git
+    cd cyber-shell-x-nexus
+    ```
 
-# CLI terminal only  
-node cli-interface.js
-```
+3.  **Instal Dependensi Node.js:**
+    ```bash
+    npm install
+    ```
 
-## Installation
+4.  **Siapkan Variabel Lingkungan:**
+    Buat file `.env` di direktori root dan tambahkan kunci Gemini API Anda. Anda dapat menambahkan beberapa kunci untuk fallback.
+    ```
+    GEMINI_API_KEY=AIz...
+    GEMINI_API_KEY_2=AIz...
+    ```
 
-### Replit (Current Environment)
-The application is ready to run. Use `./run.sh` to start.
+5.  **Instal Alat Pentesting:**
+    CyberShellX dilengkapi dengan manajer alat untuk membantu Anda menginstal alat yang diperlukan. Jalankan perintah berikut untuk memeriksa alat yang hilang dan menginstalnya:
+    ```bash
+    ./launcher.sh manage-tools
+    ```
 
-### Termux (Android)
-```bash
-# Download installer
-curl -o termux-install.sh https://raw.githubusercontent.com/mulkymalikuldhrs/cyber-shell-x-nexus/main/termux-install.sh
-chmod +x termux-install.sh
-./termux-install.sh
+## Penggunaan
 
-# Run interactive launcher
-cd ~/cyber-shell-x-nexus
-./run.sh
-```
+### 1. Jalankan Server Backend
 
-### Local Development
-```bash
-git clone https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus.git
-cd cyber-shell-x-nexus
-npm install
-npm run db:push
-./run.sh
-```
-
-## Features
-
-### AI-Powered Responses
-- **Multiple API Support** - Automatic fallback between 4 Gemini API endpoints
-- **Enhanced Responses** - AI-powered cybersecurity guidance and explanations
-- **Intelligent Fallback** - Seamless switching when APIs are unavailable
-- **Real-time Status** - Monitor API health and current active endpoint
-
-### CLI Interface (Option 1)
-- Interactive cybersecurity terminal
-- Tool simulations: nmap, metasploit, wireshark, sqlmap, burpsuite
-- Educational command demonstrations
-- Cross-platform compatibility
-
-### Web Interface (Option 2)
-- Modern React-based UI
-- Real-time terminal simulation
-- Cybersecurity tool demonstrations
-- Database integration with PostgreSQL
-- Responsive design with dark theme
-
-### Android App (Option 3)
-- Voice-activated assistant with "Hey CyberShell" wake word
-- Background service for always-on functionality
-- System control (WiFi, Bluetooth, flashlight, volume)
-- Shell command execution capabilities
-- AI-powered cybersecurity guidance
-
-## Architecture
-
-- **Frontend**: React 18 + TypeScript + Vite
-- **Backend**: Express.js + TypeScript
-- **Database**: PostgreSQL with Drizzle ORM
-- **Mobile**: Native Android with voice recognition
-- **CLI**: Node.js-based terminal interface
-
-## Access Points
-
-- Web Interface: http://localhost:5000
-- CLI: Direct terminal access
-- Android: APK installation from build output
-
-## Development
+Server backend menangani semua pemrosesan AI. Anda harus menjalankannya di terminal terpisah.
 
 ```bash
-# Database operations
-npm run db:push          # Apply schema changes
-npm run build           # Production build
-npm run start           # Production server
-
-# Main launcher (recommended)
-./launcher.sh           # Interactive menu
-./launcher.sh cli       # CLI interface only
-./launcher.sh web       # Web server only
-./launcher.sh status    # Health check
-
-# Alternative launchers  
-./cyber.sh              # Command shortcuts
-./start.sh              # Quick launcher
+npx tsx server/index.ts
 ```
 
-## Support
+### 2. Jalankan CyberShellX CLI
 
-- **Repository**: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus
-- **Issues**: GitHub Issues for bug reports and feature requests
-- **Documentation**: Complete setup guides included
+Setelah server berjalan, buka terminal lain dan mulai CyberShellX CLI menggunakan peluncur:
 
-## Author
+```bash
+./launcher.sh
+```
 
-**Mulky Malikul Dhaher**
-- GitHub: [@mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
-- Support: Indonesian e-wallets (+6285322624048)
+Ini akan memberi Anda menu interaktif. Pilih "CLI Cybersecurity Shell" untuk memulai.
 
-## Security Notice
+### Perintah yang Tersedia
 
-This platform is designed for educational and authorized testing purposes only. Users are responsible for compliance with applicable laws and regulations.
+-   `help`: Menampilkan menu bantuan dengan semua perintah yang tersedia.
+-   `status`: Menampilkan status koneksi AI dan ketersediaan alat yang diperiksa.
+-   `automate`: Memulai mode pentesting otomatis berbasis umpan balik. Anda akan dimintai target dan tujuan.
+-   `<command>`: Jalankan perintah pentesting apa pun (misalnya, `nmap -sV target.com`). CyberShellX akan memberikan penjelasan yang disempurnakan dengan AI sebelum mengeksekusi.
+
+## Arsitektur
+
+-   **Backend**: Server Express.js yang menangani logika AI (menggunakan Google Gemini) dan berfungsi sebagai otak di balik CLI.
+-   **Frontend (CLI)**: Antarmuka baris perintah Node.js modern yang berinteraksi dengan server backend, mengeksekusi alat pentesting, dan menyediakan UX yang kaya dengan indikator kemajuan.
+-   **Manajemen Sesi**: Membuat dan mengelola ruang kerja per-target di bawah direktori `workspaces/`, menyimpan riwayat dan catatan yang diekstraksi AI.
+-   **Manajemen Alat**: Skrip yang mendeteksi OS dan manajer paketnya untuk mengotomatiskan instalasi alat.
+
+## Berkontribusi
+
+Kontribusi sangat kami harapkan! Silakan fork repositori, buat perubahan Anda, dan kirimkan pull request.
+
+## Peringatan Hukum
+
+Alat ini ditujukan untuk tujuan pendidikan dan pengujian resmi saja. Penggunaan alat ini secara tidak sah terhadap sistem yang tidak Anda miliki izinnya adalah ilegal. Pengembang tidak bertanggung jawab atas penyalahgunaan apa pun. Selalu dapatkan izin tertulis sebelum melakukan penilaian keamanan.

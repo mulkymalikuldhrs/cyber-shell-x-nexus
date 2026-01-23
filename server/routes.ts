@@ -1,8 +1,21 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { WebSocketServer } from "ws";
-import { storage } from "./storage";
 import { cyberShellAI, type CommandResponse } from "./cybershell-ai";
+import fs from "fs";
+import path from "path";
+
+const historyFilePath = path.join(process.cwd(), "command_history.json");
+
+function appendCommandToHistory(commandData: any) {
+  let history: any[] = [];
+  if (fs.existsSync(historyFilePath)) {
+    const fileContent = fs.readFileSync(historyFilePath, "utf-8");
+    history = JSON.parse(fileContent);
+  }
+  history.push(commandData);
+  fs.writeFileSync(historyFilePath, JSON.stringify(history, null, 2));
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // CyberShellX AI command processing endpoint
@@ -24,11 +37,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.warn('AI enhancement failed, using base response:', error);
       }
       
-      // Store command history if user is provided
-      if (userId) {
-        // TODO: Store in command history table
-        console.log(`User ${userId} executed: ${command}`);
-      }
+      // Store command history
+      appendCommandToHistory({ command, userId, response, timestamp: new Date() });
 
       res.json({
         success: true,
@@ -82,6 +92,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ guidelines });
     } catch (error) {
       res.status(500).json({ error: "Failed to get ethical guidelines" });
+    }
+  });
+
+  // Automation Next Step endpoint
+  app.post("/api/automate/next-step", async (req, res) => {
+    const { target, objectives, history, notes } = req.body;
+    if (!target || !objectives || !history) {
+      return res.status(400).json({ error: "Target, objectives, and history are required" });
+    }
+
+    try {
+      const nextCommand = await cyberShellAI.determineNextCommand(target, objectives, history, notes);
+      res.json({ success: true, next_command: nextCommand });
+    } catch (error) {
+      console.error("Automation next step error:", error);
+      res.status(500).json({ error: "Failed to determine next automation step" });
+    }
+  });
+
+  // Information Extraction endpoint
+  app.post("/api/automate/extract-info", async (req, res) => {
+    const { command, output } = req.body;
+    if (!command || !output) {
+      return res.status(400).json({ error: "Command and output are required" });
+    }
+
+    try {
+      const extractedInfo = await cyberShellAI.extractInfoFromOutput(command, output);
+      res.json({ success: true, info: extractedInfo });
+    } catch (error) {
+      console.error("Information extraction error:", error);
+      res.status(500).json({ error: "Failed to extract information" });
     }
   });
 
