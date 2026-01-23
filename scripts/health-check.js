@@ -3,6 +3,7 @@
 // CyberShellX Health Check Script
 // Verifies all components are working properly
 
+import 'dotenv/config';
 import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';

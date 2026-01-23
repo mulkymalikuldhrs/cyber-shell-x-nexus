@@ -57,6 +57,19 @@ npm run db:push
 ./run.sh
 ```
 
+## Configuration
+
+To run the application, you need to set up the following environment variables in a `.env` file at the root of the project:
+
+- `DATABASE_URL`: Your PostgreSQL connection string.
+- `GOOGLE_API_KEY`: Your Google Gemini API key.
+
+An example `.env` file would look like this:
+```
+DATABASE_URL="postgresql://user:password@host:port/database"
+GOOGLE_API_KEY="your-google-api-key"
+```
+
 ## Features
 
 ### AI-Powered Responses
