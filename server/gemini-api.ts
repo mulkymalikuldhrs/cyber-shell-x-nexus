@@ -15,9 +15,7 @@ class GeminiAPIManager {
     // Initialize API configurations
     const apiKeys = [
       { key: process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY || "", name: "Primary Gemini API" },
-      { key: process.env.GOOGLE_API_KEY_2 || "", name: "Secondary Gemini API" },
-      { key: "AIzaSyCc3TWic2gxabcsgL0h466WPBFeXBbH5O4", name: "Backup API 1" },
-      { key: "AIzaSyCisocH9ZcQQ9Hm6HrVnkwIpnlH7nz1v0M", name: "Backup API 2" }
+      { key: process.env.GOOGLE_API_KEY_2 || "", name: "Secondary Gemini API" }
     ];
 
     // Filter out empty keys and initialize clients
