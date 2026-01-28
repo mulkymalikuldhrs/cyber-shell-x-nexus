@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # CyberShellX Nexus - Main Launcher
@@ -27,12 +26,13 @@ check_build_script() {
 # Quick help
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
     echo "Usage:"
-    echo "  ./launcher.sh          - Interactive menu"
-    echo "  ./launcher.sh cli      - 01. CLI cybersecurity shell"
-    echo "  ./launcher.sh web      - 02. Web server"
-    echo "  ./launcher.sh android  - 03. Android voice assistant backend"
-    echo "  ./launcher.sh update   - 04. Update system from GitHub"
-    echo "  ./launcher.sh status   - 05. System health check"
+    echo "  ./launcher.sh              - Interactive menu"
+    echo "  ./launcher.sh cli          - 01. CLI cybersecurity shell"
+    echo "  ./launcher.sh web          - 02. Web server"
+    echo "  ./launcher.sh android      - 03. Android voice assistant backend"
+    echo "  ./launcher.sh update       - 04. Update system from GitHub"
+    echo "  ./launcher.sh status       - 05. System health check"
+    echo "  ./launcher.sh tools        - Run the tool manager"
     echo ""
     exit 0
 fi
@@ -41,8 +41,7 @@ fi
 case "$1" in
     "cli")
         echo "🖥️  Starting CLI Interface..."
-        check_build_script
-        exec node cli-interface.js
+        exec node cli/index.js
         ;;
     "web")
         echo "🌐 Starting Web Server..."
@@ -70,6 +69,10 @@ case "$1" in
         check_build_script
         exec node scripts/health-check.js
         ;;
+    "tools")
+        echo "🛠️  Managing Tools..."
+        exec node cli/index.js --manage-tools
+        ;;
 esac
 
 # Interactive menu
@@ -92,9 +95,8 @@ while true; do
             echo "🖥️  Starting CLI Cybersecurity Shell..."
             echo "Enhanced terminal with AI integration"
             echo ""
-            check_build_script
-            if [ -f "cli-interface.js" ]; then
-                node cli-interface.js
+            if [ -f "cli/index.js" ]; then
+                node cli/index.js
             else
                 echo "CLI interface not found!"
             fi

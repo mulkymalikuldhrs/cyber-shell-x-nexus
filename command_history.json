@@ -1,0 +1,44 @@
+[
+  {
+    "command": "nmap",
+    "response": {
+      "type": "general_response",
+      "content": "🤖 **CyberShellX AI Assistant**\n\nI'm here to help you with cybersecurity topics! I can provide guidance on:\n\n**🌐 Network Security:**\n- Network scanning and reconnaissance\n- Traffic analysis and monitoring\n- Firewall configuration and testing\n\n**🎯 Penetration Testing:**\n- Vulnerability assessment methodologies\n- Exploitation techniques and tools\n- Post-exploitation and persistence\n\n**🔍 Digital Forensics:**\n- Memory analysis and artifact recovery\n- Disk forensics and timeline analysis\n- Network forensics and incident response\n\n**🔐 Cryptography:**\n- Hash cracking and password security\n- Encryption implementation and testing\n- PKI and certificate management\n\n**📡 Wireless Security:**\n- Wi-Fi security assessment\n- Bluetooth and RF analysis\n- Mobile device security\n\n**⚙️ System Security:**\n- Security configuration review\n- Log analysis and monitoring\n- Hardening and compliance\n\n**Available Commands:**\n- `scan network` - Network discovery techniques\n- `check vulnerabilities` - Vulnerability assessment\n- `sql injection` - Web application security\n- `crack passwords` - Password security testing\n- `analyze memory` - Digital forensics\n- `wireless security` - Wi-Fi assessment\n- `system info` - Security configuration\n\n**Learning Resources:**\n- Interactive scenarios for hands-on practice\n- Step-by-step tutorials for security tools\n- Best practices and methodology guidance\n- Legal and ethical hacking guidelines\n\nType a specific command or ask about any cybersecurity topic!\n\n⚠️ **Important**: Always ensure you have proper authorization before testing or assessing any systems.",
+      "category": "general",
+      "difficulty": "beginner",
+      "tools": [
+        "cybershellx-ai"
+      ],
+      "legal_notice": true
+    },
+    "timestamp": "2026-01-28T11:01:10.935Z"
+  },
+  {
+    "command": "nmap",
+    "response": {
+      "type": "general_response",
+      "content": "🤖 **CyberShellX AI Assistant**\n\nI'm here to help you with cybersecurity topics! I can provide guidance on:\n\n**🌐 Network Security:**\n- Network scanning and reconnaissance\n- Traffic analysis and monitoring\n- Firewall configuration and testing\n\n**🎯 Penetration Testing:**\n- Vulnerability assessment methodologies\n- Exploitation techniques and tools\n- Post-exploitation and persistence\n\n**🔍 Digital Forensics:**\n- Memory analysis and artifact recovery\n- Disk forensics and timeline analysis\n- Network forensics and incident response\n\n**🔐 Cryptography:**\n- Hash cracking and password security\n- Encryption implementation and testing\n- PKI and certificate management\n\n**📡 Wireless Security:**\n- Wi-Fi security assessment\n- Bluetooth and RF analysis\n- Mobile device security\n\n**⚙️ System Security:**\n- Security configuration review\n- Log analysis and monitoring\n- Hardening and compliance\n\n**Available Commands:**\n- `scan network` - Network discovery techniques\n- `check vulnerabilities` - Vulnerability assessment\n- `sql injection` - Web application security\n- `crack passwords` - Password security testing\n- `analyze memory` - Digital forensics\n- `wireless security` - Wi-Fi assessment\n- `system info` - Security configuration\n\n**Learning Resources:**\n- Interactive scenarios for hands-on practice\n- Step-by-step tutorials for security tools\n- Best practices and methodology guidance\n- Legal and ethical hacking guidelines\n\nType a specific command or ask about any cybersecurity topic!\n\n⚠️ **Important**: Always ensure you have proper authorization before testing or assessing any systems.",
+      "category": "general",
+      "difficulty": "beginner",
+      "tools": [
+        "cybershellx-ai"
+      ],
+      "legal_notice": true
+    },
+    "timestamp": "2026-01-28T11:04:01.297Z"
+  },
+  {
+    "command": "nmap",
+    "response": {
+      "type": "general_response",
+      "content": "🤖 **CyberShellX AI Assistant**\n\nI'm here to help you with cybersecurity topics! I can provide guidance on:\n\n**🌐 Network Security:**\n- Network scanning and reconnaissance\n- Traffic analysis and monitoring\n- Firewall configuration and testing\n\n**🎯 Penetration Testing:**\n- Vulnerability assessment methodologies\n- Exploitation techniques and tools\n- Post-exploitation and persistence\n\n**🔍 Digital Forensics:**\n- Memory analysis and artifact recovery\n- Disk forensics and timeline analysis\n- Network forensics and incident response\n\n**🔐 Cryptography:**\n- Hash cracking and password security\n- Encryption implementation and testing\n- PKI and certificate management\n\n**📡 Wireless Security:**\n- Wi-Fi security assessment\n- Bluetooth and RF analysis\n- Mobile device security\n\n**⚙️ System Security:**\n- Security configuration review\n- Log analysis and monitoring\n- Hardening and compliance\n\n**Available Commands:**\n- `scan network` - Network discovery techniques\n- `check vulnerabilities` - Vulnerability assessment\n- `sql injection` - Web application security\n- `crack passwords` - Password security testing\n- `analyze memory` - Digital forensics\n- `wireless security` - Wi-Fi assessment\n- `system info` - Security configuration\n\n**Learning Resources:**\n- Interactive scenarios for hands-on practice\n- Step-by-step tutorials for security tools\n- Best practices and methodology guidance\n- Legal and ethical hacking guidelines\n\nType a specific command or ask about any cybersecurity topic!\n\n⚠️ **Important**: Always ensure you have proper authorization before testing or assessing any systems.",
+      "category": "general",
+      "difficulty": "beginner",
+      "tools": [
+        "cybershellx-ai"
+      ],
+      "legal_notice": true
+    },
+    "timestamp": "2026-01-28T11:07:12.862Z"
+  }
+]
