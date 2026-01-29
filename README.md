@@ -1,135 +1,79 @@
+# CyberShellX CLI 🛡️
 
-# CyberShellX Nexus 🛡️
+CyberShellX CLI is an all-in-one, AI-powered pentesting platform. This tool is designed for security professionals, ethical hackers, and cybersecurity enthusiasts, providing a comprehensive toolset within a sleek, modern command-line interface.
 
-Advanced cybersecurity platform with AI-powered assistant, interactive terminal interface, and cross-platform capabilities.
+## Key Features
 
-## Quick Start
-
-### Main Launcher
-```bash
-./launcher.sh              # Interactive menu (recommended)
-./launcher.sh cli          # 01. CLI cybersecurity shell
-./launcher.sh web          # 02. Web server
-./launcher.sh android      # 03. Android voice assistant backend
-./launcher.sh update       # 04. Update system from GitHub
-./launcher.sh status       # 05. System health check
-```
-
-Choose from:
-1. **CLI Terminal Interface** - Enhanced cybersecurity shell with AI integration
-2. **Web Server** - Full desktop/laptop browser interface with AI enhancement
-3. **Termux Server** - Mobile-optimized web interface for Android browsers
-4. **Android Server** - Backend server for voice assistant mobile app
-5. **Update System** - Pull latest changes and update all dependencies
-
-### Direct Access
-```bash
-# Web interface only
-npm run dev
-
-# CLI terminal only  
-node cli-interface.js
-```
+- **Unified CLI Interface**: All tools and functionalities are accessible through a single, powerful CLI with progress indicators and colored output.
+- **AI-Powered**: Leverage the power of large language models for command explanations, attack planning, and intelligent automation.
+- **Feedback-Driven Automation**: The `automate` mode dynamically determines attack steps based on AI analysis of previous command outputs.
+- **Session Management**: Automatically creates workspaces for each target, saving command history, outputs, and AI-extracted notes to resume sessions later.
+- **Automated Tool Management**: Automatically checks for missing tools and offers to install them using your system's native package manager.
 
 ## Installation
 
-### Replit (Current Environment)
-The application is ready to run. Use `./run.sh` to start.
+1.  **Prerequisites**: Ensure you have Node.js (v18+) and a package manager (like `apt`, `yum`, `brew`) installed.
 
-### Termux (Android)
+2.  **Clone the Repository:**
+    ```bash
+    git clone https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus.git
+    cd cyber-shell-x-nexus
+    ```
+
+3.  **Install Node.js Dependencies:**
+    ```bash
+    npm install
+    ```
+
+4.  **Set Up Environment Variables:**
+    Create a `.env` file in the root directory and add your Gemini API key. You can add multiple keys for fallback.
+    ```
+    GEMINI_API_KEY=AIz...
+    GEMINI_API_KEY_2=AIz...
+    ```
+
+5.  **Install Pentesting Tools:**
+    CyberShellX comes with a tool manager to help you install the necessary tools. Run the following command to check for missing tools and install them:
+    ```bash
+    ./launcher.sh tools
+    ```
+
+## Usage
+
+### 1. Run the Backend Server
+
+The backend server handles all AI processing. You should run it in a separate terminal.
+
 ```bash
-# Download installer
-curl -o termux-install.sh https://raw.githubusercontent.com/mulkymalikuldhrs/cyber-shell-x-nexus/main/termux-install.sh
-chmod +x termux-install.sh
-./termux-install.sh
-
-# Run interactive launcher
-cd ~/cyber-shell-x-nexus
-./run.sh
+npx tsx server/index.ts
 ```
 
-### Local Development
+### 2. Run the CyberShellX CLI
+
+Once the server is running, open another terminal and start the CyberShellX CLI using the launcher:
+
 ```bash
-git clone https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus.git
-cd cyber-shell-x-nexus
-npm install
-npm run db:push
-./run.sh
+./launcher.sh
 ```
 
-## Features
+### Available Commands
 
-### AI-Powered Responses
-- **Multiple API Support** - Automatic fallback between 4 Gemini API endpoints
-- **Enhanced Responses** - AI-powered cybersecurity guidance and explanations
-- **Intelligent Fallback** - Seamless switching when APIs are unavailable
-- **Real-time Status** - Monitor API health and current active endpoint
-
-### CLI Interface (Option 1)
-- Interactive cybersecurity terminal
-- Tool simulations: nmap, metasploit, wireshark, sqlmap, burpsuite
-- Educational command demonstrations
-- Cross-platform compatibility
-
-### Web Interface (Option 2)
-- Modern React-based UI
-- Real-time terminal simulation
-- Cybersecurity tool demonstrations
-- Database integration with PostgreSQL
-- Responsive design with dark theme
-
-### Android App (Option 3)
-- Voice-activated assistant with "Hey CyberShell" wake word
-- Background service for always-on functionality
-- System control (WiFi, Bluetooth, flashlight, volume)
-- Shell command execution capabilities
-- AI-powered cybersecurity guidance
+-   `help`: Displays the help menu with all available commands.
+-   `status`: Shows the AI connection status and checked tool availability.
+-   `automate`: Starts the feedback-driven automated pentesting mode. You will be prompted for a target and objectives.
+-   `<command>`: Run any pentesting command (e.g., `nmap -sV target.com`). CyberShellX will provide an AI-enhanced explanation before executing.
 
 ## Architecture
 
-- **Frontend**: React 18 + TypeScript + Vite
-- **Backend**: Express.js + TypeScript
-- **Database**: PostgreSQL with Drizzle ORM
-- **Mobile**: Native Android with voice recognition
-- **CLI**: Node.js-based terminal interface
+-   **Backend**: An Express.js server that handles AI logic (using Google Gemini) and serves as the brain behind the CLI.
+-   **Frontend (CLI)**: A modern Node.js command-line interface that interacts with the backend server, executes pentesting tools, and provides a rich UX with progress indicators.
+-   **Session Management**: Creates and manages per-target workspaces under the `workspaces/` directory, storing history and AI-extracted notes.
+-   **Tool Management**: A script that detects the OS and its package manager to automate tool installation.
 
-## Access Points
+## Contributing
 
-- Web Interface: http://localhost:5000
-- CLI: Direct terminal access
-- Android: APK installation from build output
+Contributions are welcome! Please fork the repository, make your changes, and submit a pull request.
 
-## Development
+## Legal Disclaimer
 
-```bash
-# Database operations
-npm run db:push          # Apply schema changes
-npm run build           # Production build
-npm run start           # Production server
-
-# Main launcher (recommended)
-./launcher.sh           # Interactive menu
-./launcher.sh cli       # CLI interface only
-./launcher.sh web       # Web server only
-./launcher.sh status    # Health check
-
-# Alternative launchers  
-./cyber.sh              # Command shortcuts
-./start.sh              # Quick launcher
-```
-
-## Support
-
-- **Repository**: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus
-- **Issues**: GitHub Issues for bug reports and feature requests
-- **Documentation**: Complete setup guides included
-
-## Author
-
-**Mulky Malikul Dhaher**
-- GitHub: [@mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
-- Support: Indonesian e-wallets (+6285322624048)
-
-## Security Notice
-
-This platform is designed for educational and authorized testing purposes only. Users are responsible for compliance with applicable laws and regulations.
+This tool is intended for educational and authorized testing purposes only. Unauthorized use of this tool against systems for which you do not have explicit permission is illegal. The developers are not responsible for any misuse. Always obtain written permission before conducting a security assessment.
