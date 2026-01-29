@@ -1,67 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-// Gemini API Manager
-class GeminiAPIManager {
-  private apis: any[] = [];
-  private currentApiIndex = 0;
-
-  constructor() {
-    const apiKeys = [
-      { key: process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY || "", name: "Primary Gemini API" },
-      { key: process.env.GOOGLE_API_KEY_2 || "", name: "Secondary Gemini API" },
-    ];
-
-    this.apis = apiKeys
-      .filter(api => api.key.trim() !== "")
-      .map(api => ({ ...api, client: new GoogleGenerativeAI(api.key) }));
-
-    if (this.apis.length === 0) {
-      console.warn("Warning: No Gemini API keys found. AI enhancement will be disabled.");
-    }
-  }
-
-  public getGenerativeModel(params: { model: string }) {
-    if (this.apis.length === 0) {
-      throw new Error("No valid API keys available");
-    }
-    // Selalu gunakan API saat ini untuk konsistensi dalam sesi chat
-    const currentApi = this.apis[this.currentApiIndex];
-    return currentApi.client.getGenerativeModel(params);
-  }
-
-  private async executeWithFallback<T>(operation: (client: any) => Promise<T>): Promise<T> {
-    if (this.apis.length === 0) {
-      throw new Error("No valid API keys available");
-    }
-
-    let lastError: any;
-    for (let i = 0; i < this.apis.length; i++) {
-      const api = this.apis[this.currentApiIndex];
-      try {
-        const result = await operation(api.client);
-        return result;
-      } catch (error) {
-        lastError = error;
-        console.warn(`API ${api.name} failed. Switching to next API.`);
-        this.currentApiIndex = (this.currentApiIndex + 1) % this.apis.length;
-      }
-    }
-    throw new Error(`All Gemini APIs failed. Last error: ${lastError}`);
-  }
-
-  async generateContent(prompt: string): Promise<string> {
-    return this.executeWithFallback(async (client) => {
-      const model = client.getGenerativeModel({ model: "gemini-1.5-flash"});
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      return response.text();
-    });
-  }
-}
-
-const geminiAPI = new GeminiAPIManager();
+import { geminiAPI } from './gemini-api';
 
 // Load command knowledge base
 let commandsData: any = null;
@@ -81,7 +20,7 @@ function loadCommandsData() {
 }
 
 export interface CommandResponse {
-  type: 'command_explanation' | 'security_analysis' | 'tool_recommendation' | 'general_response' | 'ai_enhanced_response';
+  type: 'command_explanation' | 'security_analysis' | 'tool_recommendation' | 'general_response';
   content: string;
   category?: string;
   difficulty?: string;
@@ -1002,7 +941,7 @@ Keep the response concise but informative (max 300 words).`;
       return {
         ...baseResponse,
         content: enhancedContent,
-        type: 'ai_enhanced_response'
+        type: 'ai_enhanced_response' as any
       };
     } catch (error) {
       console.error('AI enhancement failed:', error);
@@ -1010,80 +949,13 @@ Keep the response concise but informative (max 300 words).`;
     }
   }
 
+  async getAIStatus(): Promise<any> {
+    return geminiAPI.getStatus();
+  }
+
   getInteractiveScenario(difficulty: 'beginner' | 'intermediate' | 'advanced') {
     const scenarios = this.commands.interactive_scenarios?.[difficulty] || [];
     return scenarios[Math.floor(Math.random() * scenarios.length)] || null;
-  }
-
-  async determineNextCommand(target: string, objectives: string[], history: any[], notes?: any): Promise<string> {
-    let notesSummary = "No notes yet.";
-    if (notes && Object.keys(notes).length > 0) {
-      notesSummary = `Here are the current notes about the target:\n${JSON.stringify(notes, null, 2)}`;
-    }
-
-    const systemPrompt = `You are CyberShellX, an AI-driven penetration testing expert. Your goal is to achieve the following objectives against the target "${target}":
-- ${objectives.join('\n- ')}
-
-${notesSummary}
-
-You will be given a history of commands and their outputs. Based on this history and the notes, decide on the single next command to execute.
-The available tools are: nmap, nuclei, sqlmap, gobuster, hydra, john, aircrack-ng, msfconsole, searchsploit.
-
-Rules:
-1.  **Analyze**: Carefully analyze the previous command's output and the existing notes to inform your next step.
-2.  **Strategize**: Do not just run random scans. Think like a real pentester. If you've found a web server, probe it. If you find a vulnerability, try to learn more about it.
-3.  **Avoid Repetition**: Do not run a command if a similar one has already been run and yielded results. Check the history.
-4.  **FINISH Condition**: If the objectives are clearly met, or if you've exhausted all logical next steps, respond with the single word "FINISH".
-5.  **Output Format**: Respond with ONLY the next shell command to execute. Do not add any explanation, formatting, or backticks.
-
-Example Response: nmap -sV -p- ${target}
-Example Response: FINISH`;
-
-    const model = geminiAPI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const chat = model.startChat({
-        history: history,
-        generationConfig: {
-            temperature: 0.2, // Lower temperature for more deterministic commands
-        },
-        systemInstruction: systemPrompt,
-    });
-    const result = await chat.sendMessage("What is the next command?");
-    const response = await result.response;
-    const nextCommand = response.text().trim();
-
-    console.log(`[AI Decision] Next command: ${nextCommand}`);
-    return nextCommand;
-  }
-
-  async extractInfoFromOutput(command: string, output: string): Promise<any> {
-    const prompt = `You are a cybersecurity analyst bot. Your task is to extract key information from the output of a security tool.
-Summarize the findings in a valid JSON object. Focus on actionable intelligence like open ports, discovered vulnerabilities, found directories, potential usernames, etc.
-If no specific findings, return an empty JSON object {}.
-
-Command: ${command}
-Output:
-${output}
-
-Respond with ONLY the JSON object. Do not include any other text or formatting like backticks.`;
-
-    let retries = 2;
-    while (retries > 0) {
-      try {
-        const response = await geminiAPI.generateContent(prompt);
-        const cleanedResponse = response.replace(/```json|```/g, '').trim();
-        // Handle case where AI might still return non-JSON
-        if (!cleanedResponse.startsWith('{') || !cleanedResponse.endsWith('}')) {
-          throw new Error("Invalid JSON format from AI");
-        }
-        return JSON.parse(cleanedResponse);
-      } catch (error) {
-        console.error(`Error during info extraction (attempt ${3 - retries}):`, error);
-        retries--;
-        if (retries === 0) {
-          return { error: "Failed to parse AI response after multiple attempts", details: error.message };
-        }
-      }
-    }
   }
 }
 

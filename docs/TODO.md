@@ -4,10 +4,11 @@ Daftar fitur dan peningkatan yang direncanakan untuk masa depan.
 
 ## Prioritas Tinggi
 
--   [ ] **Implementasi Eksekusi Nyata dalam Mode Otomatis**: Saat ini, mode `automate` menghasilkan rencana tetapi hanya mensimulasikan eksekusi. Langkah selanjutnya adalah membuatnya benar-benar menjalankan perintah.
--   [ ] **Analisis Output AI**: Memungkinkan AI untuk membaca dan memahami output dari perintah yang dieksekusi. Ini sangat penting untuk otomatisasi loop tertutup, di mana hasil dari satu perintah menginformasikan perintah berikutnya.
--   [ ] **Manajemen Sesi/Target**: Mengimplementasikan cara untuk mengelola sesi pentesting yang berbeda dan menyimpan informasi tentang target tertentu (misalnya, alamat IP, port terbuka, kerentanan yang ditemukan).
+-   [x] ~~**Implementasi Eksekusi Nyata dalam Mode Otomatis**~~ (Selesai)
+-   [x] ~~**Analisis Output AI**~~ (Selesai)
+-   [x] ~~**Manajemen Sesi/Target**~~ (Selesai)
 -   [ ] **Pelaporan Otomatis**: Menambahkan fitur untuk menghasilkan laporan pentesting (misalnya, dalam format Markdown atau PDF) berdasarkan riwayat perintah dan output yang dikumpulkan selama sesi.
+-   [ ] **Penyempurnaan Strategi AI**: Meningkatkan prompt sistem dan logika dalam mode `otomatis` untuk menangani skenario yang lebih kompleks dan membuat keputusan yang lebih strategis.
 
 ## Prioritas Sedang
 

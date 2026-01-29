@@ -84,6 +84,7 @@ function showHelp() {
   console.log(`  ${colors.green}gobuster${colors.reset}    - Directory/file, DNS and VHost busting tool`);
   console.log(`  ${colors.green}dirb${colors.reset}        - Web content scanner`);
   console.log(`  ${colors.green}whatweb${colors.reset}      - Web scanner to identify technologies`);
+  console.log(`  ${colors.green}wapiti${colors.reset}      - Web application vulnerability scanner`);
   console.log(``);
   console.log(`${colors.bright}Password Attacks:${colors.reset}`);
   console.log(`  ${colors.green}hydra${colors.reset}       - Parallelized network logon cracker`);
@@ -122,24 +123,28 @@ async function showSystemStatus() {
     spinner.fail(`Server Connection: Offline (${error.name})`);
   }
 
-  log('info', 'Checking commands database...');
-  log('info', 'Commands Database: Loaded');
+  log('info', 'Checking tool availability...');
 
   const toolCategories = {
     "Information Gathering": ["nmap", "theharvester", "sublist3r"],
     "Vulnerability Analysis": ["nikto", "nuclei", "sqlmap"],
-    "Web Application Analysis": ["gobuster", "dirb", "whatweb"],
+    "Web Application Analysis": ["gobuster", "dirb", "whatweb", "wapiti"],
     "Password Attacks": ["hydra", "john"],
     "Wireless Attacks": ["aircrack-ng"],
     "Exploitation Frameworks": ["msfconsole", "searchsploit"],
   };
 
+  console.log(`\n${colors.bright}Tool Status Summary:${colors.reset}`);
   for (const category in toolCategories) {
-    console.log(`\n${colors.bright}${category}:${colors.reset}`);
-    for (const tool of toolCategories[category]) {
-      const exists = await commandExists(tool);
-      console.log(`  ${exists ? colors.green + '✓' : colors.red + '✗'} ${tool}`);
+    const tools = toolCategories[category];
+    let installedCount = 0;
+    for (const tool of tools) {
+      if (await commandExists(tool)) {
+        installedCount++;
+      }
     }
+    const status = installedCount === tools.length ? colors.green + '✓' : colors.yellow + '!';
+    console.log(`  ${status} ${category}: ${installedCount}/${tools.length} installed`);
   }
 }
 
