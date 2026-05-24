@@ -1,6 +1,63 @@
-node_modules
-dist
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 .DS_Store
-server/public
+Thumbs.db
+
+# Server generated files
+server/public/
+
+# Vite config overrides
 vite.config.ts.*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Coverage and test output
+coverage/
+.nyc_output/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Compressed archives
 *.tar.gz
+*.zip
+
+# Android build artifacts
+android-assistant/app/build/
+android-assistant/build/
+android-assistant/.gradle/
+android-assistant/app/.gradle/
+*.apk
+*.aab
+
+# Temporary files
+tmp/
+temp/
