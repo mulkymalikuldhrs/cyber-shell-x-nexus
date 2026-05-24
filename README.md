@@ -1,135 +1,320 @@
+<a href="https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus">
+  <img align="center" src="https://capsule-render.vercel.app/api?type=wave&color=0:0d1117,50:161b22,100:1f6feb&height=180&section=header&text=CyberShellX%20Nexus&fontSize=42&fontColor=58a6ff&animation=fadeIn&fontAlignY=32&desc=Advanced%20Cybersecurity%20Platform%20with%20AI-Powered%20Assistant&descSize=18&descColor=8b949e&descAlignY=52" />
+</a>
 
-# CyberShellX Nexus 🛡️
+<div align="center">
 
-Advanced cybersecurity platform with AI-powered assistant, interactive terminal interface, and cross-platform capabilities.
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=58A6FF&center=true&vCenter=true&width=600&lines=AI-Powered+Cybersecurity+Platform;Multi-API+Gemini+Integration;Cross-Platform+Terminal+%2B+Web+%2B+Android;Interactive+Security+Training+%26+Education)](https://git.io/typing-svg)
 
-## Quick Start
+</div>
 
-### Main Launcher
-```bash
-./launcher.sh              # Interactive menu (recommended)
-./launcher.sh cli          # 01. CLI cybersecurity shell
-./launcher.sh web          # 02. Web server
-./launcher.sh android      # 03. Android voice assistant backend
-./launcher.sh update       # 04. Update system from GitHub
-./launcher.sh status       # 05. System health check
-```
+<div align="center">
 
-Choose from:
-1. **CLI Terminal Interface** - Enhanced cybersecurity shell with AI integration
-2. **Web Server** - Full desktop/laptop browser interface with AI enhancement
-3. **Termux Server** - Mobile-optimized web interface for Android browsers
-4. **Android Server** - Backend server for voice assistant mobile app
-5. **Update System** - Pull latest changes and update all dependencies
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Cybersecurity](https://img.shields.io/badge/Cybersecurity-AI%20Powered-00CED1?style=for-the-badge&logo=shield-check&logoColor=white)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Version](https://img.shields.io/badge/Version-1.0.0-1f6feb?style=for-the-badge)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/releases)
 
-### Direct Access
-```bash
-# Web interface only
-npm run dev
+</div>
 
-# CLI terminal only  
-node cli-interface.js
-```
+<div align="center">
+
+**Language / Bahasa / 语言**
+
+[![EN](https://img.shields.io/badge/EN-English-blue?style=flat-square)](README.md)
+[![ID](https://img.shields.io/badge/ID-Bahasa%20Indonesia-red?style=flat-square)](README_id.md)
+[![CN](https://img.shields.io/badge/CN-中文-green?style=flat-square)](README_zh.md)
+
+</div>
+
+---
+
+## Overview
+
+**CyberShellX Nexus** is an advanced, cross-platform cybersecurity platform that integrates artificial intelligence to deliver real-time security guidance, interactive tool demonstrations, and educational training scenarios. Built with a modern TypeScript/React stack and powered by Google Gemini AI with a resilient multi-API fallback system, the platform provides cybersecurity professionals, students, and enthusiasts with an intelligent companion for network analysis, vulnerability assessment, penetration testing methodology, digital forensics, and much more.
+
+The platform operates across three distinct interfaces: a command-line terminal for power users, a browser-based web dashboard for interactive exploration, and a native Android voice assistant for on-the-go security consulting. Each interface connects to the same AI-powered backend, ensuring consistent and enriched responses regardless of the access method. CyberShellX Nexus emphasizes ethical hacking and responsible disclosure, embedding legal notices and ethical guidelines throughout every interaction.
+
+This project is part of the broader cybersecurity ecosystem alongside [HermesQuantOS](https://github.com/mulkymalikuldhrs/HermesQuantOS), sharing architectural patterns and AI integration strategies for next-generation security tooling.
+
+---
+
+## Features
+
+### AI-Powered Cybersecurity Assistant
+- **Multi-API Gemini Integration** -- Automatic fallback between 4 Gemini API endpoints ensuring uninterrupted service even when individual APIs experience downtime or rate limiting
+- **Intelligent Command Processing** -- Context-aware analysis of cybersecurity commands covering network scanning, vulnerability assessment, exploitation, forensics, wireless security, and cryptography
+- **Enhanced AI Responses** -- Base responses are augmented with real-time Gemini AI analysis, adding technical depth, practical examples, and current best practices
+- **Real-Time API Health Monitoring** -- Live status tracking of all API endpoints with automatic switching on failure detection
+- **Ethical Guidelines Engine** -- Every response includes appropriate legal notices and responsible disclosure reminders
+
+### Command-Line Interface
+- Interactive cybersecurity terminal with AI integration
+- Tool simulations: nmap, metasploit, wireshark, sqlmap, burpsuite, hashcat, aircrack-ng
+- Educational command demonstrations with detailed explanations
+- Cross-platform compatibility (Linux, macOS, Termux on Android)
+- Difficulty-level classification (beginner, intermediate, advanced)
+
+### Web Dashboard
+- Modern React 18 + TypeScript + Vite application
+- Real-time terminal simulation with WebSocket support
+- Cybersecurity tool demonstrations and interactive scenarios
+- PostgreSQL database integration with Drizzle ORM
+- Responsive design with professional dark theme
+- Radix UI component library with shadcn/ui styling
+
+### Android Voice Assistant
+- Voice-activated assistant with "Hey CyberShell" wake word detection
+- Background service for always-on functionality
+- System control capabilities (WiFi, Bluetooth, flashlight, volume)
+- Shell command execution interface
+- AI-powered cybersecurity guidance through natural conversation
+
+### Interactive Training Scenarios
+- Beginner: Network discovery, log analysis exercises
+- Intermediate: Web application testing, wireless security assessment
+- Advanced: APT simulation, memory forensics investigation
+- Learning prompts covering OWASP Top 10, penetration testing phases, responsible disclosure
+
+---
 
 ## Installation
 
-### Replit (Current Environment)
-The application is ready to run. Use `./run.sh` to start.
+### Prerequisites
+- **Node.js** 18+ and npm
+- **PostgreSQL** database (for web interface)
+- **Git** for cloning and updates
+
+### Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus.git
+cd cyber-shell-x-nexus
+
+# Install dependencies
+npm install
+
+# Set up database schema
+npm run db:push
+
+# Launch with interactive menu (recommended)
+./launcher.sh
+```
+
+### Launch Modes
+
+```bash
+./launcher.sh              # Interactive menu (recommended)
+./launcher.sh cli          # CLI cybersecurity shell
+./launcher.sh web          # Web server on port 5000
+./launcher.sh android      # Android voice assistant backend
+./launcher.sh update       # Update system from GitHub
+./launcher.sh status       # System health check
+```
 
 ### Termux (Android)
+
 ```bash
-# Download installer
+# Download and run installer
 curl -o termux-install.sh https://raw.githubusercontent.com/mulkymalikuldhrs/cyber-shell-x-nexus/main/termux-install.sh
 chmod +x termux-install.sh
 ./termux-install.sh
 
-# Run interactive launcher
+# Launch
 cd ~/cyber-shell-x-nexus
 ./run.sh
 ```
 
-### Local Development
-```bash
-git clone https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus.git
-cd cyber-shell-x-nexus
-npm install
-npm run db:push
-./run.sh
+### Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+# Gemini API Keys (at least one required for AI features)
+GOOGLE_API_KEY=your_primary_gemini_api_key
+GOOGLE_API_KEY_2=your_secondary_gemini_api_key
+GEMINI_API_KEY=alternative_gemini_api_key
+
+# Database
+DATABASE_URL=postgresql://user:password@localhost:5432/cybershellx
+
+# Server
+PORT=5000
+NODE_ENV=development
 ```
 
-## Features
+---
 
-### AI-Powered Responses
-- **Multiple API Support** - Automatic fallback between 4 Gemini API endpoints
-- **Enhanced Responses** - AI-powered cybersecurity guidance and explanations
-- **Intelligent Fallback** - Seamless switching when APIs are unavailable
-- **Real-time Status** - Monitor API health and current active endpoint
+## Usage
 
-### CLI Interface (Option 1)
-- Interactive cybersecurity terminal
-- Tool simulations: nmap, metasploit, wireshark, sqlmap, burpsuite
-- Educational command demonstrations
-- Cross-platform compatibility
+### CLI Terminal
 
-### Web Interface (Option 2)
-- Modern React-based UI
-- Real-time terminal simulation
-- Cybersecurity tool demonstrations
-- Database integration with PostgreSQL
-- Responsive design with dark theme
+The command-line interface provides an interactive cybersecurity shell with AI-powered explanations:
 
-### Android App (Option 3)
-- Voice-activated assistant with "Hey CyberShell" wake word
-- Background service for always-on functionality
-- System control (WiFi, Bluetooth, flashlight, volume)
-- Shell command execution capabilities
-- AI-powered cybersecurity guidance
+```bash
+node cli-interface.js
+```
+
+Available command categories:
+- **Network Security**: `scan network`, `nmap`, `wireshark`, `netstat`
+- **Vulnerability Assessment**: `check vulnerabilities`, `nikto`, `openvas`
+- **Exploitation**: `metasploit`, `sql injection`, `burp suite`
+- **Forensics**: `volatility`, `autopsy`, `memory analysis`
+- **Wireless**: `aircrack`, `wireless security`, `wifi scan`
+- **Cryptography**: `password crack`, `hashcat`, `john ripper`
+- **System**: `system info`, `process monitor`, `log analysis`
+
+### Web Interface
+
+Start the web server and navigate to `http://localhost:5000`:
+
+```bash
+npm run dev
+```
+
+The web interface features:
+- Interactive terminal with AI chat
+- Real-time WebSocket communication
+- Tool installation and management
+- Penetration testing environment preparation
+- Session management and command history
+
+### Android App
+
+Build and install the Android voice assistant:
+
+```bash
+cd android-assistant
+./build-apk.sh
+./install-apk.sh
+```
+
+---
+
+## Project Structure
+
+```
+cyber-shell-x-nexus/
+├── client/                        # React frontend
+│   ├── src/
+│   │   ├── components/            # React components (UI + custom)
+│   │   │   ├── ui/               # shadcn/ui Radix components
+│   │   │   ├── CyberShellXTerminal.tsx
+│   │   │   ├── Hero.tsx
+│   │   │   ├── FeatureCard.tsx
+│   │   │   └── ...
+│   │   ├── pages/                # Application pages
+│   │   ├── hooks/                # Custom React hooks
+│   │   └── lib/                  # Utilities and query client
+│   └── index.html
+├── server/                        # Express backend
+│   ├── index.ts                  # Server entry point
+│   ├── routes.ts                 # API endpoints + WebSocket
+│   ├── cybershell-ai.ts          # AI command processing engine
+│   ├── gemini-api.ts             # Multi-API Gemini fallback manager
+│   ├── storage.ts                # Database storage layer
+│   ├── db.ts                     # Database connection
+│   ├── supabase-integration.ts   # Supabase client integration
+│   └── vite.ts                   # Vite dev/prod middleware
+├── shared/                        # Shared types and schemas
+│   └── schema.ts                 # Drizzle ORM database definitions
+├── android-assistant/             # Native Android voice assistant
+│   ├── app/src/main/java/        # Kotlin source code
+│   ├── build-apk.sh              # APK build script
+│   └── install-apk.sh            # APK installation script
+├── cybershell-commands/           # AI knowledge base
+│   ├── commands.json             # Tool definitions and scenarios
+│   └── ai-knowledge-base.md      # AI training reference data
+├── scripts/                       # Utility scripts
+│   ├── health-check.js           # System verification
+│   ├── verify-repo.js            # Repository validation
+│   └── fix-build.js              # Build troubleshooting
+├── docs/                          # Documentation
+│   ├── API.md                    # API reference
+│   └── TROUBLESHOOTING.md        # Common issues and solutions
+├── launcher.sh                    # Main interactive launcher
+├── cli-interface.js               # CLI terminal interface
+├── drizzle.config.ts             # Database migration config
+├── vite.config.ts                # Frontend build configuration
+├── tailwind.config.ts            # Tailwind CSS configuration
+├── tsconfig.json                 # TypeScript configuration
+└── package.json                  # Dependencies and scripts
+```
+
+---
+
+## API Reference
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/command` | POST | Process cybersecurity commands with AI enhancement |
+| `/api/learning-prompt` | GET | Retrieve random educational learning prompts |
+| `/api/scenario/:difficulty` | GET | Get interactive scenario by difficulty level |
+| `/api/ethics` | GET | Retrieve ethical hacking guidelines |
+| `/api/ai/status` | GET | Check AI API health and fallback status |
+| `/ws/cybershell` | WS | Real-time WebSocket for terminal communication |
+
+See [API Documentation](docs/API.md) for detailed request/response formats.
+
+---
 
 ## Architecture
 
-- **Frontend**: React 18 + TypeScript + Vite
-- **Backend**: Express.js + TypeScript
-- **Database**: PostgreSQL with Drizzle ORM
-- **Mobile**: Native Android with voice recognition
-- **CLI**: Node.js-based terminal interface
+The platform follows a modular monorepo architecture with clear separation between frontend, backend, shared schemas, mobile application, and AI processing layers.
 
-## Access Points
+- **Frontend**: React 18 + TypeScript + Vite + Tailwind CSS + shadcn/ui
+- **Backend**: Express.js + TypeScript with WebSocket support
+- **Database**: PostgreSQL with Drizzle ORM + Supabase integration
+- **AI Engine**: Google Gemini 2.5 Flash/Pro with 4-endpoint fallback system
+- **Mobile**: Native Android (Kotlin) with voice recognition and background services
+- **CLI**: Node.js terminal interface with command parsing
 
-- Web Interface: http://localhost:5000
-- CLI: Direct terminal access
-- Android: APK installation from build output
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the complete system design document.
 
-## Development
+---
 
-```bash
-# Database operations
-npm run db:push          # Apply schema changes
-npm run build           # Production build
-npm run start           # Production server
+## Contributing
 
-# Main launcher (recommended)
-./launcher.sh           # Interactive menu
-./launcher.sh cli       # CLI interface only
-./launcher.sh web       # Web server only
-./launcher.sh status    # Health check
+We welcome contributions from the cybersecurity and developer communities. Whether you are fixing bugs, adding new command categories, improving AI responses, enhancing the UI, or adding translation support, your help is valued.
 
-# Alternative launchers  
-./cyber.sh              # Command shortcuts
-./start.sh              # Quick launcher
-```
+Please read our [Contributing Guide](CONTRIBUTING.md) for detailed instructions on:
 
-## Support
+- Setting up the development environment
+- Code style and commit conventions
+- Pull request process and review guidelines
+- Reporting bugs and requesting features
 
-- **Repository**: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus
-- **Issues**: GitHub Issues for bug reports and feature requests
-- **Documentation**: Complete setup guides included
+**Project Owner**: Mulky Malikul Dhaher  
+**Contact**: mulkymalikuldhaher@email.com
 
-## Author
-
-**Mulky Malikul Dhaher**
-- GitHub: [@mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
-- Support: Indonesian e-wallets (+6285322624048)
+---
 
 ## Security Notice
 
-This platform is designed for educational and authorized testing purposes only. Users are responsible for compliance with applicable laws and regulations.
+This platform is designed **exclusively** for educational and authorized security testing purposes. All command explanations and tool demonstrations include legal notices emphasizing the requirement for proper authorization. Users are solely responsible for ensuring compliance with all applicable local, national, and international laws and regulations. Unauthorized access to computer systems is illegal in most jurisdictions. Always obtain explicit written permission before testing any systems or networks.
+
+---
+
+## Contact
+
+<div align="center">
+
+[![GitHub](https://img.shields.io/badge/GitHub-mulkymalikuldhrs-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mulkymalikuldhrs)
+[![Email](https://img.shields.io/badge/Email-mulkymalikuldhaher%40email.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:mulkymalikuldhaher@email.com)
+[![Repository](https://img.shields.io/badge/Repository-CyberShellX%20Nexus-1f6feb?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus)
+[![HermesQuantOS](https://img.shields.io/badge/Related-HermesQuantOS-6e40c9?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mulkymalikuldhrs/HermesQuantOS)
+
+</div>
+
+---
+
+<div align="center">
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+
+</div>
+
+<a href="https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus">
+  <img align="center" src="https://capsule-render.vercel.app/api?type=wave&color=0:1f6feb,50:161b22,100:0d1117&height=120&section=footer" />
+</a>
