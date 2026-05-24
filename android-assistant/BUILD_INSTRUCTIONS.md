@@ -176,3 +176,8 @@ android-assistant/
 3. Set as default assistant (optional)
 4. Start your CyberShellX server
 5. Test with "Hey CyberShell" commands
+---
+
+> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+>
+> **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)

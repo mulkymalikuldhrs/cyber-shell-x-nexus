@@ -166,3 +166,8 @@ Instead of SSH access, please share:
 5. **Current directory structure**: `ls -la` of project folder
 
 This way I can provide specific fixes for your exact issues without needing direct access.
+---
+
+> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+>
+> **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)

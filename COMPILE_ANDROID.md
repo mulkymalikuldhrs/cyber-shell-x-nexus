@@ -141,3 +141,8 @@ chmod -R 755 $ANDROID_HOME
 
 ## Output
 APK siap install: `app/build/outputs/apk/debug/app-debug.apk`
+---
+
+> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+>
+> **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)
