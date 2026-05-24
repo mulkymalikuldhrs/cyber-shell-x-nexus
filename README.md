@@ -274,38 +274,9 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for the complete system design document.
 
 ---
 
-## Contributing
-
-We welcome contributions from the cybersecurity and developer communities. Whether you are fixing bugs, adding new command categories, improving AI responses, enhancing the UI, or adding translation support, your help is valued.
-
-Please read our [Contributing Guide](CONTRIBUTING.md) for detailed instructions on:
-
-- Setting up the development environment
-- Code style and commit conventions
-- Pull request process and review guidelines
-- Reporting bugs and requesting features
-
-**Project Owner**: Mulky Malikul Dhaher  
-**Contact**: mulkymalikuldhaher@email.com
-
----
-
 ## Security Notice
 
 This platform is designed **exclusively** for educational and authorized security testing purposes. All command explanations and tool demonstrations include legal notices emphasizing the requirement for proper authorization. Users are solely responsible for ensuring compliance with all applicable local, national, and international laws and regulations. Unauthorized access to computer systems is illegal in most jurisdictions. Always obtain explicit written permission before testing any systems or networks.
-
----
-
-## Contact
-
-<div align="center">
-
-[![GitHub](https://img.shields.io/badge/GitHub-mulkymalikuldhrs-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mulkymalikuldhrs)
-[![Email](https://img.shields.io/badge/Email-mulkymalikuldhaher%40email.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:mulkymalikuldhaher@email.com)
-[![Repository](https://img.shields.io/badge/Repository-CyberShellX%20Nexus-1f6feb?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus)
-[![HermesQuantOS](https://img.shields.io/badge/Related-HermesQuantOS-6e40c9?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mulkymalikuldhrs/HermesQuantOS)
-
-</div>
 
 ---
 
@@ -318,3 +289,45 @@ This platform is designed **exclusively** for educational and authorized securit
 <a href="https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus">
   <img align="center" src="https://capsule-render.vercel.app/api?type=wave&color=0:1f6feb,50:161b22,100:0d1117&height=120&section=footer" />
 </a>
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! We encourage the community to help improve this project.
+
+1. **Fork** the repository
+2. Create a **feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. Open a **Pull Request**
+
+Please make sure to update tests as appropriate and follow the existing code style.
+
+---
+
+## 📬 Contact
+
+**Mulky Malikul Dhaher** — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+
+GitHub: [https://github.com/mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
+
+---
+
+## ⚠️ Disclaimer
+
+**This project is for Education Purpose only.**
+
+All content, code, and documentation provided in this repository are intended solely for educational and research purposes. Nothing in this repository constitutes financial, investment, legal, or professional advice.
+
+**Risiko apapun tidak kita tanggung.** (We are not responsible for any risks or damages.)
+
+Use at your own risk. The authors and contributors assume no liability for any losses, damages, or consequences arising from the use of this software or information provided herein.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+
+Copyright © Mulky Malikul Dhaher. All rights reserved.
+

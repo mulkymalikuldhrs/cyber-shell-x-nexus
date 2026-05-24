@@ -94,3 +94,8 @@ For persistent issues:
 - GitHub Issues: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/issues
 - Review documentation in `/docs` folder
 - Ensure updates pull from official repository: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus
+---
+
+> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+>
+> **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)

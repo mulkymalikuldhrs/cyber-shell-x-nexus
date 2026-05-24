@@ -34,3 +34,9 @@ Jika Anda masih mengalami masalah "Missing script: build:dev", silakan tambahkan
 
 ## Alternatif cepat:
 Jalankan: `node scripts/fix-build.js` untuk perbaikan otomatis.
+
+---
+
+> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+>
+> **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)
