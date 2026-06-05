@@ -2,25 +2,52 @@ import fs from 'fs';
 import path from 'path';
 import { geminiAPI } from './gemini-api';
 
-// Load command knowledge base
-let commandsData: any = null;
+// ── Types ────────────────────────────────────────────────────────────────────
 
-function loadCommandsData() {
-  if (!commandsData) {
-    try {
-      const commandsPath = path.join(process.cwd(), 'cybershell-commands', 'commands.json');
-      const rawData = fs.readFileSync(commandsPath, 'utf8');
-      commandsData = JSON.parse(rawData);
-    } catch (error) {
-      console.error('Error loading commands data:', error);
-      commandsData = { categories: {}, ai_prompts: {} };
-    }
-  }
-  return commandsData;
+interface CommandEntry {
+  command: string;
+  description: string;
+  syntax: string;
+  examples: string[];
+  output_format: string;
+  difficulty: string;
+}
+
+interface CommandCategory {
+  name: string;
+  icon: string;
+  commands: CommandEntry[];
+}
+
+interface AiPromptConfig {
+  system_prompt: string;
+  personality: {
+    tone: string;
+    expertise: string;
+    ethics: string;
+    communication: string;
+  };
+  response_templates: Record<string, string>;
+  learning_prompts: string[];
+  ethical_guidelines: string[];
+}
+
+interface InteractiveScenario {
+  title: string;
+  description: string;
+  steps: string[];
+  tools: string[];
+  expected_time: string;
+}
+
+interface CommandsData {
+  categories: Record<string, CommandCategory>;
+  ai_prompts: AiPromptConfig;
+  interactive_scenarios: Record<string, InteractiveScenario[]>;
 }
 
 export interface CommandResponse {
-  type: 'command_explanation' | 'security_analysis' | 'tool_recommendation' | 'general_response';
+  type: 'command_explanation' | 'security_analysis' | 'tool_recommendation' | 'general_response' | 'ai_enhanced_response';
   content: string;
   category?: string;
   difficulty?: string;
@@ -28,8 +55,32 @@ export interface CommandResponse {
   legal_notice?: boolean;
 }
 
+// ── Commands data loader ─────────────────────────────────────────────────────
+
+let commandsData: CommandsData | null = null;
+
+function loadCommandsData(): CommandsData {
+  if (!commandsData) {
+    try {
+      const commandsPath = path.join(process.cwd(), 'cybershell-commands', 'commands.json');
+      const rawData = fs.readFileSync(commandsPath, 'utf8');
+      commandsData = JSON.parse(rawData) as CommandsData;
+    } catch (error) {
+      console.error('Error loading commands data:', error);
+      commandsData = {
+        categories: {},
+        ai_prompts: { system_prompt: '', personality: { tone: '', expertise: '', ethics: '', communication: '' }, response_templates: {}, learning_prompts: [], ethical_guidelines: [] },
+        interactive_scenarios: {},
+      };
+    }
+  }
+  return commandsData;
+}
+
+// ── CyberShellAI ─────────────────────────────────────────────────────────────
+
 export class CyberShellAI {
-  private commands: any;
+  private commands: CommandsData;
   
   constructor() {
     this.commands = loadCommandsData();
@@ -38,54 +89,50 @@ export class CyberShellAI {
   processCommand(userInput: string): CommandResponse {
     const input = userInput.toLowerCase().trim();
     
-    // Check for specific command patterns
     if (input.includes('scan') && (input.includes('network') || input.includes('nmap'))) {
-      return this.explainNetworkScanning(input);
+      return this.explainNetworkScanning();
     }
     
     if (input.includes('vulnerabilit') || input.includes('vuln')) {
-      return this.explainVulnerabilityAssessment(input);
+      return this.explainVulnerabilityAssessment();
     }
     
     if (input.includes('sql') && input.includes('inject')) {
-      return this.explainSQLInjection(input);
+      return this.explainSQLInjection();
     }
     
     if (input.includes('metasploit') || input.includes('exploit')) {
-      return this.explainMetasploit(input);
+      return this.explainMetasploit();
     }
     
     if (input.includes('wireshark') || input.includes('traffic') || input.includes('packet')) {
-      return this.explainNetworkAnalysis(input);
+      return this.explainNetworkAnalysis();
     }
     
     if (input.includes('password') && (input.includes('crack') || input.includes('hash'))) {
-      return this.explainPasswordCracking(input);
+      return this.explainPasswordCracking();
     }
     
     if (input.includes('forensic') || input.includes('memory') || input.includes('volatility')) {
-      return this.explainForensics(input);
+      return this.explainForensics();
     }
     
     if (input.includes('wireless') || input.includes('wifi') || input.includes('aircrack')) {
-      return this.explainWirelessSecurity(input);
+      return this.explainWirelessSecurity();
     }
     
-    // Check for system commands
     if (input.includes('system') && (input.includes('info') || input.includes('check'))) {
-      return this.explainSystemAnalysis(input);
+      return this.explainSystemAnalysis();
     }
     
-    // General security advice
     if (input.includes('security') || input.includes('protect') || input.includes('secure')) {
-      return this.provideSecurityGuidance(input);
+      return this.provideSecurityGuidance();
     }
     
-    // Default response for unrecognized commands
-    return this.provideGeneralGuidance(input);
+    return this.provideGeneralGuidance();
   }
 
-  private explainNetworkScanning(input: string): CommandResponse {
+  private explainNetworkScanning(): CommandResponse {
     const explanation = `🌐 **Network Scanning with Nmap**
 
 **Purpose:** Discover active hosts and services on a network
@@ -130,7 +177,7 @@ Unauthorized scanning may violate laws and network policies.`;
     };
   }
 
-  private explainVulnerabilityAssessment(input: string): CommandResponse {
+  private explainVulnerabilityAssessment(): CommandResponse {
     const explanation = `🛡️ **Vulnerability Assessment Process**
 
 **Automated Scanning:**
@@ -190,7 +237,7 @@ gvm-cli socket --xml="<get_tasks/>"
     };
   }
 
-  private explainSQLInjection(input: string): CommandResponse {
+  private explainSQLInjection(): CommandResponse {
     const explanation = `💉 **SQL Injection Testing & Prevention**
 
 **Detection Techniques:**
@@ -220,9 +267,6 @@ sqlmap -u "URL" -D database_name --tables
 
 # Data extraction
 sqlmap -u "URL" -D db_name -T table_name --dump
-
-# Shell access
-sqlmap -u "URL" --os-shell
 \`\`\`
 
 **Prevention Measures:**
@@ -250,7 +294,7 @@ $stmt->execute([$user_id]);
     };
   }
 
-  private explainMetasploit(input: string): CommandResponse {
+  private explainMetasploit(): CommandResponse {
     const explanation = `🎯 **Metasploit Framework Usage**
 
 **Starting Metasploit:**
@@ -301,7 +345,6 @@ ps
 
 # Upload/download files
 upload /path/to/local/file C:\\\\Windows\\\\Temp\\\\
-download C:\\\\Windows\\\\System32\\\\config\\\\SAM
 
 # Screenshot
 screenshot
@@ -309,11 +352,6 @@ screenshot
 # Privilege escalation
 getsystem
 \`\`\`
-
-**Post-Exploitation Modules:**
-- **windows/gather/smart_hashdump**: Extract password hashes
-- **windows/manage/migrate**: Process migration
-- **multi/manage/shell_to_meterpreter**: Upgrade shells
 
 **Operational Security:**
 - Use staged payloads for larger binaries
@@ -333,7 +371,7 @@ getsystem
     };
   }
 
-  private explainNetworkAnalysis(input: string): CommandResponse {
+  private explainNetworkAnalysis(): CommandResponse {
     const explanation = `📊 **Network Traffic Analysis**
 
 **Wireshark Fundamentals:**
@@ -389,19 +427,6 @@ tcp.flags.reset == 1
 4. **Documentation**: Record findings and evidence
 5. **Presentation**: Prepare reports for stakeholders
 
-**Security Monitoring Use Cases:**
-- Intrusion detection and incident response
-- Malware communication analysis
-- Data exfiltration detection
-- Network performance troubleshooting
-- Compliance and audit requirements
-
-**Advanced Features:**
-- **GeoIP Resolution**: Map IP addresses to locations
-- **Expert System**: Automated problem detection
-- **Statistics**: Protocol hierarchy and conversations
-- **VoIP Analysis**: SIP and RTP protocol support
-
 ⚠️ **Privacy Considerations**: Only capture traffic on networks you own or have authorization to monitor.`;
 
     return {
@@ -414,7 +439,7 @@ tcp.flags.reset == 1
     };
   }
 
-  private explainPasswordCracking(input: string): CommandResponse {
+  private explainPasswordCracking(): CommandResponse {
     const explanation = `🔐 **Password Security & Hash Cracking**
 
 **Hashcat Usage:**
@@ -438,37 +463,6 @@ hashcat -m 0 -a 1 hashes.txt dict1.txt dict2.txt
 - **NTLM (-m 1000)**: Windows password hashes
 - **bcrypt (-m 3200)**: Strong adaptive hash function
 - **WPA2 (-m 22000)**: Wireless network passwords
-
-**John the Ripper:**
-\`\`\`bash
-# Dictionary attack
-john --wordlist=rockyou.txt shadow
-
-# Incremental mode
-john --incremental passwords.txt
-
-# Show cracked passwords
-john --show shadow
-
-# Custom rules
-john --rules=MyRules --wordlist=dict.txt hashes
-\`\`\`
-
-**Hash Identification:**
-\`\`\`bash
-# Using hashid
-hashid -m hash.txt
-
-# Using hash-identifier
-hash-identifier
-\`\`\`
-
-**Password Attack Strategies:**
-1. **Dictionary Attacks**: Use common passwords
-2. **Rule-based Attacks**: Modify dictionary words
-3. **Brute Force**: Try all combinations (time-intensive)
-4. **Hybrid Attacks**: Combine dictionary + brute force
-5. **Mask Attacks**: Target specific patterns
 
 **Password Security Best Practices:**
 - **Length**: Minimum 12 characters
@@ -496,7 +490,7 @@ hash-identifier
     };
   }
 
-  private explainForensics(input: string): CommandResponse {
+  private explainForensics(): CommandResponse {
     const explanation = `🔍 **Digital Forensics & Memory Analysis**
 
 **Volatility Framework:**
@@ -517,18 +511,6 @@ volatility -f memory.dump --profile=Win7SP1x64 cmdline
 volatility -f memory.dump --profile=Win7SP1x64 malfind
 \`\`\`
 
-**Memory Acquisition:**
-\`\`\`bash
-# Windows - using DumpIt
-DumpIt.exe /output C:\\memory.dump
-
-# Linux - using LiME
-insmod lime.ko "path=/tmp/memory.dump format=lime"
-
-# VMware snapshot
-vmss2core -W memory.vmss memory.dump
-\`\`\`
-
 **Forensic Analysis Process:**
 1. **Acquisition**: Create bit-for-bit copies
 2. **Preservation**: Maintain evidence integrity
@@ -542,32 +524,6 @@ vmss2core -W memory.vmss memory.dump
 - **Hash Analysis**: Identify known files
 - **Registry Analysis**: Windows system artifacts
 - **Email Recovery**: Deleted message reconstruction
-
-**Mobile Forensics:**
-\`\`\`bash
-# Android ADB extraction
-adb backup -apk -shared -nosystem
-
-# iOS logical acquisition (jailbroken)
-idevicebackup2 backup --full ./backup_folder
-
-# SQLite database analysis
-sqlite3 database.db ".tables"
-\`\`\`
-
-**Network Forensics:**
-- **Packet Analysis**: Full network reconstructions
-- **Flow Analysis**: Connection summaries
-- **Protocol Reconstruction**: Application layer data
-- **Geolocation**: IP address mapping
-- **Timeline Correlation**: Multi-source events
-
-**Anti-Forensics Countermeasures:**
-- **Encryption Detection**: Identify encrypted volumes
-- **Steganography**: Hidden data in images/files
-- **Timestamp Manipulation**: Altered file times
-- **Secure Deletion**: Overwritten data recovery
-- **Virtual Machines**: Evidence containerization
 
 **Legal Considerations:**
 - Chain of custody maintenance
@@ -588,7 +544,7 @@ sqlite3 database.db ".tables"
     };
   }
 
-  private explainWirelessSecurity(input: string): CommandResponse {
+  private explainWirelessSecurity(): CommandResponse {
     const explanation = `📡 **Wireless Network Security Assessment**
 
 **Aircrack-ng Suite:**
@@ -602,9 +558,6 @@ airodump-ng wlan0mon
 # Capture handshake
 airodump-ng -c 6 --bssid AA:BB:CC:DD:EE:FF -w capture wlan0mon
 
-# Deauthentication attack
-aireplay-ng -0 5 -a AA:BB:CC:DD:EE:FF wlan0mon
-
 # Crack WPA2 password
 aircrack-ng -w wordlist.txt capture-01.cap
 \`\`\`
@@ -614,51 +567,6 @@ aircrack-ng -w wordlist.txt capture-01.cap
 2. **WPA/WPA2**: Strong when using complex passwords
 3. **WPA3**: Latest standard with enhanced security
 4. **Enterprise (802.1X)**: Certificate-based authentication
-
-**Advanced Wireless Attacks:**
-\`\`\`bash
-# Evil Twin Access Point
-hostapd evil_twin.conf
-
-# KARMA attack (auto-connect)
-karma.py -i wlan0mon
-
-# Wi-Fi Pineapple modules
-pineapple karma dns_spoof ssl_strip
-\`\`\`
-
-**Bluetooth Security:**
-\`\`\`bash
-# Device discovery
-hcitool scan
-
-# Service enumeration
-sdptool browse MAC_ADDRESS
-
-# Bluez utilities
-bluetoothctl scan on
-\`\`\`
-
-**Wireless Reconnaissance:**
-- **SSID Collection**: Network names and configurations
-- **Client Identification**: Connected device analysis
-- **Signal Strength**: Physical location estimation
-- **Encryption Analysis**: Security implementation assessment
-- **Vendor Identification**: Equipment manufacturer details
-
-**Enterprise Wireless Security:**
-- **Certificate Management**: PKI infrastructure
-- **RADIUS Authentication**: Centralized access control
-- **Network Segmentation**: VLAN isolation
-- **Monitoring Systems**: Rogue AP detection
-- **Policy Enforcement**: Device compliance checking
-
-**Physical Security Considerations:**
-- **RF Shielding**: Prevent signal leakage
-- **Antenna Placement**: Optimize coverage areas
-- **Power Control**: Minimize unnecessary range
-- **Location Services**: Disable when not needed
-- **Guest Networks**: Isolated visitor access
 
 **Wireless Security Best Practices:**
 - Use WPA3 or WPA2 with strong passwords
@@ -679,7 +587,7 @@ bluetoothctl scan on
     };
   }
 
-  private explainSystemAnalysis(input: string): CommandResponse {
+  private explainSystemAnalysis(): CommandResponse {
     const explanation = `⚙️ **System Security Analysis**
 
 **System Information Gathering:**
@@ -687,27 +595,11 @@ bluetoothctl scan on
 # Windows system info
 systeminfo
 wmic os get Caption,Version,BuildNumber
-Get-ComputerInfo
 
 # Linux system info
 uname -a
 cat /etc/os-release
 lscpu && free -h && df -h
-\`\`\`
-
-**Process and Service Analysis:**
-\`\`\`bash
-# Windows processes
-tasklist /svc
-Get-Process | Sort-Object CPU -Descending
-
-# Linux processes
-ps aux --sort=-%cpu
-top -o %CPU
-
-# Network connections
-netstat -tulpn
-ss -tulpn
 \`\`\`
 
 **Security Configuration Review:**
@@ -717,33 +609,12 @@ secpol.msc
 gpresult /h report.html
 
 # Linux security settings
-cat /etc/passwd
-cat /etc/shadow
 sudo -l
 
 # Firewall status
 ufw status (Ubuntu)
 firewall-cmd --list-all (CentOS/RHEL)
 \`\`\`
-
-**Log Analysis:**
-\`\`\`bash
-# Windows Event Logs
-Get-EventLog -LogName Security -Newest 100
-wevtutil qe Security /c:100 /f:text
-
-# Linux system logs
-tail -f /var/log/auth.log
-journalctl -f -u ssh.service
-grep "Failed password" /var/log/auth.log
-\`\`\`
-
-**Vulnerability Assessment:**
-1. **Patch Management**: Check for missing updates
-2. **Service Hardening**: Disable unnecessary services
-3. **User Account Review**: Audit permissions and access
-4. **Network Configuration**: Review firewall rules
-5. **File System Permissions**: Check sensitive file access
 
 **System Hardening Checklist:**
 - **Remove default accounts**: Delete or disable unused accounts
@@ -753,19 +624,6 @@ grep "Failed password" /var/log/auth.log
 - **Audit logging**: Enable comprehensive monitoring
 - **Backup strategy**: Regular, tested backups
 - **Encryption**: Protect data at rest and in transit
-
-**Monitoring and Alerting:**
-\`\`\`bash
-# Failed login attempts
-grep "Failed password" /var/log/auth.log | tail -10
-
-# Suspicious network activity
-netstat -an | grep ESTABLISHED
-
-# Resource utilization
-iostat 1 5
-vmstat 1 5
-\`\`\`
 
 **Incident Response Preparation:**
 - Document baseline system state
@@ -786,7 +644,7 @@ vmstat 1 5
     };
   }
 
-  private provideSecurityGuidance(input: string): CommandResponse {
+  private provideSecurityGuidance(): CommandResponse {
     const guidance = `🛡️ **Cybersecurity Best Practices**
 
 **Defense in Depth Strategy:**
@@ -803,28 +661,6 @@ vmstat 1 5
 - **ISO 27001**: Information security management systems
 - **CIS Controls**: Critical security controls for effective cyber defense
 - **OWASP Top 10**: Web application security risks
-
-**Threat Modeling Process:**
-1. **Asset Identification**: What are we protecting?
-2. **Threat Analysis**: What can go wrong?
-3. **Vulnerability Assessment**: How can it go wrong?
-4. **Risk Evaluation**: What is the business impact?
-5. **Countermeasure Selection**: How do we prevent/mitigate?
-
-**Security Awareness Training Topics:**
-- **Phishing Recognition**: Email security awareness
-- **Password Security**: Strong authentication practices
-- **Social Engineering**: Manipulation technique awareness
-- **Physical Security**: Tailgating, badge security
-- **Data Handling**: Classification and protection
-- **Incident Reporting**: When and how to report
-
-**Continuous Improvement:**
-- Regular security assessments and audits
-- Threat intelligence integration
-- Security metrics and KPIs
-- Lessons learned from incidents
-- Technology refresh and updates
 
 **Compliance Considerations:**
 - **GDPR**: Data privacy and protection (EU)
@@ -845,7 +681,7 @@ Remember: Security is a journey, not a destination. Stay informed about emerging
     };
   }
 
-  private provideGeneralGuidance(input: string): CommandResponse {
+  private provideGeneralGuidance(): CommandResponse {
     const guidance = `🤖 **CyberShellX AI Assistant**
 
 I'm here to help you with cybersecurity topics! I can provide guidance on:
@@ -889,12 +725,6 @@ I'm here to help you with cybersecurity topics! I can provide guidance on:
 - \`wireless security\` - Wi-Fi assessment
 - \`system info\` - Security configuration
 
-**Learning Resources:**
-- Interactive scenarios for hands-on practice
-- Step-by-step tutorials for security tools
-- Best practices and methodology guidance
-- Legal and ethical hacking guidelines
-
 Type a specific command or ask about any cybersecurity topic!
 
 ⚠️ **Important**: Always ensure you have proper authorization before testing or assessing any systems.`;
@@ -909,19 +739,19 @@ Type a specific command or ask about any cybersecurity topic!
     };
   }
 
-  // Get random learning prompt for interactive engagement
+  /** Get random learning prompt for interactive engagement */
   getRandomLearningPrompt(): string {
-    const prompts = this.commands.ai_prompts?.learning_prompts || [];
-    return prompts[Math.floor(Math.random() * prompts.length)] || 
+    const prompts = this.commands.ai_prompts?.learning_prompts ?? [];
+    return prompts[Math.floor(Math.random() * prompts.length)] ?? 
            "What cybersecurity topic would you like to learn about today?";
   }
 
-  // Get ethical guidelines
+  /** Get ethical guidelines */
   getEthicalGuidelines(): string[] {
-    return this.commands.ai_prompts?.ethical_guidelines || [];
+    return this.commands.ai_prompts?.ethical_guidelines ?? [];
   }
 
-  // Get interactive scenario by difficulty
+  /** Enhance a base response with Gemini AI */
   async enhanceResponseWithAI(userInput: string, baseResponse: CommandResponse): Promise<CommandResponse> {
     try {
       const prompt = `You are CyberShellX AI, an expert cybersecurity assistant. 
@@ -941,21 +771,23 @@ Keep the response concise but informative (max 300 words).`;
       return {
         ...baseResponse,
         content: enhancedContent,
-        type: 'ai_enhanced_response' as any
+        type: 'ai_enhanced_response'
       };
     } catch (error) {
       console.error('AI enhancement failed:', error);
-      return baseResponse; // Return original response if AI fails
+      return baseResponse;
     }
   }
 
-  async getAIStatus(): Promise<any> {
+  /** Get current AI API status */
+  getAIStatus(): { total: number; current: string; available: string[] } {
     return geminiAPI.getStatus();
   }
 
-  getInteractiveScenario(difficulty: 'beginner' | 'intermediate' | 'advanced') {
-    const scenarios = this.commands.interactive_scenarios?.[difficulty] || [];
-    return scenarios[Math.floor(Math.random() * scenarios.length)] || null;
+  /** Get an interactive scenario by difficulty level */
+  getInteractiveScenario(difficulty: 'beginner' | 'intermediate' | 'advanced'): InteractiveScenario | null {
+    const scenarios = this.commands.interactive_scenarios?.[difficulty] ?? [];
+    return scenarios[Math.floor(Math.random() * scenarios.length)] ?? null;
   }
 }
 

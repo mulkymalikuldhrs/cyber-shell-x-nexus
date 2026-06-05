@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Smartphone, Download, Mic, Shield, Wifi, Flashlight, Volume2, Settings, Terminal, Brain } from 'lucide-react';
 import { Button } from './ui/button';
@@ -54,13 +55,13 @@ const MobileAppSection = () => {
   ];
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-b from-black/50 to-gray-900/50">
+    <section className="py-16 px-4 bg-gradient-to-b from-black/50 to-gray-900/50" aria-label="Android mobile app">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex justify-center items-center space-x-3 mb-4">
-            <Smartphone className="w-12 h-12 text-cyan-400" />
-            <Brain className="w-12 h-12 text-purple-400" />
+            <Smartphone className="w-12 h-12 text-cyan-400" aria-hidden="true" />
+            <Brain className="w-12 h-12 text-purple-400" aria-hidden="true" />
           </div>
           <h2 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-4">
             Personal Cyber Assistant
@@ -75,7 +76,7 @@ const MobileAppSection = () => {
           {/* App Features */}
           <div>
             <h3 className="text-2xl font-bold text-white mb-6">
-              <Shield className="w-6 h-6 inline mr-2 text-cyan-400" />
+              <Shield className="w-6 h-6 inline mr-2 text-cyan-400" aria-hidden="true" />
               Android App Features
             </h3>
             
@@ -85,7 +86,7 @@ const MobileAppSection = () => {
                   key={index}
                   className="bg-gray-900/50 border border-gray-700 rounded-lg p-4 hover:border-cyan-500/50 transition-all duration-300"
                 >
-                  <div className={`w-12 h-12 bg-gradient-to-r ${feature.color} rounded-lg flex items-center justify-center mb-3`}>
+                  <div className={`w-12 h-12 bg-gradient-to-r ${feature.color} rounded-lg flex items-center justify-center mb-3`} aria-hidden="true">
                     <div className="text-white">
                       {feature.icon}
                     </div>
@@ -100,7 +101,7 @@ const MobileAppSection = () => {
             <Card className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 border-gray-700">
               <CardHeader>
                 <CardTitle className="text-white flex items-center">
-                  <Download className="w-5 h-5 mr-2 text-green-400" />
+                  <Download className="w-5 h-5 mr-2 text-green-400" aria-hidden="true" />
                   Download & Install
                 </CardTitle>
                 <CardDescription>
@@ -141,7 +142,7 @@ const MobileAppSection = () => {
           {/* Voice Commands Demo */}
           <div>
             <h3 className="text-2xl font-bold text-white mb-6">
-              <Mic className="w-6 h-6 inline mr-2 text-purple-400" />
+              <Mic className="w-6 h-6 inline mr-2 text-purple-400" aria-hidden="true" />
               Voice Commands
             </h3>
             
@@ -153,7 +154,7 @@ const MobileAppSection = () => {
                     key={index}
                     className="bg-gray-800/50 p-3 rounded-md border-l-4 border-cyan-500"
                   >
-                    <code className="text-cyan-400 text-sm">"{command}"</code>
+                    <code className="text-cyan-400 text-sm">&ldquo;{command}&rdquo;</code>
                   </div>
                 ))}
               </div>
@@ -168,37 +169,23 @@ const MobileAppSection = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="bg-cyan-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
-                      1
-                    </div>
-                    <div>
-                      <p className="text-white font-medium">Install APK</p>
-                      <p className="text-gray-400 text-sm">Build and install the CyberShellX APK</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start space-x-3">
-                    <div className="bg-purple-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
-                      2
-                    </div>
-                    <div>
-                      <p className="text-white font-medium">Set as Default</p>
-                      <p className="text-gray-400 text-sm">Go to Settings → Apps → Default Apps → Assistant</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start space-x-3">
-                    <div className="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
-                      3
-                    </div>
-                    <div>
-                      <p className="text-white font-medium">Start Using</p>
-                      <p className="text-gray-400 text-sm">Say "Hey CyberShell" + your command</p>
-                    </div>
-                  </div>
-                </div>
+                <ol className="space-y-4" aria-label="Setup steps">
+                  {[
+                    { num: '1', color: 'bg-cyan-500', title: 'Install APK', desc: 'Build and install the CyberShellX APK' },
+                    { num: '2', color: 'bg-purple-500', title: 'Set as Default', desc: 'Go to Settings → Apps → Default Apps → Assistant' },
+                    { num: '3', color: 'bg-green-500', title: 'Start Using', desc: 'Say "Hey CyberShell" + your command' },
+                  ].map((step) => (
+                    <li key={step.num} className="flex items-start space-x-3">
+                      <div className={`${step.color} text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold shrink-0`} aria-hidden="true">
+                        {step.num}
+                      </div>
+                      <div>
+                        <p className="text-white font-medium">{step.title}</p>
+                        <p className="text-gray-400 text-sm">{step.desc}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
               </CardContent>
             </Card>
           </div>
@@ -207,7 +194,7 @@ const MobileAppSection = () => {
         {/* Capabilities Overview */}
         <div className="grid md:grid-cols-3 gap-6">
           <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-gray-700">
-            <Shield className="w-12 h-12 text-cyan-400 mx-auto mb-4" />
+            <Shield className="w-12 h-12 text-cyan-400 mx-auto mb-4" aria-hidden="true" />
             <h3 className="text-white font-semibold mb-2">Cybersecurity Assistant</h3>
             <p className="text-gray-400 text-sm">
               50+ security tools knowledge, vulnerability guidance, and ethical hacking assistance
@@ -215,7 +202,7 @@ const MobileAppSection = () => {
           </div>
           
           <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-gray-700">
-            <Settings className="w-12 h-12 text-purple-400 mx-auto mb-4" />
+            <Settings className="w-12 h-12 text-purple-400 mx-auto mb-4" aria-hidden="true" />
             <h3 className="text-white font-semibold mb-2">System Control</h3>
             <p className="text-gray-400 text-sm">
               Complete device management through voice commands - WiFi, Bluetooth, flashlight, volume
@@ -223,7 +210,7 @@ const MobileAppSection = () => {
           </div>
           
           <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-gray-700">
-            <Brain className="w-12 h-12 text-green-400 mx-auto mb-4" />
+            <Brain className="w-12 h-12 text-green-400 mx-auto mb-4" aria-hidden="true" />
             <h3 className="text-white font-semibold mb-2">Always Learning</h3>
             <p className="text-gray-400 text-sm">
               Background service with continuous learning and command pattern recognition
@@ -243,16 +230,18 @@ const MobileAppSection = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button 
-                onClick={() => window.open('https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/tree/main/android-assistant', '_blank')}
+                onClick={() => window.open('https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/tree/main/android-assistant', '_blank', 'noopener,noreferrer')}
                 className="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500"
+                aria-label="View Android app source code on GitHub"
               >
-                <Download className="w-4 h-4 mr-2" />
+                <Download className="w-4 h-4 mr-2" aria-hidden="true" />
                 View Android Code
               </Button>
               <Button 
                 variant="outline"
-                onClick={() => window.open('https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/blob/main/android-assistant/README.md', '_blank')}
+                onClick={() => window.open('https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/blob/main/android-assistant/README.md', '_blank', 'noopener,noreferrer')}
                 className="border-gray-600 text-gray-300 hover:bg-gray-800"
+                aria-label="Read the Android app installation guide"
               >
                 📖 Installation Guide
               </Button>

@@ -1,11 +1,12 @@
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Terminal, Send, Power, Wifi, WifiOff, Settings, Zap } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Terminal, Send, Power, Wifi, WifiOff, Zap } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { ScrollArea } from './ui/scroll-area';
+import LoadingSpinner from './LoadingSpinner';
 
 interface Message {
   id: string;
@@ -16,10 +17,17 @@ interface Message {
 
 interface WebSocketMessage {
   type: string;
-  message: string;
-  timestamp: string;
-  [key: string]: any;
+  message?: string;
+  command?: string;
+  output?: string;
+  tools?: string[];
+  success?: boolean;
+  session_id?: string;
+  timestamp?: string;
+  [key: string]: unknown;
 }
+
+const MAX_MESSAGE_LENGTH = 2000;
 
 const CyberShellXTerminal = () => {
   const [ws, setWs] = useState<WebSocket | null>(null);
@@ -28,28 +36,30 @@ const CyberShellXTerminal = () => {
   const [input, setInput] = useState('');
   const [sessionId, setSessionId] = useState('');
   const [connectionStatus, setConnectionStatus] = useState<'disconnected' | 'connecting' | 'connected'>('disconnected');
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, scrollToBottom]);
 
-  const addMessage = (type: Message['type'], content: string) => {
+  const addMessage = useCallback((type: Message['type'], content: string) => {
     const newMessage: Message = {
-      id: Date.now().toString(),
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
       type,
       content,
       timestamp: new Date()
     };
     setMessages(prev => [...prev, newMessage]);
-  };
+  }, []);
 
-  const processCommand = async (command: string) => {
+  const processCommand = useCallback(async (command: string) => {
     addMessage('user', command);
+    setIsLoading(true);
     
     try {
       const response = await fetch('/api/command', {
@@ -59,6 +69,12 @@ const CyberShellXTerminal = () => {
         },
         body: JSON.stringify({ command }),
       });
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({ error: 'Request failed' }));
+        addMessage('error', errData.error || `HTTP ${response.status}: ${response.statusText}`);
+        return;
+      }
 
       const data = await response.json();
       
@@ -77,10 +93,12 @@ const CyberShellXTerminal = () => {
       }
     } catch (error) {
       addMessage('error', 'Connection error. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, [addMessage]);
 
-  const connectToServer = () => {
+  const connectToServer = useCallback(() => {
     if (ws) {
       ws.close();
     }
@@ -103,37 +121,37 @@ const CyberShellXTerminal = () => {
         
         switch (data.type) {
           case 'system':
-            addMessage('system', data.message);
+            addMessage('system', data.message ?? 'System message');
             if (data.session_id) {
               setSessionId(data.session_id);
             }
             break;
           case 'chat_response':
-            addMessage('ai', data.message);
+            addMessage('ai', data.message ?? '');
             break;
           case 'error':
-            addMessage('error', data.message);
+            addMessage('error', data.message ?? 'Unknown error');
             break;
           case 'status':
-            addMessage('status', data.message);
+            addMessage('status', data.message ?? '');
             break;
           case 'install_result':
-            addMessage(data.success ? 'system' : 'error', data.message);
+            addMessage(data.success ? 'system' : 'error', data.message ?? '');
             break;
           case 'pentest_complete':
-            addMessage('system', data.message);
+            addMessage('system', data.message ?? '');
             break;
           case 'environment_ready':
-            addMessage('system', data.message);
+            addMessage('system', data.message ?? '');
             break;
           case 'command_result':
             addMessage('system', `Command: ${data.command}\nOutput: ${data.output}`);
             break;
           case 'tools_list':
-            addMessage('system', `Installed tools: ${data.tools.join(', ')}`);
+            addMessage('system', `Installed tools: ${(data.tools ?? []).join(', ')}`);
             break;
           default:
-            addMessage('system', data.message);
+            addMessage('system', data.message ?? JSON.stringify(data));
         }
       } catch (error) {
         console.error('Error parsing WebSocket message:', error);
@@ -148,17 +166,21 @@ const CyberShellXTerminal = () => {
       addMessage('system', 'Disconnected from server');
     };
 
-    websocket.onerror = (error) => {
-      console.error('WebSocket error:', error);
+    websocket.onerror = () => {
       addMessage('error', 'Connection error occurred');
       setConnectionStatus('disconnected');
     };
-  };
+  }, [ws, addMessage]);
 
-  const sendMessage = () => {
+  const sendMessage = useCallback(() => {
     if (!ws || !connected || !input.trim()) return;
 
     const userMessage = input.trim();
+    if (userMessage.length > MAX_MESSAGE_LENGTH) {
+      addMessage('error', `Message too long (max ${MAX_MESSAGE_LENGTH} characters)`);
+      return;
+    }
+
     addMessage('user', userMessage);
 
     // Parse command and send appropriate message
@@ -166,7 +188,7 @@ const CyberShellXTerminal = () => {
       const tool = userMessage.substring(8).trim();
       ws.send(JSON.stringify({
         type: 'install',
-        tool: tool
+        tool
       }));
     } else if (userMessage.startsWith('pentest ')) {
       const parts = userMessage.substring(8).split(' ');
@@ -174,20 +196,20 @@ const CyberShellXTerminal = () => {
       const scanType = parts[1] || 'web';
       ws.send(JSON.stringify({
         type: 'pentest',
-        target: target,
+        target,
         scan_type: scanType
       }));
     } else if (userMessage.startsWith('prepare ')) {
       const environment = userMessage.substring(8).trim();
       ws.send(JSON.stringify({
         type: 'prepare',
-        environment: environment
+        environment
       }));
     } else if (userMessage.startsWith('execute ')) {
       const command = userMessage.substring(8).trim();
       ws.send(JSON.stringify({
         type: 'execute',
-        command: command
+        command
       }));
     } else if (userMessage === 'list tools') {
       ws.send(JSON.stringify({
@@ -202,15 +224,16 @@ const CyberShellXTerminal = () => {
     }
 
     setInput('');
-  };
+  }, [ws, connected, input, addMessage]);
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
+      e.preventDefault();
       sendMessage();
     }
-  };
+  }, [sendMessage]);
 
-  const getMessageColor = (type: Message['type']) => {
+  const getMessageColor = (type: Message['type']): string => {
     switch (type) {
       case 'user': return 'text-green-400';
       case 'ai': return 'text-cyan-400';
@@ -221,7 +244,7 @@ const CyberShellXTerminal = () => {
     }
   };
 
-  const getMessagePrefix = (type: Message['type']) => {
+  const getMessagePrefix = (type: Message['type']): string => {
     switch (type) {
       case 'user': return '$ ';
       case 'ai': return '🤖 ';
@@ -233,12 +256,12 @@ const CyberShellXTerminal = () => {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-4">
+    <div className="w-full max-w-6xl mx-auto p-4" role="region" aria-label="CyberShellX Live Terminal">
       <Card className="bg-gray-900/95 border-gray-700 text-white">
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Terminal className="w-6 h-6 text-cyan-400" />
+              <Terminal className="w-6 h-6 text-cyan-400" aria-hidden="true" />
               <CardTitle className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                 CyberShellX Terminal
               </CardTitle>
@@ -253,7 +276,7 @@ const CyberShellXTerminal = () => {
                 variant={connected ? "default" : "destructive"}
                 className="flex items-center space-x-1"
               >
-                {connected ? <Wifi className="w-3 h-3" /> : <WifiOff className="w-3 h-3" />}
+                {connected ? <Wifi className="w-3 h-3" aria-hidden="true" /> : <WifiOff className="w-3 h-3" aria-hidden="true" />}
                 <span>{connectionStatus}</span>
               </Badge>
               <Button
@@ -261,8 +284,9 @@ const CyberShellXTerminal = () => {
                 variant={connected ? "destructive" : "default"}
                 onClick={connected ? () => ws?.close() : connectToServer}
                 disabled={connectionStatus === 'connecting'}
+                aria-label={connected ? 'Disconnect from server' : 'Connect to server'}
               >
-                <Power className="w-4 h-4 mr-1" />
+                <Power className="w-4 h-4 mr-1" aria-hidden="true" />
                 {connected ? 'Disconnect' : connectionStatus === 'connecting' ? 'Connecting...' : 'Connect'}
               </Button>
             </div>
@@ -272,10 +296,10 @@ const CyberShellXTerminal = () => {
         <CardContent className="space-y-4">
           {/* Terminal Output */}
           <ScrollArea className="h-96 w-full p-4 bg-black/50 rounded-lg border border-gray-700">
-            <div className="space-y-2 font-mono text-sm">
+            <div className="space-y-2 font-mono text-sm" role="log" aria-live="polite" aria-label="Terminal messages">
               {messages.length === 0 ? (
                 <div className="text-gray-500 text-center py-8">
-                  <Terminal className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                  <Terminal className="w-12 h-12 mx-auto mb-4 opacity-50" aria-hidden="true" />
                   <p>Connect to CyberShellX server to start</p>
                   <p className="text-xs mt-2">Run: python3 cybershellx_server.py</p>
                 </div>
@@ -283,17 +307,18 @@ const CyberShellXTerminal = () => {
                 messages.map((message) => (
                   <div key={message.id} className={`${getMessageColor(message.type)}`}>
                     <div className="flex items-start space-x-2">
-                      <span className="text-gray-500 text-xs whitespace-nowrap">
+                      <span className="text-gray-500 text-xs whitespace-nowrap" aria-hidden="true">
                         {message.timestamp.toLocaleTimeString()}
                       </span>
                       <div className="flex-1">
-                        <span className="opacity-70">{getMessagePrefix(message.type)}</span>
+                        <span className="opacity-70" aria-hidden="true">{getMessagePrefix(message.type)}</span>
                         <span className="whitespace-pre-wrap">{message.content}</span>
                       </div>
                     </div>
                   </div>
                 ))
               )}
+              {isLoading && <LoadingSpinner size="sm" text="Processing..." className="py-2" />}
               <div ref={messagesEndRef} />
             </div>
           </ScrollArea>
@@ -304,67 +329,51 @@ const CyberShellXTerminal = () => {
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyPress={handleKeyPress}
+                onKeyDown={handleKeyDown}
                 placeholder={connected ? "Enter command or chat message..." : "Connect to server first"}
                 disabled={!connected}
                 className="bg-gray-800 border-gray-600 text-white placeholder-gray-400 pr-10"
+                aria-label="Terminal command input"
+                maxLength={MAX_MESSAGE_LENGTH}
               />
-              <Terminal className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Terminal className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" aria-hidden="true" />
             </div>
             <Button
               onClick={sendMessage}
               disabled={!connected || !input.trim()}
               size="sm"
               className="bg-cyan-600 hover:bg-cyan-700"
+              aria-label="Send command"
             >
-              <Send className="w-4 h-4" />
+              <Send className="w-4 h-4" aria-hidden="true" />
             </Button>
           </div>
 
           {/* Quick Commands */}
-          <div className="flex flex-wrap gap-2">
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setInput('help')}
-              disabled={!connected}
-              className="text-xs"
-            >
-              Help
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setInput('list tools')}
-              disabled={!connected}
-              className="text-xs"
-            >
-              List Tools
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setInput('prepare pentesting')}
-              disabled={!connected}
-              className="text-xs"
-            >
-              Prepare Pentest
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setInput('chat hello')}
-              disabled={!connected}
-              className="text-xs"
-            >
-              Chat with AI
-            </Button>
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Quick commands">
+            {[
+              { label: 'Help', command: 'help' },
+              { label: 'List Tools', command: 'list tools' },
+              { label: 'Prepare Pentest', command: 'prepare pentesting' },
+              { label: 'Chat with AI', command: 'chat hello' },
+            ].map(({ label, command }) => (
+              <Button
+                key={command}
+                size="sm"
+                variant="outline"
+                onClick={() => setInput(command)}
+                disabled={!connected}
+                className="text-xs"
+              >
+                {label}
+              </Button>
+            ))}
           </div>
 
           {/* Connection Info */}
           {!connected && (
-            <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-gray-700">
-              <Zap className="w-8 h-8 mx-auto mb-2 text-yellow-400" />
+            <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-gray-700" role="status">
+              <Zap className="w-8 h-8 mx-auto mb-2 text-yellow-400" aria-hidden="true" />
               <h3 className="text-lg font-semibold mb-2">Start CyberShellX Server</h3>
               <p className="text-gray-400 text-sm mb-3">
                 To use the terminal interface, first start the Python server:

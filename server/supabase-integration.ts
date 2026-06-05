@@ -1,10 +1,28 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
-// Supabase client for server-side operations
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_KEY! // Use service key for server operations
-)
+// Validate required environment variables
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+
+if (!supabaseUrl || !supabaseServiceKey) {
+  console.warn(
+    'Supabase environment variables (SUPABASE_URL, SUPABASE_SERVICE_KEY) are not configured. ' +
+    'Supabase integration will be unavailable.'
+  );
+}
+
+// Supabase client for server-side operations (lazy initialization)
+let supabaseInstance: SupabaseClient | null = null;
+
+function getSupabase(): SupabaseClient {
+  if (!supabaseInstance) {
+    if (!supabaseUrl || !supabaseServiceKey) {
+      throw new Error('Supabase is not configured. Set SUPABASE_URL and SUPABASE_SERVICE_KEY environment variables.');
+    }
+    supabaseInstance = createClient(supabaseUrl, supabaseServiceKey);
+  }
+  return supabaseInstance;
+}
 
 // Data types for Supabase integration
 export interface CommandHistory {
@@ -16,41 +34,53 @@ export interface CommandHistory {
   execution_time: number
   success: boolean
   tools_used: string[]
-  context: {
-    location?: string
-    device?: string
-    network?: string
-  }
+  context: CommandContext
+}
+
+export interface CommandContext {
+  location?: string
+  device?: string
+  network?: string
+}
+
+export interface VoiceSettings {
+  wake_word: string
+  voice_speed: number
+  language: string
+}
+
+export interface UserPreferences {
+  ui_theme: 'dark' | 'light' | 'cyberpunk'
+  voice_settings: VoiceSettings
+  security_level: 'paranoid' | 'high' | 'medium' | 'low'
+  auto_sync: boolean
+  preferred_tools: string[]
+  custom_aliases: Record<string, string>
+}
+
+export interface AIPerformance {
+  avg_response_time: number
+  success_rate: number
+  user_satisfaction: number
+}
+
+export interface AIPatterns {
+  frequent_commands: string[]
+  success_patterns: Record<string, unknown>
+  failure_patterns: Record<string, unknown>
+  user_preferences: Record<string, unknown>
+}
+
+export interface AILearningData {
+  patterns: AIPatterns
+  performance: AIPerformance
 }
 
 export interface UserProfile {
   id: string
   username: string
-  preferences: {
-    ui_theme: 'dark' | 'light' | 'cyberpunk'
-    voice_settings: {
-      wake_word: string
-      voice_speed: number
-      language: string
-    }
-    security_level: 'paranoid' | 'high' | 'medium' | 'low'
-    auto_sync: boolean
-    preferred_tools: string[]
-    custom_aliases: Record<string, string>
-  }
-  ai_learning_data: {
-    patterns: {
-      frequent_commands: string[]
-      success_patterns: object
-      failure_patterns: object
-      user_preferences: object
-    }
-    performance: {
-      avg_response_time: number
-      success_rate: number
-      user_satisfaction: number
-    }
-  }
+  preferences: UserPreferences
+  ai_learning_data: AILearningData
   created_at?: string
   updated_at?: string
 }
@@ -58,7 +88,7 @@ export interface UserProfile {
 // Command history operations
 export class SupabaseCommandService {
   async storeCommand(command: CommandHistory): Promise<CommandHistory> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('command_history')
       .insert(command)
       .select()
@@ -69,7 +99,7 @@ export class SupabaseCommandService {
   }
   
   async getCommandHistory(userId: string, limit = 100): Promise<CommandHistory[]> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('command_history')
       .select('*')
       .eq('user_id', userId)
@@ -77,34 +107,37 @@ export class SupabaseCommandService {
       .limit(limit)
     
     if (error) throw error
-    return data || []
+    return data ?? []
   }
   
-  async getCommandAnalytics(userId: string) {
-    const { data, error } = await supabase
+  async getCommandAnalytics(userId: string): Promise<{
+    totalCommands: number;
+    successRate: number;
+    avgExecutionTime: number;
+    mostUsedCommands: { command: string; count: number }[];
+  }> {
+    const { data, error } = await getSupabase()
       .from('command_history')
       .select('command, success, execution_time')
       .eq('user_id', userId)
     
     if (error) throw error
-    
-    // Calculate analytics
-    const totalCommands = data.length
-    const successRate = data.filter(cmd => cmd.success).length / totalCommands
-    const avgExecutionTime = data.reduce((sum: number, cmd: any) => sum + cmd.execution_time, 0) / totalCommands
-    const mostUsedCommands = this.calculateCommandFrequency(data.map((cmd: any) => cmd.command))
-    
-    return {
-      totalCommands,
-      successRate,
-      avgExecutionTime,
-      mostUsedCommands
+
+    if (!data || data.length === 0) {
+      return { totalCommands: 0, successRate: 0, avgExecutionTime: 0, mostUsedCommands: [] };
     }
+    
+    const totalCommands = data.length;
+    const successRate = data.filter(cmd => cmd.success).length / totalCommands;
+    const avgExecutionTime = data.reduce((sum: number, cmd) => sum + (cmd.execution_time ?? 0), 0) / totalCommands;
+    const mostUsedCommands = this.calculateCommandFrequency(data.map(cmd => cmd.command));
+    
+    return { totalCommands, successRate, avgExecutionTime, mostUsedCommands };
   }
   
-  private calculateCommandFrequency(commands: string[]) {
+  private calculateCommandFrequency(commands: string[]): { command: string; count: number }[] {
     const frequency: Record<string, number> = {}
-    commands.forEach((cmd: string) => {
+    commands.forEach((cmd) => {
       const baseCommand = cmd.split(' ')[0]
       frequency[baseCommand] = (frequency[baseCommand] || 0) + 1
     })
@@ -119,7 +152,7 @@ export class SupabaseCommandService {
 // User profile operations
 export class SupabaseUserService {
   async createUserProfile(profile: UserProfile): Promise<UserProfile> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('user_profiles')
       .insert(profile)
       .select()
@@ -130,7 +163,7 @@ export class SupabaseUserService {
   }
   
   async getUserProfile(userId: string): Promise<UserProfile | null> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('user_profiles')
       .select('*')
       .eq('id', userId)
@@ -144,8 +177,8 @@ export class SupabaseUserService {
     return data
   }
   
-  async updateUserPreferences(userId: string, preferences: Partial<UserProfile['preferences']>): Promise<void> {
-    const { error } = await supabase
+  async updateUserPreferences(userId: string, preferences: Partial<UserPreferences>): Promise<void> {
+    const { error } = await getSupabase()
       .from('user_profiles')
       .update({ preferences })
       .eq('id', userId)
@@ -153,8 +186,8 @@ export class SupabaseUserService {
     if (error) throw error
   }
   
-  async updateAILearningData(userId: string, learningData: Partial<UserProfile['ai_learning_data']>): Promise<void> {
-    const { error } = await supabase
+  async updateAILearningData(userId: string, learningData: Partial<AILearningData>): Promise<void> {
+    const { error } = await getSupabase()
       .from('user_profiles')
       .update({ ai_learning_data: learningData })
       .eq('id', userId)
@@ -166,7 +199,7 @@ export class SupabaseUserService {
 // Real-time subscriptions
 export class SupabaseRealtimeService {
   subscribeToCommandHistory(userId: string, callback: (command: CommandHistory) => void) {
-    return supabase
+    return getSupabase()
       .channel('command_history_changes')
       .on(
         'postgres_changes',
@@ -176,13 +209,13 @@ export class SupabaseRealtimeService {
           table: 'command_history',
           filter: `user_id=eq.${userId}`
         },
-        (payload: any) => callback(payload.new as CommandHistory)
+        (payload: { new: CommandHistory }) => callback(payload.new)
       )
       .subscribe()
   }
   
   subscribeToUserProfile(userId: string, callback: (profile: UserProfile) => void) {
-    return supabase
+    return getSupabase()
       .channel('user_profile_changes')
       .on(
         'postgres_changes',
@@ -192,7 +225,7 @@ export class SupabaseRealtimeService {
           table: 'user_profiles',
           filter: `id=eq.${userId}`
         },
-        (payload: any) => callback(payload.new as UserProfile)
+        (payload: { new: UserProfile }) => callback(payload.new)
       )
       .subscribe()
   }
@@ -201,7 +234,7 @@ export class SupabaseRealtimeService {
 // Data synchronization utilities
 export class SupabaseSyncService {
   async syncLocalToCloud(localData: CommandHistory[]): Promise<void> {
-    const { error } = await supabase
+    const { error } = await getSupabase()
       .from('command_history')
       .upsert(localData, { onConflict: 'id' })
     
@@ -209,7 +242,7 @@ export class SupabaseSyncService {
   }
   
   async getCloudChanges(userId: string, lastSyncTimestamp: string): Promise<CommandHistory[]> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('command_history')
       .select('*')
       .eq('user_id', userId)
@@ -217,11 +250,11 @@ export class SupabaseSyncService {
       .order('timestamp', { ascending: true })
     
     if (error) throw error
-    return data || []
+    return data ?? []
   }
   
   async markSyncComplete(userId: string): Promise<void> {
-    const { error } = await supabase
+    const { error } = await getSupabase()
       .from('sync_status')
       .upsert({
         user_id: userId,

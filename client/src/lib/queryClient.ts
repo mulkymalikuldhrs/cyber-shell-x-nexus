@@ -5,12 +5,13 @@ export const queryClient = new QueryClient({
     queries: {
       staleTime: 1000 * 60 * 5, // 5 minutes
       refetchOnWindowFocus: false,
+      retry: 2,
     },
   },
 })
 
-// API request helper
-export async function apiRequest(url: string, options: RequestInit = {}) {
+/** Typed API request helper */
+export async function apiRequest<T = unknown>(url: string, options: RequestInit = {}): Promise<T> {
   const response = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
@@ -20,8 +21,9 @@ export async function apiRequest(url: string, options: RequestInit = {}) {
   })
 
   if (!response.ok) {
-    throw new Error(`API request failed: ${response.statusText}`)
+    const errorBody = await response.text().catch(() => response.statusText);
+    throw new Error(`API request failed (${response.status}): ${errorBody}`)
   }
 
-  return response.json()
+  return response.json() as Promise<T>
 }

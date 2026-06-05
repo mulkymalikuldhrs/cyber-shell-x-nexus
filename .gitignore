@@ -50,6 +50,25 @@ ehthumbs.db
 *.tar.gz
 *.zip
 
+# Environment files
+.env.production
+.env.development
+
+# Framework
+.next/
+.vercel/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Lock files (optional, uncomment if needed)
+# package-lock.json
+
+# Replit
+.replit
+
 # Android build artifacts
 android-assistant/app/build/
 android-assistant/build/
@@ -61,8 +80,3 @@ android-assistant/app/.gradle/
 # Temporary files
 tmp/
 temp/
-.env.production
-.next/
-.vercel/
-venv/
-__pycache__/

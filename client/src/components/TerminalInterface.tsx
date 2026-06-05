@@ -1,11 +1,12 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Terminal, Play, Square } from 'lucide-react';
 
 const TerminalInterface = () => {
   const [currentCommand, setCurrentCommand] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [output, setOutput] = useState<string[]>([]);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const commands = [
     {
@@ -46,13 +47,14 @@ const TerminalInterface = () => {
     }
   ];
 
-  const runCommand = async () => {
+  const runCommand = useCallback(async () => {
     if (isRunning) return;
     
     setIsRunning(true);
     setOutput([]);
     
     const command = commands[currentCommand];
+    if (!command) return;
     
     // Show command input
     setOutput([`> ${command.input}`]);
@@ -70,29 +72,33 @@ const TerminalInterface = () => {
     setTimeout(() => {
       setCurrentCommand((prev) => (prev + 1) % commands.length);
     }, 1000);
-  };
+  }, [currentCommand, isRunning, commands]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       if (!isRunning) {
         runCommand();
       }
     }, 8000);
 
-    return () => clearInterval(interval);
-  }, [currentCommand, isRunning]);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [currentCommand, isRunning, runCommand]);
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto" role="region" aria-label="CyberShellX Terminal Demo">
       <div className="bg-gray-900/80 backdrop-blur-sm rounded-lg border border-gray-700 overflow-hidden shadow-2xl">
         {/* Terminal Header */}
         <div className="flex items-center justify-between p-4 bg-gray-800/50 border-b border-gray-700">
           <div className="flex items-center space-x-3">
-            <Terminal className="w-5 h-5 text-cyan-400" />
+            <Terminal className="w-5 h-5 text-cyan-400" aria-hidden="true" />
             <span className="text-white font-semibold">CyberShellX Terminal</span>
-            <span className="text-green-400 text-sm">● Connected</span>
+            <span className="text-green-400 text-sm" aria-label="Connected">● Connected</span>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2" aria-hidden="true">
             <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
@@ -100,12 +106,12 @@ const TerminalInterface = () => {
         </div>
 
         {/* Terminal Content */}
-        <div className="p-6 font-mono text-sm min-h-[300px]">
+        <div className="p-6 font-mono text-sm min-h-[300px]" role="log" aria-live="polite" aria-label="Terminal output">
           <div className="mb-4 text-cyan-400">
             CyberShellX v2.1.0 - Autonomous AI Assistant
           </div>
           <div className="mb-4 text-gray-400">
-            Type 'help' for available commands or watch the demo below:
+            Type &apos;help&apos; for available commands or watch the demo below:
           </div>
           
           {/* Command Output */}
@@ -122,13 +128,10 @@ const TerminalInterface = () => {
                   ${line.includes('📦') || line.includes('📊') ? 'text-purple-400' : ''}
                   ${!line.includes('✅') && !line.includes('❌') && !line.includes('🔍') && !line.includes('🔎') && !line.includes('⚠️') && !line.includes('📦') && !line.includes('📊') && !line.startsWith('>') ? 'text-gray-300' : ''}
                 `}
-                style={{
-                  animationDelay: `${index * 0.5}s`
-                }}
               >
                 {line}
                 {index === output.length - 1 && isRunning && (
-                  <span className="animate-pulse text-cyan-400 ml-1">_</span>
+                  <span className="animate-pulse text-cyan-400 ml-1" aria-hidden="true">_</span>
                 )}
               </div>
             ))}
@@ -136,8 +139,8 @@ const TerminalInterface = () => {
 
           {/* Status Indicator */}
           {isRunning && (
-            <div className="mt-4 flex items-center space-x-2 text-cyan-400">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-cyan-400"></div>
+            <div className="mt-4 flex items-center space-x-2 text-cyan-400" role="status" aria-label="Processing command">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-cyan-400" aria-hidden="true"></div>
               <span>Processing...</span>
             </div>
           )}
@@ -153,15 +156,16 @@ const TerminalInterface = () => {
               onClick={runCommand}
               disabled={isRunning}
               className="px-4 py-2 bg-cyan-500 hover:bg-cyan-600 disabled:bg-gray-600 disabled:cursor-not-allowed rounded text-white text-sm font-semibold transition-colors flex items-center space-x-2"
+              aria-label={isRunning ? 'Command running' : 'Run next demo command'}
             >
               {isRunning ? (
                 <>
-                  <Square className="w-4 h-4" />
+                  <Square className="w-4 h-4" aria-hidden="true" />
                   <span>Running</span>
                 </>
               ) : (
                 <>
-                  <Play className="w-4 h-4" />
+                  <Play className="w-4 h-4" aria-hidden="true" />
                   <span>Run Command</span>
                 </>
               )}

@@ -3,13 +3,14 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: false, limit: '1mb' }));
 
+// Request logging middleware
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
-  let capturedJsonResponse: Record<string, any> | undefined = undefined;
+  let capturedJsonResponse: Record<string, unknown> | undefined = undefined;
 
   const originalResJson = res.json;
   res.json = function (bodyJson, ...args) {
@@ -39,12 +40,18 @@ app.use((req, res, next) => {
 (async () => {
   const server = await registerRoutes(app);
 
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
+  // Global error handler — do NOT re-throw after sending the response
+  app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+    const status = (err as any).status || (err as any).statusCode || 500;
     const message = err.message || "Internal Server Error";
 
-    res.status(status).json({ message });
-    throw err;
+    // Only send response if headers haven't been sent yet
+    if (!res.headersSent) {
+      res.status(status).json({ message });
+    }
+
+    // Log the error but don't re-throw (which would crash the process)
+    console.error(`[${new Date().toISOString()}] Unhandled error:`, err);
   });
 
   // importantly only setup vite in development and after
@@ -59,7 +66,7 @@ app.use((req, res, next) => {
   // ALWAYS serve the app on port 5000
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
-  const port = 5000;
+  const port = parseInt(process.env.PORT ?? '5000', 10);
   server.listen({
     port,
     host: "0.0.0.0",

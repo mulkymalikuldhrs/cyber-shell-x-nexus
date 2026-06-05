@@ -1,10 +1,20 @@
 import { GoogleGenAI } from "@google/genai";
 
+// ── Types ────────────────────────────────────────────────────────────────────
+
 interface APIConfig {
   key: string;
   name: string;
-  client?: GoogleGenAI;
+  client: GoogleGenAI;
 }
+
+interface APIStatus {
+  total: number;
+  current: string;
+  available: string[];
+}
+
+// ── Gemini API Manager ───────────────────────────────────────────────────────
 
 class GeminiAPIManager {
   private apis: APIConfig[] = [];
@@ -12,7 +22,7 @@ class GeminiAPIManager {
   private maxRetries = 3;
 
   constructor() {
-    // Initialize API configurations
+    // Initialize API configurations from environment variables only
     const apiKeys = [
       { key: process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY || "", name: "Primary Gemini API" },
       { key: process.env.GOOGLE_API_KEY_2 || "", name: "Secondary Gemini API" },
@@ -28,17 +38,17 @@ class GeminiAPIManager {
         client: new GoogleGenAI({ apiKey: api.key })
       }));
 
-    console.log(`Initialized ${this.apis.length} Gemini API endpoints`);
+    console.log(`Initialized ${this.apis.length} Gemini API endpoint(s)`);
   }
 
   private async tryWithCurrentAPI<T>(operation: (client: GoogleGenAI) => Promise<T>): Promise<T> {
     if (this.apis.length === 0) {
-      throw new Error("No valid API keys available");
+      throw new Error("No valid API keys available. Configure GOOGLE_API_KEY or GEMINI_API_KEY environment variables.");
     }
 
     const currentApi = this.apis[this.currentApiIndex];
-    if (!currentApi.client) {
-      throw new Error("API client not initialized");
+    if (!currentApi) {
+      throw new Error("API configuration not found");
     }
 
     try {
@@ -53,7 +63,7 @@ class GeminiAPIManager {
 
   private switchToNextAPI(): boolean {
     this.currentApiIndex = (this.currentApiIndex + 1) % this.apis.length;
-    return this.currentApiIndex !== 0; // Return false if we've cycled through all APIs
+    return this.currentApiIndex !== 0;
   }
 
   async executeWithFallback<T>(operation: (client: GoogleGenAI) => Promise<T>): Promise<T> {
@@ -75,7 +85,6 @@ class GeminiAPIManager {
         console.log(`Switching to next API (attempt ${attempts}/${this.maxRetries})`);
         this.switchToNextAPI();
         
-        // If we've cycled back to the starting API, break
         if (this.currentApiIndex === startingIndex && attempts > 1) {
           break;
         }
@@ -120,14 +129,15 @@ Respond with JSON in this format: {'rating': number, 'confidence': number}`;
 
       const rawJson = response.text;
       if (rawJson) {
-        return JSON.parse(rawJson);
+        const parsed = JSON.parse(rawJson) as { rating: number; confidence: number };
+        return parsed;
       } else {
         throw new Error("Empty response from model");
       }
     });
   }
 
-  getStatus(): { total: number; current: string; available: string[] } {
+  getStatus(): APIStatus {
     return {
       total: this.apis.length,
       current: this.apis[this.currentApiIndex]?.name || "None",

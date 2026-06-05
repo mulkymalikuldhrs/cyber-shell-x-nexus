@@ -12,10 +12,12 @@ interface FeatureCardProps {
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, color, delay }) => {
   return (
     <div 
-      className="group p-6 bg-gray-800/30 backdrop-blur-sm rounded-xl border border-gray-700/50 hover:border-gray-600 transition-all duration-300 hover:transform hover:scale-105"
+      className="relative group p-6 bg-gray-800/30 backdrop-blur-sm rounded-xl border border-gray-700/50 hover:border-gray-600 transition-all duration-300 hover:transform hover:scale-105"
       style={{
         animationDelay: `${delay}s`
       }}
+      role="article"
+      aria-label={`${title}: ${description}`}
     >
       <div className={`inline-flex p-3 rounded-lg bg-gradient-to-r ${color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
         {icon}
@@ -30,7 +32,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, col
       </p>
       
       {/* Hover Effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" aria-hidden="true"></div>
     </div>
   );
 };

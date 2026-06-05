@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Github, GitFork, Star, Download } from 'lucide-react';
 import { Button } from './ui/button';
@@ -7,7 +8,7 @@ const GitHubSection = () => {
   const repoUrl = "https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus";
   
   return (
-    <section className="py-16 px-4">
+    <section className="py-16 px-4" aria-label="Open source and setup">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-4">
@@ -23,7 +24,7 @@ const GitHubSection = () => {
           <Card className="bg-gray-900/50 border-gray-700">
             <CardHeader>
               <div className="flex items-center space-x-3">
-                <Github className="w-8 h-8 text-white" />
+                <Github className="w-8 h-8 text-white" aria-hidden="true" />
                 <div>
                   <CardTitle className="text-white">GitHub Repository</CardTitle>
                   <CardDescription>cyber-shell-x-nexus</CardDescription>
@@ -37,28 +38,31 @@ const GitHubSection = () => {
               
               <div className="flex flex-wrap gap-2">
                 <Button 
-                  onClick={() => window.open(repoUrl, '_blank')}
+                  onClick={() => window.open(repoUrl, '_blank', 'noopener,noreferrer')}
                   className="bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700"
+                  aria-label="View repository on GitHub"
                 >
-                  <Github className="w-4 h-4 mr-2" />
+                  <Github className="w-4 h-4 mr-2" aria-hidden="true" />
                   View Repository
                 </Button>
                 
                 <Button 
                   variant="outline"
-                  onClick={() => window.open(`${repoUrl}/fork`, '_blank')}
+                  onClick={() => window.open(`${repoUrl}/fork`, '_blank', 'noopener,noreferrer')}
                   className="border-gray-600 text-gray-300 hover:bg-gray-800"
+                  aria-label="Fork repository on GitHub"
                 >
-                  <GitFork className="w-4 h-4 mr-2" />
+                  <GitFork className="w-4 h-4 mr-2" aria-hidden="true" />
                   Fork
                 </Button>
                 
                 <Button 
                   variant="outline"
-                  onClick={() => window.open(`${repoUrl}/stargazers`, '_blank')}
+                  onClick={() => window.open(`${repoUrl}/stargazers`, '_blank', 'noopener,noreferrer')}
                   className="border-gray-600 text-gray-300 hover:bg-gray-800"
+                  aria-label="Star repository on GitHub"
                 >
-                  <Star className="w-4 h-4 mr-2" />
+                  <Star className="w-4 h-4 mr-2" aria-hidden="true" />
                   Star
                 </Button>
               </div>
@@ -75,7 +79,7 @@ const GitHubSection = () => {
           <Card className="bg-gray-900/50 border-gray-700">
             <CardHeader>
               <div className="flex items-center space-x-3">
-                <Download className="w-8 h-8 text-cyan-400" />
+                <Download className="w-8 h-8 text-cyan-400" aria-hidden="true" />
                 <div>
                   <CardTitle className="text-white">Quick Setup</CardTitle>
                   <CardDescription>Get started in minutes</CardDescription>
@@ -108,8 +112,9 @@ const GitHubSection = () => {
 
               <div className="pt-2">
                 <Button 
-                  onClick={() => window.open(`${repoUrl}/blob/main/README.md`, '_blank')}
+                  onClick={() => window.open(`${repoUrl}/blob/main/README.md`, '_blank', 'noopener,noreferrer')}
                   className="w-full bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500"
+                  aria-label="Read the documentation on GitHub"
                 >
                   📖 Read Documentation
                 </Button>

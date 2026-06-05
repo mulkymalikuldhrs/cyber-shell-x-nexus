@@ -6,74 +6,33 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/
 import { toast } from 'sonner';
 
 const DonationSection = () => {
-  const [copiedNumber, setCopiedNumber] = useState<string | null>(null);
+  const [copiedNumber, setCopiedNumber] = useState(false);
   
-  // Phone number with hidden format: +62 853-xxxx-4048
-  const phoneNumber = "+6285322624048";
+  // Phone number with hidden format for display
   const hiddenNumber = "+62 853-****-4048";
   
   const ewallets = [
-    {
-      name: "GoPay",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg",
-      color: "from-green-500 to-green-600",
-      url: `https://gojek.com/gopay/transfer?phone=${phoneNumber}`
-    },
-    {
-      name: "OVO",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg",
-      color: "from-purple-500 to-purple-600",
-      url: `https://ovo.id/send?phone=${phoneNumber}`
-    },
-    {
-      name: "DANA",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg",
-      color: "from-blue-500 to-blue-600",
-      url: `https://link.dana.id/transfer?phone=${phoneNumber}`
-    },
-    {
-      name: "ShopeePay",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopee_logo.svg",
-      color: "from-orange-500 to-red-500",
-      url: `https://pay.shopee.co.id/transfer?phone=${phoneNumber}`
-    },
-    {
-      name: "LinkAja",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/8/85/LinkAja.svg",
-      color: "from-red-500 to-red-600",
-      url: `https://linkaja.id/transfer?phone=${phoneNumber}`
-    },
-    {
-      name: "SeaBank",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/1/1c/SeaBank_Logo.svg",
-      color: "from-teal-500 to-cyan-600",
-      url: `https://seabank.co.id/transfer?phone=${phoneNumber}`
-    }
+    { name: "GoPay", color: "from-green-500 to-green-600" },
+    { name: "OVO", color: "from-purple-500 to-purple-600" },
+    { name: "DANA", color: "from-blue-500 to-blue-600" },
+    { name: "ShopeePay", color: "from-orange-500 to-red-500" },
+    { name: "LinkAja", color: "from-red-500 to-red-600" },
+    { name: "SeaBank", color: "from-teal-500 to-cyan-600" }
   ];
 
-  const copyPhoneNumber = () => {
-    navigator.clipboard.writeText(phoneNumber);
-    setCopiedNumber(phoneNumber);
-    toast.success("Phone number copied to clipboard!");
-    setTimeout(() => setCopiedNumber(null), 2000);
-  };
-
-  const handleDonation = (wallet: typeof ewallets[0]) => {
-    // For demo purposes, we'll show the phone number
-    // In a real implementation, these would be direct links to the e-wallet apps
-    copyPhoneNumber();
-    toast.success(`Opening ${wallet.name}... Phone number copied!`);
-    
-    // Try to open the e-wallet app (this would work on mobile)
+  const copyPhoneNumber = async () => {
     try {
-      window.open(wallet.url, '_blank');
-    } catch (error) {
-      console.log('Direct app link not available, phone number copied instead');
+      await navigator.clipboard.writeText("+6285322624048");
+      setCopiedNumber(true);
+      toast.success("Phone number copied to clipboard!");
+      setTimeout(() => setCopiedNumber(false), 2000);
+    } catch {
+      toast.error("Failed to copy phone number");
     }
   };
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-b from-gray-900/50 to-black/50">
+    <section className="py-16 px-4 bg-gradient-to-b from-gray-900/50 to-black/50" aria-label="Support development">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold bg-gradient-to-r from-pink-400 to-red-400 bg-clip-text text-transparent mb-4">
@@ -83,7 +42,7 @@ const DonationSection = () => {
             Help keep CyberShellX Nexus free and continuously improving
           </p>
           <div className="flex justify-center items-center space-x-2 text-gray-400">
-            <Heart className="w-5 h-5 text-red-400" />
+            <Heart className="w-5 h-5 text-red-400" aria-hidden="true" />
             <span>Made with passion for cybersecurity community</span>
           </div>
         </div>
@@ -94,7 +53,7 @@ const DonationSection = () => {
           <Card className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 border-gray-700">
             <CardHeader>
               <div className="flex items-center space-x-3">
-                <Coffee className="w-8 h-8 text-amber-400" />
+                <Coffee className="w-8 h-8 text-amber-400" aria-hidden="true" />
                 <div>
                   <CardTitle className="text-white">Buy Me a Coffee</CardTitle>
                   <CardDescription>Support ongoing development</CardDescription>
@@ -113,8 +72,9 @@ const DonationSection = () => {
                     variant="outline"
                     onClick={copyPhoneNumber}
                     className="border-gray-600 text-gray-300 hover:bg-gray-700"
+                    aria-label={copiedNumber ? 'Phone number copied' : 'Copy phone number'}
                   >
-                    {copiedNumber ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    {copiedNumber ? <Check className="w-4 h-4" aria-hidden="true" /> : <Copy className="w-4 h-4" aria-hidden="true" />}
                   </Button>
                 </div>
               </div>
@@ -125,7 +85,7 @@ const DonationSection = () => {
           <Card className="bg-gradient-to-br from-purple-900/50 to-pink-900/50 border-purple-700">
             <CardHeader>
               <div className="flex items-center space-x-3">
-                <Gift className="w-8 h-8 text-purple-400" />
+                <Gift className="w-8 h-8 text-purple-400" aria-hidden="true" />
                 <div>
                   <CardTitle className="text-white">Become a Sponsor</CardTitle>
                   <CardDescription>Get recognition and exclusive access</CardDescription>
@@ -136,12 +96,12 @@ const DonationSection = () => {
               <p className="text-gray-300 mb-4">
                 Sponsors get early access to new features, priority support, and recognition in the project.
               </p>
-              <div className="space-y-2 text-sm text-gray-400">
-                <div>• Priority bug fixes and feature requests</div>
-                <div>• Sponsor badge on GitHub</div>
-                <div>• Direct access to developer</div>
-                <div>• Custom feature development</div>
-              </div>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li>• Priority bug fixes and feature requests</li>
+                <li>• Sponsor badge on GitHub</li>
+                <li>• Direct access to developer</li>
+                <li>• Custom feature development</li>
+              </ul>
             </CardContent>
           </Card>
         </div>
@@ -156,31 +116,13 @@ const DonationSection = () => {
             {ewallets.map((wallet) => (
               <Button
                 key={wallet.name}
-                onClick={() => handleDonation(wallet)}
+                onClick={copyPhoneNumber}
                 className={`h-20 bg-gradient-to-r ${wallet.color} hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center space-y-2 shadow-lg`}
+                aria-label={`Copy phone number for ${wallet.name}`}
               >
-                <div className="w-8 h-8 bg-white rounded-md flex items-center justify-center">
-                  <img 
-                    src={wallet.logo} 
-                    alt={`${wallet.name} logo`}
-                    className="w-6 h-6 object-contain"
-                    onError={(e) => {
-                      // Fixed TypeScript error with proper null checking and type assertion
-                      const target = e.currentTarget;
-                      const nextSibling = target.nextSibling as HTMLElement | null;
-                      if (nextSibling && 'style' in nextSibling) {
-                        target.style.display = 'none';
-                        nextSibling.style.display = 'block';
-                      }
-                    }}
-                  />
-                  <span 
-                    className="text-xs font-bold text-gray-800 hidden"
-                    style={{ display: 'none' }}
-                  >
-                    {wallet.name.substring(0, 3)}
-                  </span>
-                </div>
+                <span className="text-xs font-bold text-white bg-white/20 rounded px-2 py-1">
+                  {wallet.name}
+                </span>
                 <span className="text-white font-medium text-sm">{wallet.name}</span>
               </Button>
             ))}
@@ -188,7 +130,7 @@ const DonationSection = () => {
           
           <div className="text-center mt-8">
             <p className="text-gray-400 text-sm">
-              Click on any e-wallet to copy the phone number and open the app
+              Click on any e-wallet to copy the phone number
             </p>
             <p className="text-gray-500 text-xs mt-2">
               All donations help improve CyberShellX Nexus for the community

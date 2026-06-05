@@ -13,7 +13,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Cybersecurity](https://img.shields.io/badge/Cybersecurity-AI%20Powered-00CED1?style=for-the-badge&logo=shield-check&logoColor=white)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![Version](https://img.shields.io/badge/Version-1.0.0-1f6feb?style=for-the-badge)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/releases)
+[![Version](https://img.shields.io/badge/Version-2.0.0-1f6feb?style=for-the-badge)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/releases)
 
 </div>
 
@@ -135,14 +135,26 @@ Create a `.env` file in the project root:
 GOOGLE_API_KEY=your_primary_gemini_api_key
 GOOGLE_API_KEY_2=your_secondary_gemini_api_key
 GEMINI_API_KEY=alternative_gemini_api_key
+GEMINI_BACKUP_KEY_1=your_backup_key_1
+GEMINI_BACKUP_KEY_2=your_backup_key_2
 
 # Database
 DATABASE_URL=postgresql://user:password@localhost:5432/cybershellx
+
+# Supabase (optional, for enhanced data management)
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_KEY=your_supabase_service_key
+
+# Client-side (VITE_ prefix required for frontend)
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 # Server
 PORT=5000
 NODE_ENV=development
 ```
+
+> ⚠️ **Never commit your `.env` file to version control.** It is listed in `.gitignore` and should remain local.
 
 ---
 
@@ -201,6 +213,8 @@ cyber-shell-x-nexus/
 │   │   ├── components/            # React components (UI + custom)
 │   │   │   ├── ui/               # shadcn/ui Radix components
 │   │   │   ├── CyberShellXTerminal.tsx
+│   │   │   ├── ErrorBoundary.tsx # Global React error boundary
+│   │   │   ├── LoadingSpinner.tsx # Reusable loading indicator
 │   │   │   ├── Hero.tsx
 │   │   │   ├── FeatureCard.tsx
 │   │   │   └── ...
