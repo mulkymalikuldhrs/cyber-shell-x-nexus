@@ -92,7 +92,7 @@ if (apiCount > 0) {
 }
 
 // Final summary
-const passed = Object.values(checks).reduce((sum, val) => sum + val, 0) - checks.total;
+const passed = checks.files + checks.dependencies + checks.database + checks.apis;
 const total = checks.total;
 
 console.log('📊 SUMMARY');

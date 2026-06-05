@@ -1,18 +1,20 @@
 # Dependencies
 node_modules/
-package-lock.json
 
 # Build output
 dist/
 build/
 *.tsbuildinfo
 
-# Environment variables
+# Environment variables - NEVER commit actual env files
 .env
 .env.local
+.env.development
+.env.production
 .env.development.local
 .env.test.local
 .env.production.local
+# Note: .env.example is intentionally NOT ignored - it's a safe template
 
 # IDE and editor files
 .vscode/
@@ -49,10 +51,6 @@ ehthumbs.db
 # Compressed archives
 *.tar.gz
 *.zip
-
-# Environment files
-.env.production
-.env.development
 
 # Framework
 .next/

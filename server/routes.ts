@@ -45,11 +45,22 @@ function validateCommandBody(body: unknown): { command: string; userId?: string 
   return { command: trimmed, userId: typeof userId === 'string' ? userId : undefined };
 }
 
-// ── Simple rate limiter ──────────────────────────────────────────────────────
+// ── Simple rate limiter with periodic cleanup ───────────────────────────────────
 
 const requestCounts = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT_WINDOW = 60_000; // 1 minute
 const RATE_LIMIT_MAX = 60; // requests per window
+const RATE_LIMIT_CLEANUP_INTERVAL = 5 * 60_000; // Cleanup every 5 minutes
+
+// Periodic cleanup to prevent memory leaks
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entry] of requestCounts) {
+    if (now > entry.resetAt) {
+      requestCounts.delete(ip);
+    }
+  }
+}, RATE_LIMIT_CLEANUP_INTERVAL);
 
 function rateLimiter(req: Request, res: Response, next: NextFunction): void {
   const ip = req.ip ?? req.socket.remoteAddress ?? 'unknown';
@@ -189,14 +200,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     path: '/ws/cybershell'
   });
 
-  wss.on('connection', (ws: WebSocket) => {
-    console.log('CyberShellX WebSocket connection established');
+  wss.on('connection', (ws: WebSocket, req) => {
+    const clientIp = req.socket.remoteAddress ?? 'unknown';
+    console.log(`CyberShellX WebSocket connection established from ${clientIp}`);
+
+    // TODO: Add authentication token validation here when auth system is integrated
+    // Expected: const token = req.headers['sec-websocket-protocol'];
+    //           if (!validateToken(token)) { ws.close(4001, 'Unauthorized'); return; }
 
     ws.on('message', async (message) => {
       try {
         const data = JSON.parse(message.toString());
         
-        if (data.type === 'command') {
+        if (data.type === 'command' || data.type === 'chat') {
           const command = String(data.command ?? '').trim();
           if (!command || command.length > MAX_COMMAND_LENGTH) {
             ws.send(JSON.stringify({
@@ -207,12 +223,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
             return;
           }
 
-          const response = cyberShellAI.processCommand(command);
+          let response = cyberShellAI.processCommand(command);
+          
+          // Try AI enhancement (non-blocking)
+          try {
+            response = await cyberShellAI.enhanceResponseWithAI(command, response);
+          } catch {
+            // Fall back to base response if AI enhancement fails
+          }
           
           ws.send(JSON.stringify({
-            type: 'response',
+            type: 'chat_response',
+            message: response.content,
             command,
-            response: response.content,
             category: response.category,
             difficulty: response.difficulty,
             tools: response.tools,
@@ -224,6 +247,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
           ws.send(JSON.stringify({
             type: 'learning_prompt',
             prompt,
+            timestamp: new Date().toISOString()
+          }));
+        } else if (data.type === 'install') {
+          // Tool installation is simulated for educational purposes
+          ws.send(JSON.stringify({
+            type: 'install_result',
+            success: true,
+            message: `Tool '${data.tool}' installation simulated. In a real environment, use your system package manager.`,
+            timestamp: new Date().toISOString()
+          }));
+        } else if (data.type === 'get_tools') {
+          ws.send(JSON.stringify({
+            type: 'tools_list',
+            tools: ['nmap', 'wireshark', 'metasploit', 'sqlmap', 'burpsuite', 'hashcat', 'aircrack-ng', 'nikto', 'john'],
+            timestamp: new Date().toISOString()
+          }));
+        } else if (data.type === 'execute') {
+          ws.send(JSON.stringify({
+            type: 'error',
+            message: 'Direct command execution is disabled for security. Use AI-powered command explanations instead.',
+            timestamp: new Date().toISOString()
+          }));
+        } else {
+          ws.send(JSON.stringify({
+            type: 'error',
+            message: `Unknown command type: ${data.type}`,
             timestamp: new Date().toISOString()
           }));
         }

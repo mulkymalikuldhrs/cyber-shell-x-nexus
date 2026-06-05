@@ -106,7 +106,10 @@ const CyberShellXTerminal = () => {
     setConnectionStatus('connecting');
     addMessage('system', 'Connecting to CyberShellX server...');
 
-    const websocket = new WebSocket('ws://localhost:8765');
+    // Connect to the server's WebSocket endpoint on the same host
+    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${wsProtocol}//${window.location.host}/ws/cybershell`;
+    const websocket = new WebSocket(wsUrl);
 
     websocket.onopen = () => {
       setConnected(true);

@@ -59,7 +59,9 @@ class CyberShellXService : Service(), TextToSpeech.OnInitListener {
     }
     
     private fun initializeWebSocket() {
-        val uri = URI("ws://localhost:8765")
+        // Server URL should be configurable - default to the Express server WebSocket path
+        val serverUrl = "ws://${getServerHost()}/ws/cybershell"
+        val uri = URI(serverUrl)
         webSocketClient = object : WebSocketClient(uri) {
             override fun onOpen(handshake: ServerHandshake?) {
                 // Connected to CyberShellX server
@@ -197,6 +199,12 @@ class CyberShellXService : Service(), TextToSpeech.OnInitListener {
         }
     }
     
+    // Get server host from configuration or default to localhost:5000
+    private fun getServerHost(): String {
+        // In production, this should be read from SharedPreferences or BuildConfig
+        return "localhost:5000"
+    }
+
     override fun onBind(intent: Intent?): IBinder? = null
     
     override fun onDestroy() {

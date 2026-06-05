@@ -328,15 +328,42 @@ class SystemController(private val context: Context) {
         }
     }
     
-    // Execute shell commands (requires root)
+    // Execute shell commands with strict allowlist (SECURITY: prevents command injection)
+    // Only pre-approved safe commands are permitted
+    private val ALLOWED_COMMANDS = mapOf(
+        "date" to "date",
+        "uptime" to "uptime",
+        "whoami" to "whoami",
+        "hostname" to "hostname",
+        "df" to "df -h",
+        "free" to "free -h",
+        "uname" to "uname -a",
+        "ip_addr" to "ip addr",
+        "ifconfig" to "ifconfig",
+        "ps" to "ps -ef",
+        "top" to "top -b -n1",
+        "netstat" to "netstat -tuln",
+        "ping" to null,  // Requires target parameter, handled separately
+    )
+
     fun executeShellCommand(command: String): String {
+        val trimmed = command.trim().lowercase()
+
+        // Strict allowlist check: only exact matches to approved commands
+        val allowedCommand = ALLOWED_COMMANDS[trimmed]
+        if (allowedCommand == null) {
+            return "Command not allowed. Permitted commands: ${ALLOWED_COMMANDS.keys.joinToString(", ")}"
+        }
+
         return try {
-            val process = Runtime.getRuntime().exec(command)
+            // Use array form to prevent shell injection
+            val parts = allowedCommand.split(" ").toTypedArray()
+            val process = Runtime.getRuntime().exec(parts)
             val output = process.inputStream.bufferedReader().readText()
             val error = process.errorStream.bufferedReader().readText()
-            
+
             process.waitFor()
-            
+
             if (error.isNotEmpty()) {
                 "Error: $error"
             } else if (output.isNotEmpty()) {
@@ -348,6 +375,26 @@ class SystemController(private val context: Context) {
             "Error executing command: ${e.message}"
         } catch (e: InterruptedException) {
             "Command interrupted: ${e.message}"
+        }
+    }
+
+    // Safe ping with validated target (IP address only)
+    fun executePing(targetIp: String): String {
+        // Validate IP address format to prevent injection
+        val ipPattern = Regex("^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$")
+        if (!ipPattern.matches(targetIp)) {
+            return "Invalid IP address format. Only IPv4 addresses are allowed."
+        }
+
+        return try {
+            val process = Runtime.getRuntime().exec(arrayOf("ping", "-c", "4", targetIp))
+            val output = process.inputStream.bufferedReader().readText()
+            process.waitFor()
+            output.ifEmpty { "Ping completed with no output" }
+        } catch (e: IOException) {
+            "Error executing ping: ${e.message}"
+        } catch (e: InterruptedException) {
+            "Ping interrupted: ${e.message}"
         }
     }
 }
