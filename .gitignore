@@ -61,3 +61,8 @@ android-assistant/app/.gradle/
 # Temporary files
 tmp/
 temp/
+.env.production
+.next/
+.vercel/
+venv/
+__pycache__/
