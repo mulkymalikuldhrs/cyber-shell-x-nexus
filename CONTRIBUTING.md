@@ -295,7 +295,7 @@ To add or improve translations:
 If you discover a security vulnerability in CyberShellX Nexus, please report it responsibly:
 
 - **Do not** create a public GitHub Issue for security vulnerabilities
-- Send a detailed report to: mulkymalikuldhaher@email.com
+- Send a detailed report to: mulkymalikudhr@mail.com
 - Include steps to reproduce, affected versions, and potential impact
 - Allow reasonable time for a response before any public disclosure
 
@@ -304,7 +304,7 @@ If you discover a security vulnerability in CyberShellX Nexus, please report it 
 ## Contact
 
 **Project Owner**: Mulky Malikul Dhaher  
-**Email**: mulkymalikuldhaher@email.com  
+**Email**: mulkymalikudhr@mail.com  
 **GitHub**: [@mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)  
 **Repository**: https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus
 
@@ -314,4 +314,4 @@ Thank you for contributing to CyberShellX Nexus. Your efforts help make cybersec
 
 > ⚠️ **For Education Purpose Only** — This project is provided strictly for educational and research purposes. The authors and contributors assume **no responsibility or liability** for any damages, losses, or risks arising from the use of this software. **We do not bear any responsibility or risk** for how this software is used.
 
-**Contact:** Mulky Malikul Dhaher | mulkymalikuldhaher@email.com
+**Contact:** Mulky Malikul Dhaher | mulkymalikudhr@mail.com

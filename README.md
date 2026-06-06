@@ -1,5 +1,5 @@
 <a href="https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus">
-  <img align="center" src="https://capsule-render.vercel.app/api?type=wave&color=0:0d1117,50:161b22,100:1f6feb&height=180&section=header&text=CyberShellX%20Nexus&fontSize=42&fontColor=58a6ff&animation=fadeIn&fontAlignY=32&desc=Advanced%20Cybersecurity%20Platform%20with%20AI-Powered%20Assistant&descSize=18&descColor=8b949e&descAlignY=52" />
+  <img align="center" src="https://capsule-render.vercel.app/api?type=wave&color=0:0d1117,50:161b22,100:1f6feb&height=180&section=header&text=CyberShellX%20Nexus&fontSize=42&fontColor=58a6ff&animation=fadeIn&fontAlignY=32&desc=Cybersecurity%20Training%20Platform%20with%20AI-Powered%20Assistant&descSize=18&descColor=8b949e&descAlignY=52" />
 </a>
 
 <div align="center">
@@ -13,7 +13,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Cybersecurity](https://img.shields.io/badge/Cybersecurity-AI%20Powered-00CED1?style=for-the-badge&logo=shield-check&logoColor=white)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![Version](https://img.shields.io/badge/Version-2.0.0-1f6feb?style=for-the-badge)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/releases)
+[![Version](https://img.shields.io/badge/Version-0.2.0--alpha-1f6feb?style=for-the-badge)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus)
 
 </div>
 
@@ -321,7 +321,7 @@ Please make sure to update tests as appropriate and follow the existing code sty
 
 ## 📬 Contact
 
-**Mulky Malikul Dhaher** — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+**Mulky Malikul Dhaher** — [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com)
 
 GitHub: [https://github.com/mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
 
@@ -333,7 +333,7 @@ GitHub: [https://github.com/mulkymalikuldhrs](https://github.com/mulkymalikuldhr
 
 This project is provided strictly for educational and research purposes. The authors and contributors assume **no responsibility or liability** for any damages, losses, or risks arising from the use of this software. **We do not bear any responsibility or risk** for how this software is used.
 
-**Contact:** Mulky Malikul Dhaher | mulkymalikuldhaher@email.com
+**Contact:** Mulky Malikul Dhaher | mulkymalikudhr@mail.com
 
 ---
 
@@ -343,7 +343,7 @@ This project is provided strictly for educational and research purposes. The aut
 
 Proyek ini disediakan secara ketat untuk tujuan pendidikan dan penelitian. Penulis dan kontributor tidak menanggung **tanggung jawab atau risiko** atas kerusakan, kerugian, atau risiko yang timbul dari penggunaan perangkat lunak ini. **Kami tidak menanggung tanggung jawab atau risiko** atas bagaimana perangkat lunak ini digunakan.
 
-**Kontak:** Mulky Malikul Dhaher | mulkymalikuldhaher@email.com
+**Kontak:** Mulky Malikul Dhaher | mulkymalikudhr@mail.com
 
 ---
 
@@ -353,7 +353,7 @@ Proyek ini disediakan secara ketat untuk tujuan pendidikan dan penelitian. Penul
 
 本项目严格仅供教育和研究目的。作者和贡献者对因使用本软件而产生的任何损害、损失或风险**不承担任何责任**。**我们不承担任何责任或风险**对于本软件的使用方式。
 
-**联系方式:** Mulky Malikul Dhaher | mulkymalikuldhaher@email.com
+**联系方式:** Mulky Malikul Dhaher | mulkymalikudhr@mail.com
 
 ---
 
