@@ -305,6 +305,14 @@ This platform is designed **exclusively** for educational and authorized securit
 </a>
 ---
 
+## 👤 Author
+
+**Mulky Malikul Dhaher**
+- Email: [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com)
+- GitHub: [https://github.com/mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
+
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome! We encourage the community to help improve this project.
@@ -316,14 +324,6 @@ Contributions are welcome! We encourage the community to help improve this proje
 5. Open a **Pull Request**
 
 Please make sure to update tests as appropriate and follow the existing code style.
-
----
-
-## 📬 Contact
-
-**Mulky Malikul Dhaher** — [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com)
-
-GitHub: [https://github.com/mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
 
 ---
 
