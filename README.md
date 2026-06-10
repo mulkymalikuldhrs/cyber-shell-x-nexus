@@ -4,6 +4,16 @@
 
 <div align="center">
 
+<img src="docs/csx-nexus-banner.png" width="100%" alt="CyberShellX Nexus Banner" />
+
+<br/>
+
+<img src="docs/csx-nexus-logo.png" width="120" height="120" alt="CyberShellX Nexus Logo" />
+
+</div>
+
+<div align="center">
+
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=00FFFF&center=true&vCenter=true&width=700&lines=Multi-Agent+Orchestration+%2B+Multi-LLM+Intelligence;Vulnerability+Scanner+%2B+Recon+Engine+%2B+Risk+Engine;CVSS+v3.1+%2B+5-Layer+Safety+Pipeline;19+Security+Tools+%2B+WebSocket+%2B+JWT+Auth;Cross-Platform:+CLI+%2B+Web+%2B+Android;All+Tool+Executions+Are+Simulated)](https://git.io/typing-svg)
 
 <br/>
