@@ -135,13 +135,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: 'Password must be at least 8 characters' });
       }
 
-      const result = await authService.register(username, password, email);
+      const result = await authService.register(username, password, email || undefined);
       res.json({
         user: { id: result.user.id, username: result.user.username, role: result.user.role },
         token: result.token,
       });
     } catch (error) {
-      res.status(400).json({ error: (error as Error).message });
+      const message = (error as Error).message || 'Registration failed';
+      console.error('[Auth] Register error:', message);
+      res.status(400).json({ error: message });
     }
   });
 
@@ -158,7 +160,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         token: result.token,
       });
     } catch (error) {
-      res.status(401).json({ error: (error as Error).message });
+      const message = (error as Error).message || 'Login failed';
+      console.error('[Auth] Login error:', message);
+      res.status(401).json({ error: message });
     }
   });
 

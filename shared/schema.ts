@@ -32,7 +32,7 @@ export const passwordSchema = z.string()
 export const insertUserSchemaSecure = z.object({
   username: usernameSchema,
   password: passwordSchema,
-  email: z.string().email().optional(),
+  email: z.string().email().optional().or(z.literal('')),
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;

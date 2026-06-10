@@ -1,24 +1,32 @@
 <a href="https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus">
-  <img align="center" src="https://capsule-render.vercel.app/api?type=wave&color=0:0d1117,50:161b22,100:1f6feb&height=180&section=header&text=CyberShellX%20Nexus&fontSize=42&fontColor=58a6ff&animation=fadeIn&fontAlignY=32&desc=AI-Powered%20Cybersecurity%20Platform%20%7C%20Multi-Agent%20%7C%20Multi-LLM&descSize=16&descColor=8b949e&descAlignY=52" />
+  <img width="100%" src="https://capsule-render.vercel.app/api?type=wave&color=0:0a0e17,50:0d1b2a,100:1b2838&height=220&section=header&text=CyberShellX%20Nexus&fontSize=48&fontColor=00ffff&animation=fadeIn&fontAlignY=32&desc=AI-Powered%20Autonomous%20Cybersecurity%20Platform&descSize=18&descColor=a855f7&descAlignY=52" />
 </a>
 
 <div align="center">
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=58A6FF&center=true&vCenter=true&width=600&lines=AI-Powered+Cybersecurity+Platform;Multi-Agent+Orchestration;Multi-LLM+Provider+System;Vulnerability+Scanner+%2B+Recon+Engine;Cross-Platform+CLI+%2B+Web+%2B+Android;5-Layer+Safety+Pipeline)](https://git.io/typing-svg)
+<img src="docs/csx-nexus-logo.png" width="120" height="120" alt="CyberShellX Nexus Logo" />
 
-</div>
+<br/>
 
-<div align="center">
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=00FFFF&center=true&vCenter=true&width=700&lines=Multi-Agent+Orchestration+%7C+Multi-LLM+AI;Vulnerability+Scanner+%2B+Recon+Engine+%2B+Risk+Engine;CVSS+v3.1+%2B+5-Layer+Safety+Pipeline;19+Security+Tools+%2B+WebSocket+%2B+JWT+Auth;Cross-Platform%3A+CLI+%2B+Web+%2B+Android)](https://git.io/typing-svg)
+
+<br/>
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Cybersecurity](https://img.shields.io/badge/Cybersecurity-AI%20Powered-00CED1?style=for-the-badge&logo=shield-check&logoColor=white)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![Version](https://img.shields.io/badge/Version-3.0.0-1f6feb?style=for-the-badge)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus)
-[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+[![Express](https://img.shields.io/badge/Express-4-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Gemini](https://img.shields.io/badge/Google-Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
+[![Version](https://img.shields.io/badge/Version-3.0.0-00CED1?style=for-the-badge&logo=semver&logoColor=white)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
 
-</div>
+<br/>
 
-<div align="center">
+[![GitHub Stars](https://img.shields.io/github/stars/mulkymalikuldhrs/cyber-shell-x-nexus?style=for-the-badge&logo=github&color=gold)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/mulkymalikuldhrs/cyber-shell-x-nexus?style=for-the-badge&logo=github&color=blue)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/fork)
+[![GitHub Issues](https://img.shields.io/github/issues/mulkymalikuldhrs/cyber-shell-x-nexus?style=for-the-badge&logo=github&color=red)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/mulkymalikuldhrs/cyber-shell-x-nexus?style=for-the-badge&logo=github&color=green)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/pulls)
+
+<br/>
 
 **Language / Bahasa / 语言**
 
@@ -35,6 +43,37 @@
 **CyberShellX Nexus v3.0** is a comprehensive, AI-powered cybersecurity platform that integrates multi-agent orchestration, multi-LLM intelligence, vulnerability scanning, reconnaissance engines, and risk assessment into a single unified system. Built with a modern TypeScript/React stack, the platform provides cybersecurity professionals, students, and enthusiasts with an intelligent companion for security assessment, penetration testing methodology, vulnerability research, and education.
 
 The platform operates across three distinct interfaces: a command-line terminal for power users, a browser-based web dashboard with dedicated pages for scanning, reconnaissance, agent monitoring, tool management, risk assessment, and reporting, plus a native Android voice assistant for on-the-go security consulting. Each interface connects to the same AI-powered backend, ensuring consistent and enriched responses regardless of the access method. CyberShellX Nexus emphasizes ethical hacking and responsible disclosure, embedding legal notices and ethical guidelines throughout every interaction via a 5-layer safety pipeline.
+
+### Key Features at a Glance
+
+<table>
+<tr>
+<td width="50%">
+
+🤖 **Multi-Agent Orchestration** — 5 specialized AI agents (Recon, Vuln, Exploit, Analysis, Report) with PTES 5-phase pipeline coordination
+
+🧠 **Multi-LLM AI Router** — Gemini, OpenAI, Claude, Ollama with priority fallback chain, SHA256 caching, and automatic provider switching
+
+🔍 **Vulnerability Scanner** — 50+ regex entry points, 7 vuln types (LFI, RCE, XSS, AFO, SSRF, SQLI, IDOR), LLM-powered analysis, confidence scoring
+
+👁️ **Reconnaissance Engine** — 20+ passive subdomain sources, TLS fingerprinting, JS secret scanning, security headers, tech fingerprinting
+
+</td>
+<td width="50%">
+
+📊 **Risk Engine** — CVSS v3.1 scoring, Bayesian false positive reduction, business impact calculator, weighted risk scoring
+
+🛡️ **5-Layer Safety Pipeline** — Guardrails → Validation → Fact-check → Consistency → Correction with scope validation and legal notices
+
+🔧 **19 Security Tools** — nmap, nuclei, sqlmap, ffuf, gobuster and more with 3 safety levels and simulated execution
+
+🔐 **JWT Authentication** — scrypt password hashing, API key management, role-based access (admin, analyst, user)
+
+📡 **Real-time WebSocket** — Live scan progress, agent status, notifications via Discord/Slack/Telegram webhooks
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -98,7 +137,7 @@ This is a major upgrade that consolidates the best concepts and implementations 
 - *Implementation derived from*: [Zen-AI-Pentest](https://github.com/mulkymalikuldhrs/Zen-Ai-Pentest) (5-layer safety pipeline, scope validation, output guardrails)
 
 ### Authentication System
-- JWT-based authentication with bcrypt password hashing
+- JWT-based authentication with scrypt password hashing
 - Register/login/session validation routes
 - API key management with prefix-based validation
 - Role-based access: admin, analyst, user
@@ -111,15 +150,16 @@ This is a major upgrade that consolidates the best concepts and implementations 
 - In-app notifications via WebSocket broadcasting
 - *Implementation derived from*: [BruteForceAI](https://github.com/MorDavid/BruteForceAI) by Mor David (Discord/Slack/Telegram webhook implementations)
 
-### Enhanced Web Dashboard (7 New Pages)
-- **Scan Page** — Vulnerability scanner dashboard with scan config, progress, findings
-- **Recon Page** — Reconnaissance dashboard with subdomains, ports, TLS, headers
-- **Agents Page** — Agent monitoring with pipeline visualization
-- **Tools Page** — Security tool hub with category filtering
-- **Risk Page** — Risk assessment with visual gauge and score breakdown
-- **Reports Page** — Report generation with Markdown download
-- **Settings Page** — Configuration for LLM providers, notifications, safety
-- **Auth Page** — Login/Register with JWT token storage
+### Enhanced Web Dashboard (9 Pages + Global Navigation)
+- **Dashboard** — Live stats, system health, activity feed, LLM provider status, quick actions
+- **Scan Page** — Vulnerability scanner with matrix animation, severity charts, expandable findings
+- **Recon Page** — Pipeline progress, subdomains, ports, TLS, headers, tech fingerprint, JS secrets
+- **Agents Page** — Communication diagram, agent logs, pipeline visualization, real-time status
+- **Tools Page** — Search/filter, target input per tool, category icons, safety levels
+- **Risk Page** — Animated SVG gauge, business impact sliders, vuln comparison, FP assessment
+- **Reports Page** — Preview panel, 3 format options (MD/HTML/JSON), report statistics
+- **Settings Page** — System info, database status, API key management, LLM config, notification setup
+- **Auth Page** — Animated background, password strength indicator, remember me
 
 ---
 
@@ -151,7 +191,7 @@ This project integrates concepts, architectures, and implementations derived fro
 
 ### Prerequisites
 - **Node.js** 18+ and npm
-- **PostgreSQL** database (for web interface)
+- **PostgreSQL** database (for web interface — falls back to in-memory storage if not configured)
 - **Git** for cloning and updates
 
 ### Quick Start
@@ -168,7 +208,7 @@ npm install
 cp .env.example .env
 # Edit .env with your API keys and database URL
 
-# Set up database schema
+# Set up database schema (optional - uses in-memory storage if no DATABASE_URL)
 npm run db:push
 
 # Launch with interactive menu (recommended)
@@ -272,14 +312,15 @@ npm run dev
 ```
 
 Pages:
-- **Dashboard** — Overview with stats, quick navigation, feature highlights
-- **Scan** — Vulnerability scanner with scan configuration, progress tracking, findings display
-- **Recon** — Reconnaissance dashboard with subdomain discovery, port scanning, TLS analysis
-- **Agents** — Agent monitoring with pipeline visualization and orchestration controls
-- **Tools** — Security tool hub with category filtering and simulated execution
-- **Risk** — Risk assessment with visual gauge, CVSS breakdown, false positive analysis
-- **Reports** — Report generation and download
-- **Settings** — LLM provider configuration, notification setup, safety settings
+- **Dashboard** — Overview with live stats, system health, activity feed, LLM provider status, quick actions
+- **Scanner** — Vulnerability scanner with matrix animation, severity charts, expandable findings, scan history
+- **Recon** — Reconnaissance with pipeline progress, subdomains, ports, TLS, headers, tech fingerprint, JS secrets
+- **Agents** — Agent monitoring with communication diagram, logs, pipeline visualization, orchestration controls
+- **Tools** — Security tool hub with search/filter, target input per tool, category icons, safety levels
+- **Risk** — Risk assessment with animated gauge, business impact sliders, vuln comparison, FP assessment
+- **Reports** — Report generation with preview panel, 3 format options (MD/HTML/JSON), statistics
+- **Settings** — System info, database status, API key management, LLM configuration, notification setup, safety settings
+- **Auth** — Login/Register with animated background, password strength indicator, remember me
 
 ### Android App
 
@@ -298,16 +339,20 @@ cyber-shell-x-nexus/
 ├── client/                        # React frontend
 │   └── src/
 │       ├── components/            # React components (UI + custom)
+│       │   ├── Navbar.tsx        # Global navigation bar ★ NEW
+│       │   ├── Hero.tsx          # Landing hero section
+│       │   ├── TerminalInterface.tsx  # Demo terminal
+│       │   ├── CyberShellXTerminal.tsx # Live WebSocket terminal
 │       │   └── ui/               # 40+ shadcn/ui Radix components
 │       ├── pages/                # Application pages
-│       │   ├── Index.tsx         # Dashboard
+│       │   ├── Index.tsx         # Dashboard with stats, health, activity
 │       │   ├── ScanPage.tsx      # Vulnerability scanner
-│       │   ├── ReconPage.tsx     # Reconnaissance
+│       │   ├── ReconPage.tsx     # Reconnaissance engine
 │       │   ├── AgentsPage.tsx    # Agent monitoring
 │       │   ├── ToolsPage.tsx     # Security tools
 │       │   ├── RiskPage.tsx      # Risk assessment
-│       │   ├── ReportsPage.tsx   # Reports
-│       │   ├── SettingsPage.tsx  # Settings
+│       │   ├── ReportsPage.tsx   # Report generation
+│       │   ├── SettingsPage.tsx  # Platform settings
 │       │   └── AuthPage.tsx      # Authentication
 │       ├── hooks/                # Custom React hooks
 │       └── lib/                  # Utilities and query client
@@ -325,8 +370,8 @@ cyber-shell-x-nexus/
 │   ├── tools/index.ts            # Security tool integration ★ NEW
 │   ├── risk/index.ts             # Risk engine ★ NEW
 │   ├── safety/index.ts           # 5-layer safety pipeline ★ NEW
-│   ├── storage.ts                # Database storage layer
-│   ├── db.ts                     # Database connection
+│   ├── storage.ts                # Database + in-memory storage
+│   ├── db.ts                     # Database connection with fallback
 │   ├── supabase-integration.ts   # Supabase client integration
 │   └── vite.ts                   # Vite dev/prod middleware
 ├── shared/                        # Shared types and schemas
@@ -334,7 +379,11 @@ cyber-shell-x-nexus/
 ├── android-assistant/             # Native Android voice assistant
 ├── cybershell-commands/           # AI knowledge base
 ├── scripts/                       # Utility scripts
-├── docs/                          # Documentation
+├── docs/                          # Documentation & assets
+│   ├── PRD.md                    # Product Requirements Document
+│   ├── TUTORIAL.md               # Getting Started Guide
+│   ├── csx-nexus-logo.png        # Platform logo
+│   └── csx-nexus-banner.png      # Platform banner
 ├── cli-interface.js               # CLI terminal interface
 ├── launcher.sh                    # Main interactive launcher
 └── package.json                   # Dependencies and scripts
@@ -357,6 +406,7 @@ cyber-shell-x-nexus/
 | `/api/scan/start` | POST | Start a vulnerability scan |
 | `/api/scan/:id` | GET | Get scan status and results |
 | `/api/scans` | GET | List all scans |
+| `/api/scan/:id` | DELETE | Delete a scan |
 | `/api/recon/start` | POST | Start reconnaissance |
 | `/api/recon/:id` | GET | Get recon status and results |
 | `/api/agents/status` | GET | Get agent system status |
@@ -369,7 +419,7 @@ cyber-shell-x-nexus/
 | `/api/llm/providers` | GET | List LLM provider status |
 | `/api/llm/generate` | POST | Generate LLM response |
 | `/api/dashboard/stats` | GET | Get dashboard statistics |
-| `/api/notifications` | POST | Send notification via webhook |
+| `/api/notifications` | GET | Get recent notifications |
 | `/ws/cybershell` | WS | Real-time WebSocket for terminal + scan + agent updates |
 
 ---
@@ -395,7 +445,8 @@ cyber-shell-x-nexus/
 │ FP Reduce  │ Pipeline    │ 3 Safety Lvl│ Email + WebSocket    │
 ├────────────┴─────────────┴──────────────┴──────────────────────┤
 │              Data Layer (PostgreSQL + Drizzle + Supabase)        │
-│              Auth Layer (JWT + bcrypt + API Keys)                │
+│              Auth Layer (JWT + scrypt + API Keys)                │
+│              Storage Layer (Database + In-Memory Fallback)       │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -472,3 +523,7 @@ Copyright © 2024-2026 Mulky Malikul Dhaher. All rights reserved.
 **Mulky Malikul Dhaher**
 - Email: [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com)
 - GitHub: [https://github.com/mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
+
+<a href="https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus">
+  <img width="100%" src="https://capsule-render.vercel.app/api?type=wave&color=0:1b2838,50:0d1b2a,100:0a0e17&height=120&section=footer" />
+</a>

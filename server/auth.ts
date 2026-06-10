@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import { randomBytes, scryptSync, timingSafeEqual } from 'crypto';
 import { storage } from './storage';
 import type { User } from '@shared/schema';
+import { ZodError } from 'zod';
 
 // ── Configuration ──────────────────────────────────────────────────────────────
 
@@ -83,16 +84,25 @@ export class AuthService {
     }
 
     // Create user
-    const user = await storage.createUser({
-      username,
-      password, // storage.createUser will hash it
-      email,
-    });
+    try {
+      const user = await storage.createUser({
+        username,
+        password, // storage.createUser will hash it
+        email: email || undefined,
+      });
 
-    // Generate JWT
-    const token = generateToken(user);
-
-    return { user, token };
+      // Generate JWT
+      const token = generateToken(user);
+      return { user, token };
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const messages = error.issues.map(i => i.message).join(', ');
+        console.error('[Auth] Zod validation error:', messages);
+        throw new Error(messages || 'Validation failed');
+      }
+      console.error('[Auth] Register create user error:', error);
+      throw new Error((error as Error).message || 'Registration failed');
+    }
   }
 
   /**

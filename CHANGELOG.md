@@ -5,6 +5,92 @@ All notable changes to the CyberShellX Nexus project will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2026-06-10
+
+### Added — UI & UX Major Upgrade
+
+#### Global Navigation
+- **Navbar.tsx** — Fixed top navigation bar with responsive mobile menu, user status, login/logout, and system status indicator
+- All pages now include `pt-14` padding to accommodate the fixed navbar
+
+#### Dashboard (Index.tsx) — Complete Redesign
+- Dashboard-first layout replacing static landing page
+- Live animated stat counters with fetching from `/api/dashboard/stats`
+- System health check section with provider and database status
+- Recent activity timeline with live updates
+- LLM provider status cards
+- Quick action buttons with navigation to all features
+- Original Hero, GitHub, Donation sections preserved below dashboard
+
+#### Scan Page (ScanPage.tsx) — Visual Enhancement
+- Matrix rain + Radar scan animations during active scans
+- Severity pie chart (div-based, no recharts dependency)
+- Expandable finding rows with detail toggle
+- Delete scans from history with confirmation dialog
+- 3-tab results view: Progress, Findings, Summary
+- Improved scan configuration with better UX
+
+#### Recon Page (ReconPage.tsx) — Pipeline Visualization
+- 8-step pipeline progress indicator with animated phases
+- Collapsible result sections for each recon module
+- 5-card summary overview at top (score, subdomains, ports, technologies, JS secrets)
+- Improved security score display with color coding
+
+#### Agents Page (AgentsPage.tsx) — Communication Diagram
+- SVG agent communication diagram with animated data flow
+- Agent logs tab with terminal-style viewer
+- Pipeline view tab with animated phase transitions
+- Enhanced real-time status animation for agent states
+
+#### Tools Page (ToolsPage.tsx) — Search & Filter
+- Search/filter input for quick tool lookup
+- Target input field per tool for direct execution
+- Category icons (Globe, Server, Code, Bug, Lock, Search)
+- Gradient stat cards for tool counts
+- Improved tool cards with more details and command preview
+
+#### Risk Page (RiskPage.tsx) — Interactive Assessment
+- Animated SVG risk gauge visualization
+- Business impact and exploitability sliders for manual adjustment
+- Vuln type comparison section with visual bars
+- False positive assessment section with analysis results
+- Improved risk calculator with more configuration options
+
+#### Reports Page (ReportsPage.tsx) — Preview & Format Options
+- Report preview panel before download
+- 3 format options: Markdown, HTML, JSON
+- Report statistics cards showing finding distribution
+- Per-scan format selector with download buttons
+
+#### Settings Page (SettingsPage.tsx) — System Management
+- System info section (platform, version, uptime)
+- Database status indicator
+- API key management with show/hide toggle
+- Settings save/load to localStorage with persistence
+- Reset to defaults button
+- Improved tab layout with all configuration options
+
+#### Auth Page (AuthPage.tsx) — Animated & Secure
+- Animated floating particle background
+- Password strength indicator (6-bar visual)
+- Password requirement checklist (length, uppercase, number, special char)
+- Remember me checkbox
+- Show/hide password toggle
+- Improved form design with gradient accents
+
+### Added — Documentation & Assets
+- **docs/csx-nexus-logo.png** — Generated platform logo (cyberpunk shield with circuit patterns)
+- **docs/csx-nexus-banner.png** — Generated platform banner (futuristic dark tech theme)
+- README.md updated with animated header, logo, banner, dynamic badges, and improved layout
+- Added @types/jsonwebtoken dev dependency for TypeScript type safety
+
+### Fixed
+- TypeScript compilation error: Added @types/jsonwebtoken for JWT type declarations
+- All pages now properly offset for fixed navbar (pt-14)
+- Storage fallback now works correctly when no DATABASE_URL is set
+
+---
+
 ## [3.0.0] - 2026-06-10
 
 ### Added — Major Platform Upgrade
