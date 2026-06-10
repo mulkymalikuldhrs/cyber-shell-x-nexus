@@ -4,7 +4,6 @@ import fs from "fs";
 import path from "path";
 import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
-import viteConfig from "../vite.config";
 import { nanoid } from "nanoid";
 
 const viteLogger = createLogger();
@@ -24,17 +23,18 @@ export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
     middlewareMode: true,
     hmr: { server },
-    allowedHosts: true as const, // Fixed TypeScript error by using 'as const'
+    allowedHosts: true as const,
   };
 
   const vite = await createViteServer({
-    ...viteConfig,
-    configFile: false,
+    root: path.resolve(import.meta.dirname, ".."),
+    configFile: path.resolve(import.meta.dirname, "..", "vite.config.ts"),
     customLogger: {
       ...viteLogger,
       error: (msg, options) => {
         viteLogger.error(msg, options);
-        process.exit(1);
+        // Don't exit on Vite errors — log them instead
+        console.error('[Vite Error]', msg);
       },
     },
     server: serverOptions,

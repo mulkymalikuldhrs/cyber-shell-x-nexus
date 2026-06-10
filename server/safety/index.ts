@@ -7,19 +7,19 @@ import type { SafetyCheckResult } from '@shared/schema';
 // ── Scope Rules ────────────────────────────────────────────────────────────────
 
 const BLOCKED_TARGETS = [
-  /^127\./,                          // localhost
-  /^10\./,                           // private class A
-  /^172\.(1[6-9]|2[0-9]|3[01])\./,  // private class B
-  /^192\.168\./,                     // private class C
-  /^0\./,                            // invalid
-  /^localhost$/i,                    // localhost
-  /^::1$/,                           // IPv6 loopback
-  /^fe80:/i,                         // link-local
-  /^fc00:/i,                         // unique local
-  /^government\./i,                  // government sites
-  /\.gov$/i,                         // .gov TLD
-  /\.mil$/i,                         // .mil TLD
-  /\.int$/i,                         // .int TLD
+  /(?:^|[^\d])127\.\d/,                          // localhost
+  /(?:^|[^\d])10\.\d/,                           // private class A
+  /(?:^|[^\d])172\.(1[6-9]|2[0-9]|3[01])\./,    // private class B
+  /(?:^|[^\d])192\.168\./,                       // private class C
+  /(?:^|[^\d])0\.\d/,                            // invalid
+  /(?:^|\s)localhost(?:\s|$)/i,                  // localhost
+  /^::1$/,                                        // IPv6 loopback
+  /fe80:/i,                                       // link-local
+  /fc00:/i,                                       // unique local
+  /government\./i,                                // government sites
+  /\.gov(?:\s|$|\/)/i,                           // .gov TLD
+  /\.mil(?:\s|$|\/)/i,                           // .mil TLD
+  /\.int(?:\s|$|\/)/i,                           // .int TLD
 ];
 
 const BLOCKED_COMMANDS = [
@@ -129,10 +129,11 @@ export class SafetyPipeline {
       };
     }
 
-    // Validate target scope
-    if (context.target) {
+    // Validate target scope — check both context.target and input string
+    const targetsToCheck = [context.target, input].filter(Boolean);
+    for (const target of targetsToCheck) {
       for (const pattern of BLOCKED_TARGETS) {
-        if (pattern.test(context.target)) {
+        if (pattern.test(target!)) {
           return {
             passed: false,
             layer: 'validation',
