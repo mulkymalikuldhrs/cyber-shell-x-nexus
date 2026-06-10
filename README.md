@@ -239,6 +239,13 @@ This project integrates concepts, architectures, and implementations derived fro
 
 ```bash
 # Clone the repository
+
+<!-- AUTO-PACKAGE-BADGES:START -->
+<!-- Auto-generated package badges -->
+
+![npm version](https://img.shields.io/npm/v/cybershell-x-nexus?style=flat-square&logo=npm&color=blue) ![npm downloads](https://img.shields.io/npm/dw/cybershell-x-nexus?style=flat-square&color=brightgreen) ![npm license](https://img.shields.io/npm/l/cybershell-x-nexus?style=flat-square) [![Deployed](https://img.shields.io/badge/deployed-3.1.0-blue?style=flat-square)](https://www.npmjs.com/package/cybershell-x-nexus)
+
+<!-- AUTO-PACKAGE-BADGES:END -->
 git clone https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus.git
 cd cyber-shell-x-nexus
 
