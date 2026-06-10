@@ -1,6 +1,6 @@
 {
   "name": "cybershell-x-nexus",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -46,6 +46,7 @@
     "@tanstack/react-query": "^5.60.5",
     "@types/pg": "^8.15.4",
     "@vitejs/plugin-react-swc": "^3.10.2",
+    "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -58,6 +59,7 @@
     "express-session": "^1.18.1",
     "framer-motion": "^11.13.1",
     "input-otp": "^1.4.2",
+    "jsonwebtoken": "^9.0.3",
     "lovable-tagger": "^1.1.8",
     "lucide-react": "^0.453.0",
     "memorystore": "^1.6.7",
@@ -78,6 +80,7 @@
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "tw-animate-css": "^1.2.5",
+    "uuid": "^14.0.0",
     "vaul": "^1.1.2",
     "wouter": "^3.3.5",
     "ws": "^8.18.0",

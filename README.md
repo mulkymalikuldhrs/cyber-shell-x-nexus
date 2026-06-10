@@ -1,10 +1,10 @@
 <a href="https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus">
-  <img align="center" src="https://capsule-render.vercel.app/api?type=wave&color=0:0d1117,50:161b22,100:1f6feb&height=180&section=header&text=CyberShellX%20Nexus&fontSize=42&fontColor=58a6ff&animation=fadeIn&fontAlignY=32&desc=Cybersecurity%20Training%20Platform%20with%20AI-Powered%20Assistant&descSize=18&descColor=8b949e&descAlignY=52" />
+  <img align="center" src="https://capsule-render.vercel.app/api?type=wave&color=0:0d1117,50:161b22,100:1f6feb&height=180&section=header&text=CyberShellX%20Nexus&fontSize=42&fontColor=58a6ff&animation=fadeIn&fontAlignY=32&desc=AI-Powered%20Cybersecurity%20Platform%20%7C%20Multi-Agent%20%7C%20Multi-LLM&descSize=16&descColor=8b949e&descAlignY=52" />
 </a>
 
 <div align="center">
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=58A6FF&center=true&vCenter=true&width=600&lines=AI-Powered+Cybersecurity+Platform;Multi-API+Gemini+Integration;Cross-Platform+Terminal+%2B+Web+%2B+Android;Interactive+Security+Training+%26+Education)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=58A6FF&center=true&vCenter=true&width=600&lines=AI-Powered+Cybersecurity+Platform;Multi-Agent+Orchestration;Multi-LLM+Provider+System;Vulnerability+Scanner+%2B+Recon+Engine;Cross-Platform+CLI+%2B+Web+%2B+Android;5-Layer+Safety+Pipeline)](https://git.io/typing-svg)
 
 </div>
 
@@ -13,7 +13,8 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Cybersecurity](https://img.shields.io/badge/Cybersecurity-AI%20Powered-00CED1?style=for-the-badge&logo=shield-check&logoColor=white)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![Version](https://img.shields.io/badge/Version-0.2.0--alpha-1f6feb?style=for-the-badge)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus)
+[![Version](https://img.shields.io/badge/Version-3.0.0-1f6feb?style=for-the-badge)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
 </div>
 
@@ -31,50 +32,118 @@
 
 ## Overview
 
-**CyberShellX Nexus** is an advanced, cross-platform cybersecurity platform that integrates artificial intelligence to deliver real-time security guidance, interactive tool demonstrations, and educational training scenarios. Built with a modern TypeScript/React stack and powered by Google Gemini AI with a resilient multi-API fallback system, the platform provides cybersecurity professionals, students, and enthusiasts with an intelligent companion for network analysis, vulnerability assessment, penetration testing methodology, digital forensics, and much more.
+**CyberShellX Nexus v3.0** is a comprehensive, AI-powered cybersecurity platform that integrates multi-agent orchestration, multi-LLM intelligence, vulnerability scanning, reconnaissance engines, and risk assessment into a single unified system. Built with a modern TypeScript/React stack, the platform provides cybersecurity professionals, students, and enthusiasts with an intelligent companion for security assessment, penetration testing methodology, vulnerability research, and education.
 
-The platform operates across three distinct interfaces: a command-line terminal for power users, a browser-based web dashboard for interactive exploration, and a native Android voice assistant for on-the-go security consulting. Each interface connects to the same AI-powered backend, ensuring consistent and enriched responses regardless of the access method. CyberShellX Nexus emphasizes ethical hacking and responsible disclosure, embedding legal notices and ethical guidelines throughout every interaction.
-
-This project is part of the broader cybersecurity ecosystem alongside [HermesQuantOS](https://github.com/mulkymalikuldhrs/HermesQuantOS), sharing architectural patterns and AI integration strategies for next-generation security tooling.
+The platform operates across three distinct interfaces: a command-line terminal for power users, a browser-based web dashboard with dedicated pages for scanning, reconnaissance, agent monitoring, tool management, risk assessment, and reporting, plus a native Android voice assistant for on-the-go security consulting. Each interface connects to the same AI-powered backend, ensuring consistent and enriched responses regardless of the access method. CyberShellX Nexus emphasizes ethical hacking and responsible disclosure, embedding legal notices and ethical guidelines throughout every interaction via a 5-layer safety pipeline.
 
 ---
 
-## Features
+## What's New in v3.0
 
-### AI-Powered Cybersecurity Assistant
-- **Multi-API Gemini Integration** -- Automatic fallback between 4 Gemini API endpoints ensuring uninterrupted service even when individual APIs experience downtime or rate limiting
-- **Intelligent Command Processing** -- Context-aware analysis of cybersecurity commands covering network scanning, vulnerability assessment, exploitation, forensics, wireless security, and cryptography
-- **Enhanced AI Responses** -- Base responses are augmented with real-time Gemini AI analysis, adding technical depth, practical examples, and current best practices
-- **Real-Time API Health Monitoring** -- Live status tracking of all API endpoints with automatic switching on failure detection
-- **Ethical Guidelines Engine** -- Every response includes appropriate legal notices and responsible disclosure reminders
+This is a major upgrade that consolidates the best concepts and implementations from multiple open-source cybersecurity projects into a single, cohesive platform. Every integration is honestly documented with full attribution to original sources.
 
-### Command-Line Interface
-- Interactive cybersecurity terminal with AI integration
-- Tool simulations: nmap, metasploit, wireshark, sqlmap, burpsuite, hashcat, aircrack-ng
-- Educational command demonstrations with detailed explanations
-- Cross-platform compatibility (Linux, macOS, Termux on Android)
-- Difficulty-level classification (beginner, intermediate, advanced)
+### Multi-LLM Provider System
+- Abstract LLM interface supporting **Google Gemini, OpenAI, Anthropic Claude, and Ollama** (local)
+- Priority-based fallback chain with automatic provider switching on failure
+- Provider registry pattern with auto-registration from environment variables
+- Response caching with SHA256 keys and 30-minute TTL
+- *Concept inspired by*: [vulnhuntr](https://github.com/protectai/vulnhuntr) (multi-LLM abstraction), [Zen-AI-Pentest](https://github.com/mulkymalikuldhrs/Zen-Ai-Pentest) (multi-LLM routing), [PentestGPT](https://github.com/GreyDGL/PentestGPT) (provider registry)
 
-### Web Dashboard
-- Modern React 18 + TypeScript + Vite application
-- Real-time terminal simulation with WebSocket support
-- Cybersecurity tool demonstrations and interactive scenarios
-- PostgreSQL database integration with Drizzle ORM
-- Responsive design with professional dark theme
-- Radix UI component library with shadcn/ui styling
+### Multi-Agent Orchestration
+- **BaseAgent** class with message queue, inbox, and lifecycle management
+- 5 specialized agents: **ReconAgent, VulnAgent, ExploitAgent, AnalysisAgent, ReportAgent**
+- **AgentOrchestrator** for multi-agent coordination with 5-phase PTES pipeline
+- Inter-agent messaging (broadcast, direct, role-based)
+- *Concept inspired by*: [Zen-AI-Pentest](https://github.com/mulkymalikuldhrs/Zen-Ai-Pentest) (agent system), [god-eye](https://github.com/mulkymalikuldhrs/god-eye) (8 specialized agents), [Shannon](https://github.com/KeygraphHQ/shannon) (multi-agent pipeline), [PentestGPT](https://github.com/GreyDGL/PentestGPT) (tripartite architecture)
 
-### Android Voice Assistant
-- Voice-activated assistant with "Hey CyberShell" wake word detection
-- Background service for always-on functionality
-- System control capabilities (WiFi, Bluetooth, flashlight, volume)
-- Shell command execution interface
-- AI-powered cybersecurity guidance through natural conversation
+### Vulnerability Scanner
+- Entry point detection using **50+ regex patterns** for 20+ web frameworks
+- Iterative context-enriched analysis loop (up to 7 iterations per vulnerability)
+- **7 vulnerability type analyzers**: LFI, RCE, XSS, AFO, SSRF, SQLI, IDOR
+- Confidence scoring (0-10) and false positive reduction
+- PoC generation capability with LLM-powered analysis
+- *Implementation derived from*: [vulnhuntr](https://github.com/protectai/vulnhuntr) by Protect AI (Dan McInerney & Marcello Salvati) — iterative context-enriched analysis, 50+ entry point regex patterns, 7 vulnerability classes, confidence scoring, PoC generation
 
-### Interactive Training Scenarios
-- Beginner: Network discovery, log analysis exercises
-- Intermediate: Web application testing, wireless security assessment
-- Advanced: APT simulation, memory forensics investigation
-- Learning prompts covering OWASP Top 10, penetration testing phases, responsible disclosure
+### Reconnaissance Engine
+- Subdomain enumeration (20+ passive source simulation)
+- DNS resolution, TLS certificate analysis (25+ vendor fingerprints)
+- Security headers checking (10+ headers)
+- Technology fingerprinting (15+ technologies)
+- JavaScript secret scanning (22 regex patterns for API keys/tokens)
+- Security score calculation (0-100)
+- *Implementation derived from*: [god-eye](https://github.com/mulkymalikuldhrs/god-eye) by Vyntral/Orizon — passive source enumeration, TLS fingerprinting, JS secret scanning, adaptive rate limiting, subdomain takeover detection, CVE matching
+
+### Security Tool Integration Hub
+- 19 tool definitions with safety levels (safe/moderate/dangerous)
+- Tool executor with command validation and sanitization
+- Categories: network, web, fuzzing, exploitation, recon, crypto
+- Simulated execution (educational — never runs real attacks)
+- *Concept inspired by*: [Zen-AI-Pentest](https://github.com/mulkymalikuldhrs/Zen-Ai-Pentest) (tool registry + executor), [WifiToolX](https://github.com/mulkymalikuldhrs/WifiToolX) (WebSocket command relay)
+
+### Risk Engine
+- CVSS v3.1 scoring implementation
+- False positive reduction engine with Bayesian-influenced assessment
+- Business impact calculator with asset criticality and data classification
+- Weighted risk scoring: CVSS (35%) + Business Impact (25%) + Exploitability (25%) + Confidence (15%)
+- *Implementation derived from*: [Zen-AI-Pentest](https://github.com/mulkymalikuldhrs/Zen-Ai-Pentest) (risk engine, CVSS/EPSS scoring, false positive engine, business impact calculator)
+
+### 5-Layer Safety Pipeline
+- Layer 1: **Guardrails** — Safety level enforcement
+- Layer 2: **Validation** — Input/output validation
+- Layer 3: **Fact-check** — CVE database cross-referencing
+- Layer 4: **Consistency** — Factual consistency verification
+- Layer 5: **Correction** — Auto-correction with retry
+- Scope validation blocking private IPs and government domains
+- Legal notice enforcement on all responses
+- *Implementation derived from*: [Zen-AI-Pentest](https://github.com/mulkymalikuldhrs/Zen-Ai-Pentest) (5-layer safety pipeline, scope validation, output guardrails)
+
+### Authentication System
+- JWT-based authentication with bcrypt password hashing
+- Register/login/session validation routes
+- API key management with prefix-based validation
+- Role-based access: admin, analyst, user
+
+### Notification System
+- Discord webhook with rich embeds
+- Slack webhook integration
+- Telegram bot notifications
+- Email notifications (configurable)
+- In-app notifications via WebSocket broadcasting
+- *Implementation derived from*: [BruteForceAI](https://github.com/MorDavid/BruteForceAI) by Mor David (Discord/Slack/Telegram webhook implementations)
+
+### Enhanced Web Dashboard (7 New Pages)
+- **Scan Page** — Vulnerability scanner dashboard with scan config, progress, findings
+- **Recon Page** — Reconnaissance dashboard with subdomains, ports, TLS, headers
+- **Agents Page** — Agent monitoring with pipeline visualization
+- **Tools Page** — Security tool hub with category filtering
+- **Risk Page** — Risk assessment with visual gauge and score breakdown
+- **Reports Page** — Report generation with Markdown download
+- **Settings Page** — Configuration for LLM providers, notifications, safety
+- **Auth Page** — Login/Register with JWT token storage
+
+---
+
+## Sources & Attribution
+
+This project integrates concepts, architectures, and implementations derived from the following open-source projects. Full credit goes to the original authors. Every integration has been adapted and rewritten in TypeScript to fit the CyberShellX Nexus architecture.
+
+| Source Project | Original Author | What Was Integrated | License |
+|---|---|---|---|
+| [vulnhuntr](https://github.com/protectai/vulnhuntr) | Protect AI (Dan McInerney, Marcello Salvati) | Multi-LLM abstraction pattern, iterative context-enriched vulnerability analysis, 50+ web framework entry point detection regex patterns, 7 vulnerability class analyzers (LFI, RCE, XSS, AFO, SSRF, SQLI, IDOR), confidence scoring, PoC generation concept | AGPL-3.0 |
+| [Zen-AI-Pentest](https://github.com/mulkymalikuldhrs/Zen-Ai-Pentest) | Mulky Malikul Dhaher | Multi-agent system (BaseAgent, AgentOrchestrator, specialized roles), ReAct agent loop concept, multi-layer memory system concept, tool registry + executor, 5-layer safety pipeline, risk engine with CVSS scoring, false positive reduction, business impact calculator, PTES post-scan workflow, notification system concept | MIT |
+| [god-eye](https://github.com/mulkymalikuldhrs/god-eye) | Vyntral / Orizon (Mulky Malikul Dhaher) | Passive subdomain enumeration (20+ sources), TLS certificate fingerprinting (25+ vendors), JavaScript secret scanning regex patterns (API keys, tokens), CISA KEV database concept, NVD CVE API client concept, adaptive rate limiting, stealth mode concepts, security header checking, technology fingerprinting, subdomain takeover detection | MIT |
+| [WifiToolX](https://github.com/mulkymalikuldhrs/WifiToolX) | Mulky Malikul Dhaher | WebSocket command relay architecture, AI password candidate generation concept, auto-attack daemon state machine pattern, network scan simulation, session logging system, glassmorphism UI theme | MIT |
+| [BruteForceAI](https://github.com/MorDavid/BruteForceAI) | Mor David | LLM-powered form analysis concept, DOM-based success detection concept, webhook notification implementations (Discord, Slack, Teams, Telegram), smart HTML extraction pattern, multi-threaded delay synchronization concept | Non-Commercial (original) |
+| [unshackle](https://github.com/Fadi002/unshackle) | Fadi002 | Partition discovery concept, bootable environment architecture concept (not directly integrated — password bypass tools are not included in this educational platform) | GPL-3.0 |
+| [Shannon](https://github.com/KeygraphHQ/shannon) | Keygraph | White-box source-code to attack path pipeline concept, "No Exploit, No Report" validation gate concept, resumable workspace pattern, multi-agent orchestration pipeline concept, ephemeral Docker worker concept | AGPL-3.0 |
+| [PentestGPT](https://github.com/GreyDGL/PentestGPT) | GreyDGL (Gelei Deng) | Pentesting Task Tree (PTT) state representation concept, tripartite module architecture (reasoning/generation/parsing), multi-LLM provider registry concept, iteration loop with context persistence concept, session persistence & resume concept | MIT |
+
+**Important Notes on Attribution:**
+- All implementations have been **rewritten in TypeScript** from the original Python/Go implementations to fit the CyberShellX Nexus architecture. No source code was copied verbatim.
+- Concepts and architectural patterns (e.g., iterative context enrichment, PTES pipeline, multi-agent coordination) are ideas that have been adapted, not code that was directly copied.
+- Regex patterns for vulnerability detection and secret scanning are functional patterns that cannot be expressed differently and are used under fair use for security education.
+- The vulnerability scanner entry point detection patterns were originally developed by Protect AI for vulnhuntr and represent significant research effort.
+- This project does NOT include any password bypass, brute force, or attack execution capabilities. All tool executions are simulated for educational purposes only.
 
 ---
 
@@ -94,6 +163,10 @@ cd cyber-shell-x-nexus
 
 # Install dependencies
 npm install
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your API keys and database URL
 
 # Set up database schema
 npm run db:push
@@ -131,23 +204,34 @@ cd ~/cyber-shell-x-nexus
 Create a `.env` file in the project root:
 
 ```env
-# Gemini API Keys (at least one required for AI features)
+# LLM Provider API Keys (at least one required for AI features)
+# Google Gemini
 GOOGLE_API_KEY=your_primary_gemini_api_key
 GOOGLE_API_KEY_2=your_secondary_gemini_api_key
 GEMINI_API_KEY=alternative_gemini_api_key
 GEMINI_BACKUP_KEY_1=your_backup_key_1
 GEMINI_BACKUP_KEY_2=your_backup_key_2
 
+# OpenAI (optional)
+OPENAI_API_KEY=your_openai_api_key
+
+# Anthropic Claude (optional)
+ANTHROPIC_API_KEY=your_anthropic_api_key
+
+# Ollama (optional, local)
+OLLAMA_BASE_URL=http://localhost:11434
+
 # Database
 DATABASE_URL=postgresql://user:password@localhost:5432/cybershellx
 
-# Supabase (optional, for enhanced data management)
+# Supabase (optional)
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_KEY=your_supabase_service_key
-
-# Client-side (VITE_ prefix required for frontend)
 VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# Authentication
+JWT_SECRET=your_jwt_secret_key
 
 # Server
 PORT=5000
@@ -162,8 +246,6 @@ NODE_ENV=development
 
 ### CLI Terminal
 
-The command-line interface provides an interactive cybersecurity shell with AI-powered explanations:
-
 ```bash
 node cli-interface.js
 ```
@@ -175,7 +257,11 @@ Available command categories:
 - **Forensics**: `volatility`, `autopsy`, `memory analysis`
 - **Wireless**: `aircrack`, `wireless security`, `wifi scan`
 - **Cryptography**: `password crack`, `hashcat`, `john ripper`
-- **System**: `system info`, `process monitor`, `log analysis`
+- **Scanning**: `scan start <target>`, `scan status`, `scan results`
+- **Reconnaissance**: `recon start <target>`, `recon status`
+- **Agents**: `agents status`, `agents start`
+- **Tools**: `tools list`, `tools execute <name> <target>`
+- **Risk**: `risk calculate <target>`
 
 ### Web Interface
 
@@ -185,16 +271,17 @@ Start the web server and navigate to `http://localhost:5000`:
 npm run dev
 ```
 
-The web interface features:
-- Interactive terminal with AI chat
-- Real-time WebSocket communication
-- Tool installation and management
-- Penetration testing environment preparation
-- Session management and command history
+Pages:
+- **Dashboard** — Overview with stats, quick navigation, feature highlights
+- **Scan** — Vulnerability scanner with scan configuration, progress tracking, findings display
+- **Recon** — Reconnaissance dashboard with subdomain discovery, port scanning, TLS analysis
+- **Agents** — Agent monitoring with pipeline visualization and orchestration controls
+- **Tools** — Security tool hub with category filtering and simulated execution
+- **Risk** — Risk assessment with visual gauge, CVSS breakdown, false positive analysis
+- **Reports** — Report generation and download
+- **Settings** — LLM provider configuration, notification setup, safety settings
 
 ### Android App
-
-Build and install the Android voice assistant:
 
 ```bash
 cd android-assistant
@@ -209,51 +296,48 @@ cd android-assistant
 ```
 cyber-shell-x-nexus/
 ├── client/                        # React frontend
-│   ├── src/
-│   │   ├── components/            # React components (UI + custom)
-│   │   │   ├── ui/               # shadcn/ui Radix components
-│   │   │   ├── CyberShellXTerminal.tsx
-│   │   │   ├── ErrorBoundary.tsx # Global React error boundary
-│   │   │   ├── LoadingSpinner.tsx # Reusable loading indicator
-│   │   │   ├── Hero.tsx
-│   │   │   ├── FeatureCard.tsx
-│   │   │   └── ...
-│   │   ├── pages/                # Application pages
-│   │   ├── hooks/                # Custom React hooks
-│   │   └── lib/                  # Utilities and query client
-│   └── index.html
+│   └── src/
+│       ├── components/            # React components (UI + custom)
+│       │   └── ui/               # 40+ shadcn/ui Radix components
+│       ├── pages/                # Application pages
+│       │   ├── Index.tsx         # Dashboard
+│       │   ├── ScanPage.tsx      # Vulnerability scanner
+│       │   ├── ReconPage.tsx     # Reconnaissance
+│       │   ├── AgentsPage.tsx    # Agent monitoring
+│       │   ├── ToolsPage.tsx     # Security tools
+│       │   ├── RiskPage.tsx      # Risk assessment
+│       │   ├── ReportsPage.tsx   # Reports
+│       │   ├── SettingsPage.tsx  # Settings
+│       │   └── AuthPage.tsx      # Authentication
+│       ├── hooks/                # Custom React hooks
+│       └── lib/                  # Utilities and query client
 ├── server/                        # Express backend
 │   ├── index.ts                  # Server entry point
-│   ├── routes.ts                 # API endpoints + WebSocket
+│   ├── routes.ts                 # 30+ API endpoints + WebSocket
 │   ├── cybershell-ai.ts          # AI command processing engine
 │   ├── gemini-api.ts             # Multi-API Gemini fallback manager
+│   ├── llm-providers.ts          # Multi-LLM provider system ★ NEW
+│   ├── auth.ts                   # JWT authentication ★ NEW
+│   ├── notifications.ts          # Webhook notifications ★ NEW
+│   ├── agents/index.ts           # Multi-agent orchestration ★ NEW
+│   ├── scanner/index.ts          # Vulnerability scanner ★ NEW
+│   ├── recon/index.ts            # Reconnaissance engine ★ NEW
+│   ├── tools/index.ts            # Security tool integration ★ NEW
+│   ├── risk/index.ts             # Risk engine ★ NEW
+│   ├── safety/index.ts           # 5-layer safety pipeline ★ NEW
 │   ├── storage.ts                # Database storage layer
 │   ├── db.ts                     # Database connection
 │   ├── supabase-integration.ts   # Supabase client integration
 │   └── vite.ts                   # Vite dev/prod middleware
 ├── shared/                        # Shared types and schemas
-│   └── schema.ts                 # Drizzle ORM database definitions
+│   └── schema.ts                 # Drizzle ORM + Zod + TypeScript types
 ├── android-assistant/             # Native Android voice assistant
-│   ├── app/src/main/java/        # Kotlin source code
-│   ├── build-apk.sh              # APK build script
-│   └── install-apk.sh            # APK installation script
 ├── cybershell-commands/           # AI knowledge base
-│   ├── commands.json             # Tool definitions and scenarios
-│   └── ai-knowledge-base.md      # AI training reference data
 ├── scripts/                       # Utility scripts
-│   ├── health-check.js           # System verification
-│   ├── verify-repo.js            # Repository validation
-│   └── fix-build.js              # Build troubleshooting
 ├── docs/                          # Documentation
-│   ├── API.md                    # API reference
-│   └── TROUBLESHOOTING.md        # Common issues and solutions
-├── launcher.sh                    # Main interactive launcher
 ├── cli-interface.js               # CLI terminal interface
-├── drizzle.config.ts             # Database migration config
-├── vite.config.ts                # Frontend build configuration
-├── tailwind.config.ts            # Tailwind CSS configuration
-├── tsconfig.json                 # TypeScript configuration
-└── package.json                  # Dependencies and scripts
+├── launcher.sh                    # Main interactive launcher
+└── package.json                   # Dependencies and scripts
 ```
 
 ---
@@ -267,53 +351,63 @@ cyber-shell-x-nexus/
 | `/api/scenario/:difficulty` | GET | Get interactive scenario by difficulty level |
 | `/api/ethics` | GET | Retrieve ethical hacking guidelines |
 | `/api/ai/status` | GET | Check AI API health and fallback status |
-| `/ws/cybershell` | WS | Real-time WebSocket for terminal communication |
-
-See [API Documentation](docs/API.md) for detailed request/response formats.
+| `/api/auth/register` | POST | Register new user account |
+| `/api/auth/login` | POST | Login and receive JWT token |
+| `/api/auth/session` | GET | Validate current session |
+| `/api/scan/start` | POST | Start a vulnerability scan |
+| `/api/scan/:id` | GET | Get scan status and results |
+| `/api/scans` | GET | List all scans |
+| `/api/recon/start` | POST | Start reconnaissance |
+| `/api/recon/:id` | GET | Get recon status and results |
+| `/api/agents/status` | GET | Get agent system status |
+| `/api/tools` | GET | List available security tools |
+| `/api/tools/registry` | GET | Get tool registry with categories |
+| `/api/tools/execute` | POST | Execute a tool (simulated) |
+| `/api/risk/calculate` | POST | Calculate risk score |
+| `/api/risk/false-positive` | POST | Assess false positive probability |
+| `/api/safety/check` | POST | Run safety pipeline check |
+| `/api/llm/providers` | GET | List LLM provider status |
+| `/api/llm/generate` | POST | Generate LLM response |
+| `/api/dashboard/stats` | GET | Get dashboard statistics |
+| `/api/notifications` | POST | Send notification via webhook |
+| `/ws/cybershell` | WS | Real-time WebSocket for terminal + scan + agent updates |
 
 ---
 
 ## Architecture
 
-The platform follows a modular monorepo architecture with clear separation between frontend, backend, shared schemas, mobile application, and AI processing layers.
-
-- **Frontend**: React 18 + TypeScript + Vite + Tailwind CSS + shadcn/ui
-- **Backend**: Express.js + TypeScript with WebSocket support
-- **Database**: PostgreSQL with Drizzle ORM + Supabase integration
-- **AI Engine**: Google Gemini 2.5 Flash/Pro with 4-endpoint fallback system
-- **Mobile**: Native Android (Kotlin) with voice recognition and background services
-- **CLI**: Node.js terminal interface with command parsing
-
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the complete system design document.
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      ACCESS INTERFACES                          │
+│   CLI (Node.js)  │  Web Dashboard (React 18)  │  Android (Kotlin)  │
+├─────────────────────────────────────────────────────────────────┤
+│                   Express.js + TypeScript Server                 │
+│              REST API (30+ endpoints) + WebSocket                │
+│                         (Port 5000)                             │
+├────────────┬─────────────┬──────────────┬──────────────────────┤
+│  AI Engine │   Agents    │   Scanner    │    Recon Engine      │
+│ Multi-LLM  │ 5 Specialized│ 7 Vuln Types│ 20+ Passive Sources  │
+│ Fallback   │ PTES Pipeline│ Confidence  │ DNS/TLS/Headers/JS   │
+│ Registry   │ Orchestrator │ PoC Gen     │ Tech Fingerprint     │
+├────────────┼─────────────┼──────────────┼──────────────────────┤
+│ Risk Engine│   Safety    │   Tools      │   Notifications      │
+│ CVSS v3.1  │ 5-Layer     │ 19 Tools    │ Discord/Slack/TG     │
+│ FP Reduce  │ Pipeline    │ 3 Safety Lvl│ Email + WebSocket    │
+├────────────┴─────────────┴──────────────┴──────────────────────┤
+│              Data Layer (PostgreSQL + Drizzle + Supabase)        │
+│              Auth Layer (JWT + bcrypt + API Keys)                │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
 ## Security Notice
 
-This platform is designed **exclusively** for educational and authorized security testing purposes. All command explanations and tool demonstrations include legal notices emphasizing the requirement for proper authorization. Users are solely responsible for ensuring compliance with all applicable local, national, and international laws and regulations. Unauthorized access to computer systems is illegal in most jurisdictions. Always obtain explicit written permission before testing any systems or networks.
+This platform is designed **exclusively** for educational and authorized security testing purposes. All command explanations and tool demonstrations include legal notices emphasizing the requirement for proper authorization. The 5-layer safety pipeline blocks requests targeting private IP ranges, government domains, and enforces ethical guidelines on all outputs. Users are solely responsible for ensuring compliance with all applicable local, national, and international laws and regulations. Unauthorized access to computer systems is illegal in most jurisdictions. Always obtain explicit written permission before testing any systems or networks.
 
 ---
 
-<div align="center">
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-
-</div>
-
-<a href="https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus">
-  <img align="center" src="https://capsule-render.vercel.app/api?type=wave&color=0:1f6feb,50:161b22,100:0d1117&height=120&section=footer" />
-</a>
----
-
-## 👤 Author
-
-**Mulky Malikul Dhaher**
-- Email: [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com)
-- GitHub: [https://github.com/mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
-
----
-
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! We encourage the community to help improve this project.
 
@@ -327,39 +421,54 @@ Please make sure to update tests as appropriate and follow the existing code sty
 
 ---
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 **For Education Purpose Only**
 
 This project is provided strictly for educational and research purposes. The authors and contributors assume **no responsibility or liability** for any damages, losses, or risks arising from the use of this software. **We do not bear any responsibility or risk** for how this software is used.
 
+All security tool executions in this platform are **simulated**. No actual attacks are performed against any targets. The platform is designed to teach cybersecurity concepts, not to execute real attacks.
+
 **Contact:** Mulky Malikul Dhaher | mulkymalikudhr@mail.com
 
 ---
 
-### 🇮🇩 Disclaimer (Bahasa Indonesia)
+### Disclaimer (Bahasa Indonesia)
 
 **Hanya untuk Tujuan Pendidikan**
 
 Proyek ini disediakan secara ketat untuk tujuan pendidikan dan penelitian. Penulis dan kontributor tidak menanggung **tanggung jawab atau risiko** atas kerusakan, kerugian, atau risiko yang timbul dari penggunaan perangkat lunak ini. **Kami tidak menanggung tanggung jawab atau risiko** atas bagaimana perangkat lunak ini digunakan.
 
+Semua eksekusi alat keamanan di platform ini adalah **simulasi**. Tidak ada serangan aktual yang dilakukan terhadap target mana pun. Platform ini dirancang untuk mengajarkan konsep keamanan siber, bukan untuk mengeksekusi serangan nyata.
+
 **Kontak:** Mulky Malikul Dhaher | mulkymalikudhr@mail.com
 
 ---
 
-### 🇨🇳 免责声明 (中文)
+### 免责声明 (中文)
 
 **仅供教育目的**
 
 本项目严格仅供教育和研究目的。作者和贡献者对因使用本软件而产生的任何损害、损失或风险**不承担任何责任**。**我们不承担任何责任或风险**对于本软件的使用方式。
 
+本平台中的所有安全工具执行均为**模拟**。不会对任何目标执行实际攻击。本平台旨在教授网络安全概念，而非执行真实攻击。
+
 **联系方式:** Mulky Malikul Dhaher | mulkymalikudhr@mail.com
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
-Copyright © Mulky Malikul Dhaher. All rights reserved.
+Note: Some concepts integrated into this project originate from projects under different licenses (AGPL-3.0, GPL-3.0, Non-Commercial). The implementations in this project have been independently rewritten in TypeScript. Please review the [Sources & Attribution](#sources--attribution) section for details.
 
+Copyright © 2024-2026 Mulky Malikul Dhaher. All rights reserved.
+
+---
+
+## Author
+
+**Mulky Malikul Dhaher**
+- Email: [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com)
+- GitHub: [https://github.com/mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)

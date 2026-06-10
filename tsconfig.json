@@ -8,6 +8,8 @@
     "module": "ESNext",
     "strict": true,
     "lib": ["esnext", "dom", "dom.iterable"],
+    "target": "es2020",
+    "downlevelIteration": true,
     "jsx": "preserve",
     "esModuleInterop": true,
     "skipLibCheck": true,

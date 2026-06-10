@@ -62,7 +62,7 @@ let commandsData: CommandsData | null = null;
 function loadCommandsData(): CommandsData {
   if (!commandsData) {
     try {
-      const commandsPath = path.join(process.cwd(), 'cybershell-commands', 'commands.json');
+      const commandsPath = path.join(import.meta.dirname || process.cwd(), '..', 'cybershell-commands', 'commands.json');
       const rawData = fs.readFileSync(commandsPath, 'utf8');
       commandsData = JSON.parse(rawData) as CommandsData;
     } catch (error) {

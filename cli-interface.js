@@ -64,13 +64,27 @@ function showBanner() {
 }
 
 function showHelp() {
-  console.log(`${colors.cyan}═══ CyberShellX CLI Help ═══${colors.reset}`);
+  console.log(`${colors.cyan}═══ CyberShellX Nexus CLI Help ═══${colors.reset}`);
   console.log(``);
   console.log(`${colors.bright}System Commands:${colors.reset}`);
   console.log(`${colors.yellow}help${colors.reset}        - Show this help menu`);
   console.log(`${colors.yellow}status${colors.reset}      - Show system status and AI connection`);
   console.log(`${colors.yellow}clear${colors.reset}       - Clear the terminal`);
   console.log(`${colors.yellow}exit/quit${colors.reset}   - Exit CyberShellX`);
+  console.log(``);
+  console.log(`${colors.bright}Scan Commands:${colors.reset}`);
+  console.log(`${colors.green}scan <target>${colors.reset}       - Start vulnerability scan`);
+  console.log(`${colors.green}recon <target>${colors.reset}      - Start reconnaissance`);
+  console.log(`${colors.green}scans${colors.reset}                - List recent scans`);
+  console.log(`${colors.green}risk <vuln_type>${colors.reset}    - Calculate risk score`);
+  console.log(``);
+  console.log(`${colors.bright}Agent Commands:${colors.reset}`);
+  console.log(`${colors.green}agents${colors.reset}               - Show agent status`);
+  console.log(`${colors.green}orchestrate <target>${colors.reset} - Run full agent pipeline`);
+  console.log(``);
+  console.log(`${colors.bright}Tool Commands:${colors.reset}`);
+  console.log(`${colors.green}tools${colors.reset}                - List available tools`);
+  console.log(`${colors.green}run <tool> <target>${colors.reset}  - Execute a tool (simulated)`);
   console.log(``);
   console.log(`${colors.bright}Network Scanning:${colors.reset}`);
   console.log(`${colors.green}nmap -sV <target>${colors.reset}    - Version detection scan`);
@@ -266,6 +280,62 @@ async function startCLI() {
       showBanner();
     } else if (command === 'status') {
       await showSystemStatus();
+    } else if (command.startsWith('scan ')) {
+      const target = command.substring(5).trim();
+      try {
+        const res = await fetch('http://localhost:5000/api/scan/start', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ target, type: 'vulnerability' })
+        });
+        const data = await res.json();
+        console.log(`${colors.cyan}Scan started: ${data.scanId}${colors.reset}`);
+        console.log(`${colors.yellow}${data.legalNotice}${colors.reset}`);
+      } catch { console.log(`${colors.red}Failed to start scan${colors.reset}`); }
+    } else if (command.startsWith('recon ')) {
+      const target = command.substring(6).trim();
+      try {
+        const res = await fetch('http://localhost:5000/api/recon/start', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ target })
+        });
+        const data = await res.json();
+        console.log(`${colors.cyan}Recon started: ${data.reconId}${colors.reset}`);
+        console.log(`${colors.yellow}${data.legalNotice}${colors.reset}`);
+      } catch { console.log(`${colors.red}Failed to start recon${colors.reset}`); }
+    } else if (command === 'scans') {
+      try {
+        const res = await fetch('http://localhost:5000/api/scans');
+        const data = await res.json();
+        if (data.length === 0) {
+          console.log(`${colors.dim}No scans yet${colors.reset}`);
+        } else {
+          data.forEach(s => console.log(`${colors.green}${s.target}${colors.reset} - ${s.status} (${s.type})`));
+        }
+      } catch { console.log(`${colors.red}Failed to list scans${colors.reset}`); }
+    } else if (command === 'agents') {
+      try {
+        const res = await fetch('http://localhost:5000/api/agents/status');
+        const data = await res.json();
+        console.log(`${colors.cyan}Running: ${data.isRunning}${colors.reset}`);
+        data.agents.forEach(a => console.log(`  ${colors.green}${a.type}${colors.reset}: ${a.status} (${a.progress}%)`));
+      } catch { console.log(`${colors.red}Failed to get agent status${colors.reset}`); }
+    } else if (command === 'tools') {
+      try {
+        const res = await fetch('http://localhost:5000/api/tools');
+        const data = await res.json();
+        data.forEach(t => console.log(`  ${t.installed ? colors.green : colors.red}${t.name}${colors.reset} - ${t.description} [${t.safetyLevel}]`));
+      } catch { console.log(`${colors.red}Failed to list tools${colors.reset}`); }
+    } else if (command.startsWith('risk ')) {
+      const vulnType = command.substring(5).trim().toUpperCase();
+      try {
+        const res = await fetch('http://localhost:5000/api/risk/calculate', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ vulnType })
+        });
+        const data = await res.json();
+        console.log(`${colors.cyan}Risk Score: ${data.risk.overall}/10${colors.reset}`);
+        console.log(`  CVSS: ${data.risk.cvss} | Severity: ${data.severity}`);
+      } catch { console.log(`${colors.red}Failed to calculate risk${colors.reset}`); }
     } else if (command) {
       const result = await processCommandWithAI(command);
       console.log(result);

@@ -227,6 +227,74 @@
           "difficulty": "intermediate"
         }
       ]
+    },
+    "scanning": {
+      "name": "Vulnerability Scanning",
+      "icon": "🛡️",
+      "commands": [
+        {
+          "command": "vuln scan",
+          "description": "Run vulnerability scan with LLM-powered analysis",
+          "syntax": "scan <target> --type <vuln_type>",
+          "examples": [
+            "scan example.com --type RCE",
+            "scan example.com --type SQLI",
+            "scan example.com --type all"
+          ],
+          "output_format": "Vulnerability findings with confidence scores",
+          "difficulty": "intermediate"
+        },
+        {
+          "command": "recon scan",
+          "description": "Full reconnaissance scan (subdomains, ports, headers, TLS)",
+          "syntax": "recon <target>",
+          "examples": [
+            "recon example.com",
+            "recon 192.168.1.1 --deep"
+          ],
+          "output_format": "Comprehensive recon results with security score",
+          "difficulty": "intermediate"
+        },
+        {
+          "command": "risk assessment",
+          "description": "Calculate CVSS and business impact risk scores",
+          "syntax": "risk <vuln_type>",
+          "examples": [
+            "risk RCE",
+            "risk SQLI",
+            "risk XSS"
+          ],
+          "output_format": "Risk score breakdown with CVSS vector",
+          "difficulty": "advanced"
+        }
+      ]
+    },
+    "agents": {
+      "name": "AI Agent System",
+      "icon": "🤖",
+      "commands": [
+        {
+          "command": "agent orchestrate",
+          "description": "Run full multi-agent scan pipeline (5 phases)",
+          "syntax": "orchestrate <target>",
+          "examples": [
+            "orchestrate example.com",
+            "orchestrate 192.168.1.1"
+          ],
+          "output_format": "Multi-phase scan results from all agents",
+          "difficulty": "advanced"
+        },
+        {
+          "command": "agent status",
+          "description": "Check current agent status and progress",
+          "syntax": "agents",
+          "examples": [
+            "agents"
+          ],
+          "output_format": "Agent status overview",
+          "difficulty": "beginner"
+        }
+      ]
     }
   },
   "ai_prompts": {
@@ -252,7 +320,17 @@
       "Explain network segmentation and its security benefits",
       "What are the common wireless security protocols and their weaknesses?",
       "How to detect and respond to APT attacks?",
-      "Describe the incident response process"
+      "Describe the incident response process",
+      "What is CVSS v3.1 and how are severity scores calculated?",
+      "Explain the PTES (Penetration Testing Execution Standard) workflow",
+      "How does a multi-agent AI system improve security testing?",
+      "What are the key differences between LFI and RCE vulnerabilities?",
+      "How does false positive reduction work in automated scanning?",
+      "Explain the 5-layer safety pipeline for AI security tools",
+      "What is subdomain takeover and how can it be detected?",
+      "How do JavaScript secret scanning patterns work?",
+      "Explain the concept of confidence scoring in vulnerability analysis",
+      "What are the benefits of multi-LLM fallback in security tools?"
     ],
     "ethical_guidelines": [
       "Always obtain proper authorization before testing",
