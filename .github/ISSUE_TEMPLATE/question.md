@@ -1,23 +1,16 @@
 ---
-name: Question
-about: Ask a question about this project
-title: '[QUESTION] '
+name: Question / Help
+about: Ask a question or get help with the project
+title: 'question: '
 labels: question
 assignees: ''
 ---
 
-## Question
+## What would you like to know?
+Describe your question or the help you need.
 
-A clear and concise description of your question.
+## What have you tried?
+What steps have you already taken to find the answer?
 
-## Context
-
-Any relevant context about your question.
-
-## What I've Tried
-
-Description of what you've already tried to find an answer.
-
----
-
-> ⚠️ **For Education Purpose Only** — This project is provided strictly for educational and research purposes.
+## Additional Context
+Any links, screenshots, or context that helps explain your question.
