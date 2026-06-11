@@ -1,4 +1,3 @@
-<img src="docs/banner.png" width="100%">
 
 <a href="https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus">
   <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0e17,50:0d1b2a,100:1b2838&height=220&section=header&text=CyberShellX%20Nexus&fontSize=48&fontColor=00ffff&animation=fadeIn&fontAlignY=32&desc=AI-Assisted%20Cybersecurity%20Platform&descSize=18&descColor=a855f7&descAlignY=52" />
@@ -28,11 +27,10 @@
 
 <br/>
 
-**Language / Bahasa / 语言**
+**Language**
 
 [![EN](https://img.shields.io/badge/EN-English-blue?style=flat-square)](README.md)
 [![ID](https://img.shields.io/badge/ID-Bahasa%20Indonesia-red?style=flat-square)](README_id.md)
-[![CN](https://img.shields.io/badge/CN-中文-green?style=flat-square)](README_zh.md)
 
 </div>
 
@@ -972,10 +970,6 @@ This project is provided strictly for **educational and research purposes only**
 ### Bahasa Indonesia
 
 Proyek ini disediakan secara ketat untuk **tujuan pendidikan dan penelitian saja**. Penulis dan kontributor tidak bertanggung jawab atas kerusakan, kerugian, atau risiko yang timbul dari penggunaan perangkat lunak ini. Semua eksekusi alat disimulasikan. Kami tidak menanggung tanggung jawab atau risiko atas bagaimana perangkat lunak ini digunakan. Akses tidak sah ke sistem komputer adalah ilegal.
-
-### 中文
-
-本项目严格仅供**教育和研究目的**。作者和贡献者对因使用本软件而产生的任何损害、损失或风险不承担任何责任或义务。所有工具执行均为模拟。我们对本软件的使用方式不承担任何责任或风险。未经授权访问计算机系统是违法行为。
 
 ---
 
