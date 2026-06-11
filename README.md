@@ -1,16 +1,8 @@
+<img src="docs/banner.png" width="100%">
+
 <a href="https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus">
   <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0e17,50:0d1b2a,100:1b2838&height=220&section=header&text=CyberShellX%20Nexus&fontSize=48&fontColor=00ffff&animation=fadeIn&fontAlignY=32&desc=AI-Assisted%20Cybersecurity%20Platform&descSize=18&descColor=a855f7&descAlignY=52" />
 </a>
-
-<div align="center">
-
-<img src="docs/csx-nexus-banner.png" width="100%" alt="CyberShellX Nexus Banner" />
-
-<br/>
-
-<img src="docs/csx-nexus-logo.png" width="120" height="120" alt="CyberShellX Nexus Logo" />
-
-</div>
 
 <div align="center">
 
@@ -27,6 +19,8 @@
 
 <br/>
 
+[![npm version](https://img.shields.io/npm/v/cybershell-x-nexus?style=flat-square&logo=npm&color=blue)](https://www.npmjs.com/package/cybershell-x-nexus)
+[![npm downloads](https://img.shields.io/npm/dw/cybershell-x-nexus?style=flat-square&color=brightgreen)](https://www.npmjs.com/package/cybershell-x-nexus)
 [![GitHub Stars](https://img.shields.io/github/stars/mulkymalikuldhrs/cyber-shell-x-nexus?style=for-the-badge&logo=github&color=gold)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/mulkymalikuldhrs/cyber-shell-x-nexus?style=for-the-badge&logo=github&color=blue)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/fork)
 [![GitHub Issues](https://img.shields.io/github/issues/mulkymalikuldhrs/cyber-shell-x-nexus?style=for-the-badge&logo=github&color=red)](https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus/issues)
@@ -192,7 +186,281 @@ Real-time alerts via multiple channels:
 
 ---
 
-## Sources & Attribution
+## Visual Architecture
+
+> Interactive Mermaid diagrams showing system internals, data flows, and honest project status.
+
+### 1. 5-Layer Safety Pipeline
+
+Every request flows through five sequential safety checks before and after AI processing:
+
+```mermaid
+flowchart TD
+    subgraph INCOMING["📥 Incoming Request"]
+        REQ["User Request<br/>scan / recon / risk"]
+    end
+
+    subgraph L1["🛡️ Layer 1: Guardrails"]
+        G1["Scope Validation"]
+        G2["Private IP Blocking<br/>10.x / 172.16-31.x / 192.168.x"]
+        G3["Legal Notice Acknowledgment"]
+        G1 --> G2 --> G3
+    end
+
+    subgraph L2["🔍 Layer 2: Validation"]
+        V1["Input Sanitization"]
+        V2["Format Checking"]
+        V3["Parameter Validation"]
+        V1 --> V2 --> V3
+    end
+
+    subgraph L3["✅ Layer 3: Fact-Check"]
+        F1["LLM Output Verification"]
+        F2["Cross-Reference Vuln DBs"]
+        F3["Known Pattern Matching"]
+        F1 --> F2 --> F3
+    end
+
+    subgraph L4["🔗 Layer 4: Consistency"]
+        C1["Cross-Agent Validation"]
+        C2["Pipeline State Integrity"]
+        C3["Finding Correlation"]
+        C1 --> C2 --> C3
+    end
+
+    subgraph L5["🔧 Layer 5: Correction"]
+        R1["Auto-Correction"]
+        R2["Confidence Threshold<br/>Enforcement"]
+        R3["False Positive Flagging"]
+        R1 --> R2 --> R3
+    end
+
+    subgraph OUTGOING["📤 Safe Output"]
+        RES["Validated and Corrected<br/>Response"]
+    end
+
+    REQ --> L1
+    L1 -->|Pass| L2
+    L2 -->|Pass| L3
+    L3 -->|Pass| L4
+    L4 -->|Pass| L5
+    L5 -->|Pass| RES
+    L1 -->|Fail| BLOCK1["🚫 Blocked"]
+    L2 -->|Fail| BLOCK2["🚫 Rejected"]
+    L3 -->|Fail| BLOCK3["⚠️ Flagged"]
+    L4 -->|Fail| BLOCK4["🔄 Re-verify"]
+    L5 -->|Fail| BLOCK5["⚠️ Low Confidence"]
+
+    style INCOMING fill:#0d1b2a,stroke:#00ffff,color:#fff
+    style OUTGOING fill:#0d1b2a,stroke:#22c55e,color:#fff
+    style L1 fill:#1a1a2e,stroke:#ef4444,color:#fff
+    style L2 fill:#1a1a2e,stroke:#f59e0b,color:#fff
+    style L3 fill:#1a1a2e,stroke:#3b82f6,color:#fff
+    style L4 fill:#1a1a2e,stroke:#8b5cf6,color:#fff
+    style L5 fill:#1a1a2e,stroke:#22c55e,color:#fff
+    style BLOCK1 fill:#7f1d1d,stroke:#ef4444,color:#fff
+    style BLOCK2 fill:#7f1d1d,stroke:#ef4444,color:#fff
+    style BLOCK3 fill:#78350f,stroke:#f59e0b,color:#fff
+    style BLOCK4 fill:#312e81,stroke:#8b5cf6,color:#fff
+    style BLOCK5 fill:#78350f,stroke:#f59e0b,color:#fff
+```
+
+### 2. Multi-Agent Security Architecture
+
+Five specialized AI agents coordinate through a PTES 5-phase pipeline with a shared context bus:
+
+```mermaid
+flowchart LR
+    subgraph ORCHESTRATOR["🎭 PTES Orchestrator"]
+        ORCH["Pipeline Coordinator<br/>Phase Sequencer"]
+    end
+
+    subgraph AGENTS["🤖 Agent Modules"]
+        direction TB
+        A1["🔎 Recon Agent<br/><i>Phase 1: Intel Gathering</i><br/>Subdomain Enum · Tech Fingerprint<br/>TLS Analysis · JS Secret Scan"]
+        A2["🐛 Vuln Agent<br/><i>Phase 2: Vuln Analysis</i><br/>50+ Regex Patterns · 7 Vuln Types<br/>LLM Validation · Confidence Score"]
+        A3["⚡ Exploit Agent<br/><i>Phase 3: Sim Exploitation</i><br/>Educational Steps Only<br/>No Real Execution"]
+        A4["📊 Analysis Agent<br/><i>Phase 4: Post-Exploit</i><br/>Impact Assessment · Lateral Analysis<br/>Risk Quantification"]
+        A5["📋 Report Agent<br/><i>Phase 5: Reporting</i><br/>Executive + Technical Reports<br/>CVSS Scoring · PDF Export"]
+    end
+
+    subgraph BUS["🔀 Shared Context Bus"]
+        CTX["Structured Findings<br/>Inter-Agent Communication"]
+    end
+
+    subgraph LLM["🧠 Multi-LLM Router"]
+        L1["Gemini<br/><i>Primary</i>"]
+        L2["OpenAI<br/><i>Backup</i>"]
+        L3["Claude<br/><i>Backup</i>"]
+        L4["Ollama<br/><i>Local</i>"]
+    end
+
+    ORCH --> A1
+    A1 -->|Phase 1 Findings| CTX
+    CTX -->|Previous Context| A2
+    A2 -->|Phase 2 Findings| CTX
+    CTX -->|Previous Context| A3
+    A3 -->|Phase 3 Findings| CTX
+    CTX -->|Previous Context| A4
+    A4 -->|Phase 4 Findings| CTX
+    CTX -->|Previous Context| A5
+    A1 & A2 & A3 & A4 & A5 --> LLM
+    L1 -->|Fallback| L2 -->|Fallback| L3 -->|Fallback| L4
+
+    style ORCHESTRATOR fill:#0d1b2a,stroke:#a855f7,color:#fff
+    style AGENTS fill:#1a1a2e,stroke:#00ffff,color:#fff
+    style BUS fill:#1e293b,stroke:#f59e0b,color:#fff
+    style LLM fill:#1a1a2e,stroke:#4285F4,color:#fff
+    style A1 fill:#0f172a,stroke:#22d3ee,color:#e2e8f0
+    style A2 fill:#0f172a,stroke:#f43f5e,color:#e2e8f0
+    style A3 fill:#0f172a,stroke:#f59e0b,color:#e2e8f0
+    style A4 fill:#0f172a,stroke:#8b5cf6,color:#e2e8f0
+    style A5 fill:#0f172a,stroke:#22c55e,color:#e2e8f0
+```
+
+### 3. Threat Detection Flow
+
+From initial scan to scored report — the complete vulnerability detection lifecycle:
+
+```mermaid
+flowchart TD
+    subgraph SCAN["📡 Scan Phase"]
+        S1["Target Input<br/>example.com"]
+        S2["Pattern Matching<br/>50+ Regex Entry Points"]
+        S3["Vulnerability Classes<br/>LFI · RCE · XSS · AFO<br/>SSRF · SQLI · IDOR"]
+        S1 --> S2 --> S3
+    end
+
+    subgraph ANALYZE["🔬 Analysis Phase"]
+        A1["LLM-Powered<br/>Contextual Analysis"]
+        A2["Cross-Reference<br/>Known Vulnerability DBs"]
+        A3["Confidence Scoring<br/>0–100 Scale"]
+        A1 --> A2 --> A3
+    end
+
+    subgraph SCORE["📈 Score Phase"]
+        SC1["CVSS v3.1 Calculator<br/>Base · Temporal · Environmental"]
+        SC2["Bayesian False Positive<br/>Reduction"]
+        SC3["Business Impact<br/>Financial · Operational<br/>Reputational · Compliance"]
+        SC1 --> SC2 --> SC3
+    end
+
+    subgraph REPORT["📄 Report Phase"]
+        R1["Weighted Risk<br/>Aggregation"]
+        R2["Executive + Technical<br/>Report Templates"]
+        R3["PDF / HTML Export<br/>+ Notification Dispatch"]
+        R1 --> R2 --> R3
+    end
+
+    SCAN -->|Raw Findings| ANALYZE
+    ANALYZE -->|Validated Vulns| SCORE
+    SCORE -->|Scored Results| REPORT
+
+    A3 -->|Low Confidence| FLAG["⚠️ Flagged for<br/>Manual Review"]
+
+    style SCAN fill:#0d1b2a,stroke:#22d3ee,color:#fff
+    style ANALYZE fill:#1a1a2e,stroke:#a855f7,color:#fff
+    style SCORE fill:#1a1a2e,stroke:#f59e0b,color:#fff
+    style REPORT fill:#0d1b2a,stroke:#22c55e,color:#fff
+    style FLAG fill:#78350f,stroke:#f59e0b,color:#fff
+```
+
+### 4. Multi-Platform Architecture
+
+Three interfaces connect to the same AI-powered backend:
+
+```mermaid
+flowchart TB
+    subgraph CLIENTS["🖥️ Client Layer"]
+        direction LR
+        CLI["💻 CLI Terminal<br/><i>Interactive Commands</i><br/>scan · recon · risk<br/>agents · tools · status"]
+        WEB["🌐 Web Dashboard<br/><i>React — 9 Pages</i><br/>Dashboard · Scanner · Recon<br/>Agents · Tools · Risk<br/>Reports · Settings · Auth"]
+        MOB["📱 Android App<br/><i>Voice Assistant</i><br/>STT Input · TTS Output<br/>Security Consulting<br/>Educational Q&A"]
+    end
+
+    subgraph GATEWAY["⚡ API Gateway — Express.js"]
+        AUTH["🔐 Auth Middleware<br/>JWT · API Keys · RBAC · Scrypt"]
+        SAFE["🛡️ 5-Layer Safety Pipeline"]
+        WS["🔌 WebSocket Relay<br/>Real-Time Updates"]
+        AUTH --> SAFE --> WS
+    end
+
+    subgraph CORE["🧠 Core Services"]
+        ORCH["Multi-Agent<br/>Orchestrator"]
+        SCAN["Scanner + Recon<br/>Engines"]
+        RISK["Risk Engine<br/>CVSS + Bayesian"]
+        TOOLS["Tool Hub<br/>19 Simulated Tools"]
+    end
+
+    subgraph AI["🤖 Multi-LLM Router"]
+        GEM["Gemini ⭐"]
+        OAI["OpenAI"]
+        CLD["Claude"]
+        OLL["Ollama 🏠"]
+    end
+
+    subgraph DATA["💾 Data Layer"]
+        SUPA["Supabase<br/>Auth · DB · Realtime"]
+        CACHE["SHA256<br/>Response Cache"]
+    end
+
+    CLI & WEB & MOB --> GATEWAY
+    GATEWAY --> CORE
+    CORE --> AI
+    CORE --> DATA
+    AI --> CACHE
+
+    style CLIENTS fill:#0d1b2a,stroke:#00ffff,color:#fff
+    style GATEWAY fill:#1a1a2e,stroke:#ef4444,color:#fff
+    style CORE fill:#1a1a2e,stroke:#a855f7,color:#fff
+    style AI fill:#1a1a2e,stroke:#4285F4,color:#fff
+    style DATA fill:#1a1a2e,stroke:#22c55e,color:#fff
+    style CLI fill:#0f172a,stroke:#22d3ee,color:#e2e8f0
+    style WEB fill:#0f172a,stroke:#61DAFB,color:#e2e8f0
+    style MOB fill:#0f172a,stroke:#22c55e,color:#e2e8f0
+```
+
+### 5. Honest Status — Simulated vs Real
+
+Full transparency on what is simulated and what is real execution:
+
+```mermaid
+flowchart LR
+    subgraph SIMULATED["🎬 SIMULATED — No Real Execution"]
+        direction TB
+        S1["🛡️ Tool Execution<br/><i>nmap, sqlmap, nuclei...</i><br/>Generated representative output<br/>No actual commands run"]
+        S2["📡 Recon Sources<br/><i>crt.sh, Shodan, VT...</i><br/>Simulated API responses<br/>Demonstrates methodology"]
+        S3["⚡ Exploit Steps<br/><i>Metasploit, Burp...</i><br/>Educational descriptions only<br/>No payloads delivered"]
+        S4["🔐 Android Assistant<br/><i>Voice consulting</i><br/>Answers security questions<br/>No on-device attacks"]
+    end
+
+    subgraph REAL["✅ REAL — Actual Execution"]
+        direction TB
+        R1["🧠 LLM AI Analysis<br/><i>Gemini / OpenAI / Claude</i><br/>Real API calls with caching<br/>Actual AI reasoning"]
+        R2["📊 CVSS Scoring<br/><i>v3.1 Calculator</i><br/>Mathematical scoring<br/>Real algorithm"]
+        R3["🔑 Authentication<br/><i>JWT + Scrypt + RBAC</i><br/>Real token management<br/>Actual password hashing"]
+        R4["🔔 Notifications<br/><i>Discord / Slack / Email</i><br/>Real webhook dispatch<br/>Actual message delivery"]
+    end
+
+    SIMULATED ~~~ REAL
+
+    style SIMULATED fill:#7f1d1d,stroke:#ef4444,color:#fff
+    style REAL fill:#14532d,stroke:#22c55e,color:#fff
+    style S1 fill:#991b1b,stroke:#f87171,color:#fecaca
+    style S2 fill:#991b1b,stroke:#f87171,color:#fecaca
+    style S3 fill:#991b1b,stroke:#f87171,color:#fecaca
+    style S4 fill:#991b1b,stroke:#f87171,color:#fecaca
+    style R1 fill:#166534,stroke:#4ade80,color:#dcfce7
+    style R2 fill:#166534,stroke:#4ade80,color:#dcfce7
+    style R3 fill:#166534,stroke:#4ade80,color:#dcfce7
+    style R4 fill:#166534,stroke:#4ade80,color:#dcfce7
+```
+
+> **Bottom line**: The AI analysis, scoring, auth, and notifications are real. All tool execution, reconnaissance, and exploitation is simulated for education. This is not an autonomous hacking system.
+
+---
+
+## Sources and Attribution
 
 This project integrates concepts, architectures, and implementations derived from the following open-source projects. Full credit goes to the original authors.
 
@@ -239,13 +507,6 @@ This project integrates concepts, architectures, and implementations derived fro
 
 ```bash
 # Clone the repository
-
-<!-- AUTO-PACKAGE-BADGES:START -->
-<!-- Auto-generated package badges -->
-
-![npm version](https://img.shields.io/npm/v/cybershell-x-nexus?style=flat-square&logo=npm&color=blue) ![npm downloads](https://img.shields.io/npm/dw/cybershell-x-nexus?style=flat-square&color=brightgreen) ![npm license](https://img.shields.io/npm/l/cybershell-x-nexus?style=flat-square) [![Deployed](https://img.shields.io/badge/deployed-3.1.0-blue?style=flat-square)](https://www.npmjs.com/package/cybershell-x-nexus)
-
-<!-- AUTO-PACKAGE-BADGES:END -->
 git clone https://github.com/mulkymalikuldhrs/cyber-shell-x-nexus.git
 cd cyber-shell-x-nexus
 
@@ -660,280 +921,6 @@ cyber-shell-x-nexus/
 
 ---
 
-## Visual Architecture
-
-> Interactive Mermaid diagrams showing system internals, data flows, and honest project status.
-
-### 1. 5-Layer Safety Pipeline
-
-Every request flows through five sequential safety checks before and after AI processing:
-
-```mermaid
-flowchart TD
-    subgraph INCOMING["📥 Incoming Request"]
-        REQ["User Request<br/>scan / recon / risk"]
-    end
-
-    subgraph L1["🛡️ Layer 1: Guardrails"]
-        G1["Scope Validation"]
-        G2["Private IP Blocking<br/>10.x / 172.16-31.x / 192.168.x"]
-        G3["Legal Notice Acknowledgment"]
-        G1 --> G2 --> G3
-    end
-
-    subgraph L2["🔍 Layer 2: Validation"]
-        V1["Input Sanitization"]
-        V2["Format Checking"]
-        V3["Parameter Validation"]
-        V1 --> V2 --> V3
-    end
-
-    subgraph L3["✅ Layer 3: Fact-Check"]
-        F1["LLM Output Verification"]
-        F2["Cross-Reference Vuln DBs"]
-        F3["Known Pattern Matching"]
-        F1 --> F2 --> F3
-    end
-
-    subgraph L4["🔗 Layer 4: Consistency"]
-        C1["Cross-Agent Validation"]
-        C2["Pipeline State Integrity"]
-        C3["Finding Correlation"]
-        C1 --> C2 --> C3
-    end
-
-    subgraph L5["🔧 Layer 5: Correction"]
-        R1["Auto-Correction"]
-        R2["Confidence Threshold<br/>Enforcement"]
-        R3["False Positive Flagging"]
-        R1 --> R2 --> R3
-    end
-
-    subgraph OUTGOING["📤 Safe Output"]
-        RES["Validated & Corrected<br/>Response"]
-    end
-
-    REQ --> L1
-    L3 -->|Pass| L4
-    L1 -->|Pass| L2
-    L2 -->|Pass| L3
-    L4 -->|Pass| L5
-    L5 -->|Pass| RES
-    L1 -->|Fail| BLOCK1["🚫 Blocked"]
-    L2 -->|Fail| BLOCK2["🚫 Rejected"]
-    L3 -->|Fail| BLOCK3["⚠️ Flagged"]
-    L4 -->|Fail| BLOCK4["🔄 Re-verify"]
-    L5 -->|Fail| BLOCK5["⚠️ Low Confidence"]
-
-    style INCOMING fill:#0d1b2a,stroke:#00ffff,color:#fff
-    style OUTGOING fill:#0d1b2a,stroke:#22c55e,color:#fff
-    style L1 fill:#1a1a2e,stroke:#ef4444,color:#fff
-    style L2 fill:#1a1a2e,stroke:#f59e0b,color:#fff
-    style L3 fill:#1a1a2e,stroke:#3b82f6,color:#fff
-    style L4 fill:#1a1a2e,stroke:#8b5cf6,color:#fff
-    style L5 fill:#1a1a2e,stroke:#22c55e,color:#fff
-    style BLOCK1 fill:#7f1d1d,stroke:#ef4444,color:#fff
-    style BLOCK2 fill:#7f1d1d,stroke:#ef4444,color:#fff
-    style BLOCK3 fill:#78350f,stroke:#f59e0b,color:#fff
-    style BLOCK4 fill:#312e81,stroke:#8b5cf6,color:#fff
-    style BLOCK5 fill:#78350f,stroke:#f59e0b,color:#fff
-```
-
-### 2. Multi-Agent Security Architecture
-
-Five specialized AI agents coordinate through a PTES 5-phase pipeline with a shared context bus:
-
-```mermaid
-flowchart LR
-    subgraph ORCHESTRATOR["🎭 PTES Orchestrator"]
-        ORCH["Pipeline Coordinator<br/>Phase Sequencer"]
-    end
-
-    subgraph AGENTS["🤖 Agent Modules"]
-        direction TB
-        A1["🔎 Recon Agent<br/><i>Phase 1: Intel Gathering</i><br/>Subdomain Enum · Tech Fingerprint<br/>TLS Analysis · JS Secret Scan"]
-        A2["🐛 Vuln Agent<br/><i>Phase 2: Vuln Analysis</i><br/>50+ Regex Patterns · 7 Vuln Types<br/>LLM Validation · Confidence Score"]
-        A3["⚡ Exploit Agent<br/><i>Phase 3: Sim Exploitation</i><br/>Educational Steps Only<br/>No Real Execution"]
-        A4["📊 Analysis Agent<br/><i>Phase 4: Post-Exploit</i><br/>Impact Assessment · Lateral Analysis<br/>Risk Quantification"]
-        A5["📋 Report Agent<br/><i>Phase 5: Reporting</i><br/>Executive + Technical Reports<br/>CVSS Scoring · PDF Export"]
-    end
-
-    subgraph BUS["🔀 Shared Context Bus"]
-        CTX["Structured Findings<br/>Inter-Agent Communication"]
-    end
-
-    subgraph LLM["🧠 Multi-LLM Router"]
-        L1["Gemini<br/><i>Primary</i>"]
-        L2["OpenAI<br/><i>Backup</i>"]
-        L3["Claude<br/><i>Backup</i>"]
-        L4["Ollama<br/><i>Local</i>"]
-    end
-
-    ORCH --> A1
-    A1 -->|Phase 1 Findings| CTX
-    CTX -->|Previous Context| A2
-    A2 -->|Phase 2 Findings| CTX
-    CTX -->|Previous Context| A3
-    A3 -->|Phase 3 Findings| CTX
-    CTX -->|Previous Context| A4
-    A4 -->|Phase 4 Findings| CTX
-    CTX -->|Previous Context| A5
-    A1 & A2 & A3 & A4 & A5 --> LLM
-    L1 -->|Fallback| L2 -->|Fallback| L3 -->|Fallback| L4
-
-    style ORCHESTRATOR fill:#0d1b2a,stroke:#a855f7,color:#fff
-    style AGENTS fill:#1a1a2e,stroke:#00ffff,color:#fff
-    style BUS fill:#1e293b,stroke:#f59e0b,color:#fff
-    style LLM fill:#1a1a2e,stroke:#4285F4,color:#fff
-    style A1 fill:#0f172a,stroke:#22d3ee,color:#e2e8f0
-    style A2 fill:#0f172a,stroke:#f43f5e,color:#e2e8f0
-    style A3 fill:#0f172a,stroke:#f59e0b,color:#e2e8f0
-    style A4 fill:#0f172a,stroke:#8b5cf6,color:#e2e8f0
-    style A5 fill:#0f172a,stroke:#22c55e,color:#e2e8f0
-```
-
-### 3. Threat Detection Flow
-
-From initial scan to scored report — the complete vulnerability detection lifecycle:
-
-```mermaid
-flowchart TD
-    subgraph SCAN["📡 Scan Phase"]
-        S1["Target Input<br/>example.com"]
-        S2["Pattern Matching<br/>50+ Regex Entry Points"]
-        S3["Vulnerability Classes<br/>LFI · RCE · XSS · AFO<br/>SSRF · SQLI · IDOR"]
-        S1 --> S2 --> S3
-    end
-
-    subgraph ANALYZE["🔬 Analysis Phase"]
-        A1["LLM-Powered<br/>Contextual Analysis"]
-        A2["Cross-Reference<br/>Known Vulnerability DBs"]
-        A3["Confidence Scoring<br/>0–100 Scale"]
-        A1 --> A2 --> A3
-    end
-
-    subgraph SCORE["📈 Score Phase"]
-        SC1["CVSS v3.1 Calculator<br/>Base · Temporal · Environmental"]
-        SC2["Bayesian False Positive<br/>Reduction"]
-        SC3["Business Impact<br/>Financial · Operational<br/>Reputational · Compliance"]
-        SC1 --> SC2 --> SC3
-    end
-
-    subgraph REPORT["📄 Report Phase"]
-        R1["Weighted Risk<br/>Aggregation"]
-        R2["Executive + Technical<br/>Report Templates"]
-        R3["PDF / HTML Export<br/>+ Notification Dispatch"]
-        R1 --> R2 --> R3
-    end
-
-    SCAN -->|Raw Findings| ANALYZE
-    ANALYZE -->|Validated Vulns| SCORE
-    SCORE -->|Scored Results| REPORT
-
-    A3 -->|Low Confidence| FLAG["⚠️ Flagged for<br/>Manual Review"]
-
-    style SCAN fill:#0d1b2a,stroke:#22d3ee,color:#fff
-    style ANALYZE fill:#1a1a2e,stroke:#a855f7,color:#fff
-    style SCORE fill:#1a1a2e,stroke:#f59e0b,color:#fff
-    style REPORT fill:#0d1b2a,stroke:#22c55e,color:#fff
-    style FLAG fill:#78350f,stroke:#f59e0b,color:#fff
-```
-
-### 4. Multi-Platform Architecture
-
-Three interfaces connect to the same AI-powered backend:
-
-```mermaid
-flowchart TB
-    subgraph CLIENTS["🖥️ Client Layer"]
-        direction LR
-        CLI["💻 CLI Terminal<br/><i>Interactive Commands</i><br/>scan · recon · risk<br/>agents · tools · status"]
-        WEB["🌐 Web Dashboard<br/><i>React — 9 Pages</i><br/>Dashboard · Scanner · Recon<br/>Agents · Tools · Risk<br/>Reports · Settings · Auth"]
-        MOB["📱 Android App<br/><i>Voice Assistant</i><br/>STT Input · TTS Output<br/>Security Consulting<br/>Educational Q&A"]
-    end
-
-    subgraph GATEWAY["⚡ API Gateway — Express.js"]
-        AUTH["🔐 Auth Middleware<br/>JWT · API Keys · RBAC · Scrypt"]
-        SAFE["🛡️ 5-Layer Safety Pipeline"]
-        WS["🔌 WebSocket Relay<br/>Real-Time Updates"]
-        AUTH --> SAFE --> WS
-    end
-
-    subgraph CORE["🧠 Core Services"]
-        ORCH["Multi-Agent<br/>Orchestrator"]
-        SCAN["Scanner + Recon<br/>Engines"]
-        RISK["Risk Engine<br/>CVSS + Bayesian"]
-        TOOLS["Tool Hub<br/>19 Simulated Tools"]
-    end
-
-    subgraph AI["🤖 Multi-LLM Router"]
-        GEM["Gemini ⭐"]
-        OAI["OpenAI"]
-        CLD["Claude"]
-        OLL["Ollama 🏠"]
-    end
-
-    subgraph DATA["💾 Data Layer"]
-        SUPA["Supabase<br/>Auth · DB · Realtime"]
-        CACHE["SHA256<br/>Response Cache"]
-    end
-
-    CLI & WEB & MOB --> GATEWAY
-    GATEWAY --> CORE
-    CORE --> AI
-    CORE --> DATA
-    AI --> CACHE
-
-    style CLIENTS fill:#0d1b2a,stroke:#00ffff,color:#fff
-    style GATEWAY fill:#1a1a2e,stroke:#ef4444,color:#fff
-    style CORE fill:#1a1a2e,stroke:#a855f7,color:#fff
-    style AI fill:#1a1a2e,stroke:#4285F4,color:#fff
-    style DATA fill:#1a1a2e,stroke:#22c55e,color:#fff
-    style CLI fill:#0f172a,stroke:#22d3ee,color:#e2e8f0
-    style WEB fill:#0f172a,stroke:#61DAFB,color:#e2e8f0
-    style MOB fill:#0f172a,stroke:#22c55e,color:#e2e8f0
-```
-
-### 5. Honest Status — Simulated vs Real
-
-Full transparency on what is simulated and what is real execution:
-
-```mermaid
-flowchart LR
-    subgraph SIMULATED["🎬 SIMULATED — No Real Execution"]
-        direction TB
-        S1["🛡️ Tool Execution<br/><i>nmap, sqlmap, nuclei...</i><br/>Generated representative output<br/>No actual commands run"]
-        S2["📡 Recon Sources<br/><i>crt.sh, Shodan, VT...</i><br/>Simulated API responses<br/>Demonstrates methodology"]
-        S3["⚡ Exploit Steps<br/><i>Metasploit, Burp...</i><br/>Educational descriptions only<br/>No payloads delivered"]
-        S4["🔐 Android Assistant<br/><i>Voice consulting</i><br/>Answers security questions<br/>No on-device attacks"]
-    end
-
-    subgraph REAL["✅ REAL — Actual Execution"]
-        direction TB
-        R1["🧠 LLM AI Analysis<br/><i>Gemini / OpenAI / Claude</i><br/>Real API calls with caching<br/>Actual AI reasoning"]
-        R2["📊 CVSS Scoring<br/><i>v3.1 Calculator</i><br/>Mathematical scoring<br/>Real algorithm"]
-        R3["🔑 Authentication<br/><i>JWT + Scrypt + RBAC</i><br/>Real token management<br/>Actual password hashing"]
-        R4["🔔 Notifications<br/><i>Discord / Slack / Email</i><br/>Real webhook dispatch<br/>Actual message delivery"]
-    end
-
-    SIMULATED ~~~ REAL
-
-    style SIMULATED fill:#7f1d1d,stroke:#ef4444,color:#fff
-    style REAL fill:#14532d,stroke:#22c55e,color:#fff
-    style S1 fill:#991b1b,stroke:#f87171,color:#fecaca
-    style S2 fill:#991b1b,stroke:#f87171,color:#fecaca
-    style S3 fill:#991b1b,stroke:#f87171,color:#fecaca
-    style S4 fill:#991b1b,stroke:#f87171,color:#fecaca
-    style R1 fill:#166534,stroke:#4ade80,color:#dcfce7
-    style R2 fill:#166534,stroke:#4ade80,color:#dcfce7
-    style R3 fill:#166534,stroke:#4ade80,color:#dcfce7
-    style R4 fill:#166534,stroke:#4ade80,color:#dcfce7
-```
-
-> **Bottom line**: The AI analysis, scoring, auth, and notifications are real. All tool execution, reconnaissance, and exploitation is simulated for education. This is not an autonomous hacking system.
-
----
-
 ## Security Notice
 
 > **Educational and Authorized Testing Only**
@@ -989,9 +976,9 @@ Proyek ini disediakan secara ketat untuk **tujuan pendidikan dan penelitian saja
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
-> **Note**: While this project is released under the MIT License, some upstream source projects use different licenses (AGPL-3.0, GPL-3.0, Non-Commercial). Please review the [Sources & Attribution](#sources--attribution) table for specific license requirements of integrated components.
+> **Note**: While this project is released under the MIT License, some upstream source projects use different licenses (AGPL-3.0, GPL-3.0, Non-Commercial). Please review the [Sources and Attribution](#sources-and-attribution) table for specific license requirements of integrated components.
 
-Copyright &copy; 2024-2026 Mulky Malikul Dhaher. All rights reserved.
+Copyright © 2024-2026 Mulky Malikul Dhaher. All rights reserved.
 
 ---
 
